@@ -36,46 +36,34 @@ export default function Home() {
 
       <main>
         {/* ── Hero ───────────────────────────────────────────────── */}
-        <section id="home">
-          <div className="hero">
-            <div className="hero-content">
-              <p className="hero-eyebrow">Oakville · Ward 4 · 2026 Municipal Election</p>
-              <h1 className="hero-name">Sue<br />Heddle</h1>
-              <p className="hero-title">Candidate for Ward 4 Councillor</p>
-              <p className="hero-bio">
-                Ward 4 deserves a councillor who understands this community from the inside out.
-                As a long-time Oakville resident, award-winning professional, and dedicated
-                community volunteer, I bring the experience and commitment our ward needs on Council.
-              </p>
-              <p className="hero-bio">
-                I&apos;m running because I believe in responsible growth, transparent governance,
-                and a Ward 4 where every resident&apos;s voice is heard — from young families
-                to long-time homeowners. Let&apos;s build something better together.
-              </p>
-              <div className="hero-actions">
-                <a href="#platform" className="btn-primary">My Platform</a>
-                <a href="#get-involved" className="btn-ghost">Get Involved</a>
-              </div>
-            </div>
-
-            <div className="hero-media">
-              <div className="hero-img-frame">
-                <Image
-                  src="/sue-heddle.png"
-                  alt="Sue Heddle, Ward 4 Councillor Candidate"
-                  fill
-                  priority
-                  sizes="(max-width: 959px) 360px, 420px"
-                  style={{ objectFit: "cover", objectPosition: "center top" }}
-                />
-              </div>
-              <div className="hero-badge">
-                <div className="hero-badge-info">
-                  <span className="hero-badge-label">2026 Election</span>
-                  <span className="hero-badge-value">Ward 4 Councillor Candidate</span>
-                </div>
-                <div className="hero-badge-dot" />
-              </div>
+        <section id="home" className="hero-section">
+          <div className="hero-photo-panel">
+            <Image
+              src="/sue-heddle.png"
+              alt="Sue Heddle, Ward 4 Councillor Candidate"
+              fill
+              priority
+              sizes="(max-width: 959px) 100vw, 50vw"
+              style={{ objectFit: "cover", objectPosition: "center top" }}
+            />
+          </div>
+          <div className="hero-content-panel">
+            <p className="hero-eyebrow">Oakville · Ward 4 · 2026 Municipal Election</p>
+            <h1 className="hero-name">Sue<br />Heddle</h1>
+            <p className="hero-title">Candidate for Ward 4 Councillor</p>
+            <p className="hero-bio">
+              Ward 4 deserves a councillor who understands this community from the inside out.
+              As a long-time Oakville resident, award-winning professional, and dedicated
+              community volunteer, I bring the experience and commitment our ward needs on Council.
+            </p>
+            <p className="hero-bio">
+              I&apos;m running because I believe in responsible growth, transparent governance,
+              and a Ward 4 where every resident&apos;s voice is heard — from young families
+              to long-time homeowners. Let&apos;s build something better together.
+            </p>
+            <div className="hero-actions">
+              <a href="#platform" className="btn-primary">My Platform</a>
+              <a href="#get-involved" className="btn-ghost-inv">Get Involved</a>
             </div>
           </div>
         </section>
