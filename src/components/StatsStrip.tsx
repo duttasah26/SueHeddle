@@ -1,8 +1,7 @@
 const stats = [
-  { value: "20+ Years", label: "Oakville Resident" },
-  { value: "3× Centurion", label: "Award-Winning Professional" },
-  { value: "Top 1.6%", label: "OMDREB Sales Performance" },
-  { value: "Hockey Cares", label: "Community Initiative" },
+  { value: "20+", label: "Years of Local Roots" },
+  { value: "400+", label: "Wins for Neighbors" },
+  { value: "100%", label: "Unfiltered Dedication" },
 ];
 
 export default function StatsStrip() {

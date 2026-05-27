@@ -2,16 +2,16 @@ export default function NavBar() {
   return (
     <header className="nav">
       <div className="nav-inner">
-        <a href="#" className="nav-logo">
-          Sue Heddle <span>· Ward 4</span>
+        <a href="#home" className="nav-logo">
+          Sue <span>Heddle</span>
         </a>
-        <div className="nav-links">
-          <a href="#about" className="nav-link active">About</a>
+        <nav className="nav-links">
+          <a href="#home" className="nav-link">Home</a>
+          <a href="#about" className="nav-link">About</a>
           <a href="#platform" className="nav-link">Platform</a>
-          <a href="#background" className="nav-link">Background</a>
-          <a href="#get-involved" className="nav-link">Get Involved</a>
-        </div>
-        <a href="#get-involved" className="nav-cta">Support Sue →</a>
+          <a href="#get-involved" className="nav-link">Volunteer</a>
+        </nav>
+        <a href="mailto:sue@sueheddle.ca?subject=Donation" className="nav-cta">Donate</a>
       </div>
     </header>
   );
