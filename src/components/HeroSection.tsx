@@ -32,7 +32,7 @@ export default function HeroSection() {
             Join the Movement
           </a>
           <a
-            href="mailto:sue@sueheddle.ca?subject=Lawn%20Sign%20Request"
+            href="/volunteer"
             className="hero-btn hero-btn--white"
           >
             Get a Sign
