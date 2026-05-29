@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lexend, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import SiteFooter from "@/components/SiteFooter";
 
 const lexend = Lexend({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({
       </head>
       <body className={`${lexend.variable} ${jetbrainsMono.variable}`}>
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

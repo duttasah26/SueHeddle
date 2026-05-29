@@ -3,7 +3,7 @@ export default function HeroSection() {
     <section id="home" className="hero-section">
       <div className="hero-content">
         <img
-          src="/images/icons/shoe.png"
+          src="/images/icons/circle_icon.png"
           alt=""
           className="hero-brand-mark"
         />

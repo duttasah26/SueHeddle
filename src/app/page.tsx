@@ -5,7 +5,6 @@ import CommunitySection from "@/components/CommunitySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CommunityBanner from "@/components/CommunityBanner";
 import GetInvolvedSection from "@/components/GetInvolvedSection";
-import SiteFooter from "@/components/SiteFooter";
 
 export default function Home() {
   return (
@@ -19,7 +18,6 @@ export default function Home() {
         <CommunityBanner />
         <GetInvolvedSection />
       </main>
-      <SiteFooter />
     </>
   );
 }

@@ -20,7 +20,7 @@
 
 /* ── Reset ─────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; overflow-x: hidden; }
+html { font-size: 16px; scroll-behavior: smooth; overflow-x: clip; }
 body {
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 16px;
@@ -28,14 +28,14 @@ body {
   background: var(--primary);
   color: var(--on-surface);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 * { font-style: normal; }
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 img { display: block; max-width: 100%; }
 button { cursor: pointer; font-family: inherit; border: none; background: none; }
-section { scroll-margin-top: 96px; }
+section { scroll-margin-top: 76px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
@@ -63,10 +63,8 @@ section { scroll-margin-top: 96px; }
   border-bottom: 4px solid var(--on-surface);
 }
 .nav-inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--margin-desktop);
-  height: 96px;
+  padding: 0 16px;
+  height: 76px;
   display: flex;
   align-items: center;
   position: relative;
@@ -79,8 +77,8 @@ section { scroll-margin-top: 96px; }
   text-decoration: none;
 }
 .nav-icon {
-  width: 96px;
-  height: 96px;
+  width: 112px;
+  height: 112px;
   object-fit: contain;
 }
 .nav-logo {
@@ -148,24 +146,25 @@ section { scroll-margin-top: 96px; }
 .hero-brand-mark {
   width: 128px;
   height: 128px;
-  margin-bottom: 16px;
+  margin-bottom: 4px;
   object-fit: contain;
+  align-self: flex-start;
 }
 .hero-elect {
   font-family: var(--font-display), "Lexend", sans-serif;
-  font-size: clamp(18px, 2vw, 26px);
+  font-size: clamp(24px, 3vw, 36px);
   font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1;
   color: rgba(0, 0, 0, 0.55);
-  margin-bottom: 8px;
+  margin-bottom: 0;
   opacity: 0;
   animation: fadeSlideIn 8s infinite ease-in-out;
 }
 .hero-heading-wrap {
   position: relative;
-  min-height: 240px;
-  margin-bottom: 24px;
+  min-height: 206px;
+  margin-bottom: 0;
 }
 .heading-one {
   animation: fadeSlideOut 8s infinite ease-in-out;
@@ -201,7 +200,7 @@ section { scroll-margin-top: 96px; }
   font-weight: 900;
   line-height: 1.0;
   letter-spacing: -0.04em;
-  padding-top: 16px;
+  padding-top: 0;
   color: #fff;
 }
 .hero-heading-black { color: #000; }
@@ -229,7 +228,7 @@ section { scroll-margin-top: 96px; }
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: #000;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 .hero-ctas {
   display: flex;
@@ -684,76 +683,39 @@ section { scroll-margin-top: 96px; }
 .donation-btn:hover { background: #fff; color: #000; }
 
 /* ─────────────────────────────────────────────────────────────── */
-/* FOOTER — dark, centered                                         */
+/* FOOTER — black, centered icon + icons                           */
 /* ─────────────────────────────────────────────────────────────── */
 .footer {
-  background: var(--on-surface);
-  color: #fff;
-  padding: 64px var(--margin-desktop);
-  border-top: 8px solid var(--primary);
-}
-.footer-inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
+  background: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 48px;
+  padding: 48px 24px;
+  gap: 20px;
 }
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.footer-icon {
-  width: 40px;
-  height: 40px;
+.footer-brand-icon {
+  width: 180px;
+  height: 180px;
   object-fit: contain;
   filter: grayscale(1) brightness(0) invert(1);
-}
-.footer-logo {
-  font-family: var(--font-display), "Lexend", sans-serif;
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: var(--primary);
-  line-height: 1;
-}
-.footer-nav-links {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.footer-link {
-  font-family: var(--font-display), "Lexend", sans-serif;
-  font-weight: 700;
-  color: #fff;
-  font-size: 16px;
-  transition: color 150ms var(--ease);
-}
-.footer-link:hover { color: var(--primary); }
-.footer-legal-text {
-  font-size: 13px;
-  opacity: 0.6;
-  line-height: 1.6;
-  margin-bottom: 16px;
 }
 .footer-icons {
   display: flex;
   justify-content: center;
-  gap: 32px;
+  gap: 36px;
 }
 .footer-icon-btn {
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  transition: color 150ms var(--ease);
   color: #fff;
   background: none;
   border: none;
+  text-decoration: none;
+  transition: opacity 150ms var(--ease);
 }
-.footer-icon-btn:hover { color: var(--primary); }
-.footer-icon-btn .material-symbols-outlined { font-size: 24px; }
+.footer-icon-btn:hover { opacity: 0.6; }
+.footer-icon-btn .material-symbols-outlined { font-size: 28px; }
 
 /* ─────────────────────────────────────────────────────────────── */
 /* DONATE PAGE                                                     */
@@ -985,8 +947,6 @@ section { scroll-margin-top: 96px; }
   .action-grid          { grid-template-columns: repeat(2, 1fr); }
   .social-grid          { grid-template-columns: repeat(2, 1fr); }
   .involve-signup-grid  { grid-template-columns: 1fr; gap: 40px; }
-  .footer-inner         { gap: 32px; }
-  .footer-nav-links     { gap: 20px; }
   .testimonials-inner   { padding: 0 var(--margin-mobile); }
   .platform-inner       { padding: 0 var(--margin-mobile); }
   .amount-grid          { grid-template-columns: repeat(2, 1fr); }
@@ -1005,8 +965,6 @@ section { scroll-margin-top: 96px; }
   .social-grid          { grid-template-columns: repeat(2, 1fr); }
   .signup-fields-row    { grid-template-columns: 1fr; }
   .donation-grid        { grid-template-columns: repeat(2, 1fr); }
-  .footer               { padding: 48px var(--margin-mobile); }
-  .footer-nav-links     { flex-direction: column; gap: 12px; }
   .quote-section        { padding: 80px var(--margin-mobile); }
   .form-fields-row      { grid-template-columns: 1fr; }
 }
