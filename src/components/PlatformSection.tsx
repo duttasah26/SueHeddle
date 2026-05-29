@@ -2,39 +2,30 @@ const platforms = [
   {
     icon: "architecture",
     name: "Smart Growth",
-    desc: "Stop reckless development. We need infrastructure that matches our ambition, keeping traffic moving.",
-    items: ["Traffic congestion fixes", "Sensible housing strategies"],
+    desc: "Protecting neighbourhoods and managing density on the Trafalgar corridor. We need infrastructure that matches our ambition.",
+    items: ["Traffic Congestion Fixes", "Sensible Housing Strategies"],
   },
   {
-    icon: "shield_person",
-    name: "Unyielding Safety",
-    desc: "A safe community isn't a luxury. We're prioritizing neighbourhood watch expansion and street lighting.",
-    items: ["Neighbourhood watch expansion", "Street lighting improvements"],
+    icon: "commute",
+    name: "Tackle Traffic",
+    desc: "Faster, better connected, and realistic transit solutions. Moving Ward 5 residents efficiently every single day.",
+    items: ["Priority Corridors", "Frequent Service Reliability"],
   },
   {
-    icon: "account_balance",
-    name: "Radical Clarity",
-    desc: "It's your money. Every cent should be accounted for with total transparency and zero political games.",
-    items: ["Full budget transparency", "Zero-tolerance accountability"],
-  },
-  {
-    icon: "park",
-    name: "Green Defense",
-    desc: "Our parks are our legacy. I will fight tooth and nail to protect our green spaces from urban sprawl.",
-    items: ["Green space protection", "Tree canopy preservation"],
+    icon: "campaign",
+    name: "Strong Leadership",
+    desc: "Community-minded leadership that gets things done for Ward 5. A relentless advocate for local interests on Council.",
+    items: ["Results-Driven Advocacy", "Community-First Decisions"],
   },
 ];
 
 export default function PlatformSection() {
   return (
-    <section id="platform" className="platform">
+    <section id="vision" className="platform">
       <div className="platform-inner">
-        <div className="platform-header">
-          <h2 className="platform-heading">
-            The{" "}
-            <span className="accent">Blueprint.</span>
-          </h2>
-        </div>
+        <h2 className="platform-heading">
+          The <span className="accent">Blueprint.</span>
+        </h2>
         <div className="platform-grid">
           {platforms.map(({ icon, name, desc, items }) => (
             <div className="platform-card" key={name}>

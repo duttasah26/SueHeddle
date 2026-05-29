@@ -1,26 +1,50 @@
 export default function HeroSection() {
   return (
     <section id="home" className="hero-section">
-      <div className="hero-left">
-        <p className="hero-label">Elect</p>
-        <h1 className="hero-name">
-          <span className="hero-name-first">Sue</span>
-          <span className="hero-name-last">Heddle</span>
-        </h1>
-        <div className="hero-subtitle">
-          <p className="hero-subtitle-role">Toronto City Council</p>
-          <p className="hero-subtitle-ward">Oakville Ward 4</p>
+      <div className="hero-content">
+        <img
+          src="/images/icons/shoe.png"
+          alt=""
+          className="hero-brand-mark"
+        />
+        <div className="hero-elect">Elect</div>
+        <div className="hero-heading-wrap">
+          <div className="heading-one">
+            <h1 className="hero-heading">
+              Vote Sue.<br />
+              Vote <span className="hero-heading-black">New.</span>
+            </h1>
+          </div>
+          <div className="heading-two">
+            <h1 className="hero-heading">
+              Sue
+              <br />
+              <span className="hero-heading-rel">
+                Heddle
+                <span className="animated-underline" />
+              </span>
+            </h1>
+          </div>
+        </div>
+        <span className="hero-ward">Ward 5 Oakville</span>
+        <div className="hero-ctas">
+          <a href="#get-involved" className="hero-btn hero-btn--dark">
+            Join the Movement
+          </a>
+          <a
+            href="mailto:sue@sueheddle.ca?subject=Lawn%20Sign%20Request"
+            className="hero-btn hero-btn--white"
+          >
+            Get a Sign
+          </a>
         </div>
       </div>
-      <div className="hero-right">
-        <img
-          src="images/Sue Heddle Photo With Award.jpg"
-          alt="Sue Heddle, Ward 4 Councillor Candidate"
-        />
-        <div className="hero-overlay">
-          <p className="hero-overlay-text">
-            The voice we need. The leadership we trust.
-          </p>
+
+      <div className="hero-photo">
+        <img src="/sue-heddle.png" alt="Sue Heddle, Ward 5 Candidate" />
+        <div className="hero-photo-overlay" />
+        <div className="hero-quote-box">
+          <p>&ldquo;The voice we need. The leadership we trust.&rdquo;</p>
         </div>
       </div>
     </section>
