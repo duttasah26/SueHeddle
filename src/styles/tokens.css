@@ -1,0 +1,43 @@
+/* ── Design Tokens ─────────────────────────────────────────────── */
+:root {
+  --primary:            #e70685;
+  --dark-bg:            #1a1c1c;
+  --on-surface:         #1c1b1b;
+  --on-surface-variant: #5a3f48;
+  --surface:            #fcf9f8;
+  --secondary:          #5e5e5e;
+
+  --margin-desktop: 64px;
+  --margin-mobile:  20px;
+  --container-max:  1280px;
+
+  --ease: ease-in-out;
+}
+
+/* ── Reset ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; overflow-x: clip; }
+body {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background: var(--primary);
+  color: var(--on-surface);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+* { font-style: normal; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; font-family: inherit; border: none; background: none; }
+section { scroll-margin-top: 76px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* ── Material Symbols ──────────────────────────────────────────── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

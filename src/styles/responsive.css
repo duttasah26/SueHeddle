@@ -1,0 +1,39 @@
+/* ── RESPONSIVE ────────────────────────────────────────────────── */
+@media (max-width: 959.98px) {
+  .hero-section         { grid-template-columns: 1fr; min-height: auto; }
+  .hero-content         { padding: 56px var(--margin-mobile); }
+  .hero-photo           { min-height: 400px; }
+  .hero-brand-mark      { display: none; }
+  .hero-quote-box       { display: none; }
+  .hero-heading-wrap    { min-height: 180px; }
+  .platform-grid        { grid-template-columns: 1fr; }
+  .testimonials-grid    { grid-template-columns: 1fr; gap: 24px; }
+  .action-grid          { grid-template-columns: repeat(2, 1fr); }
+  .social-grid          { grid-template-columns: repeat(2, 1fr); }
+  .involve-signup-grid  { grid-template-columns: 1fr; gap: 40px; }
+  .testimonials-inner   { padding: 0 var(--margin-mobile); }
+  .platform-inner       { padding: 0 var(--margin-mobile); }
+  .amount-grid          { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 744.98px) {
+  .nav-links            { display: none; }
+  .nav-inner            { padding: 0 var(--margin-mobile); }
+  .hero-ctas            { gap: 16px; }
+  .hero-btn             { padding: 16px 24px; font-size: 16px; }
+  .platform-inner       { padding: 0 var(--margin-mobile); }
+  .testimonials-inner   { padding: 0 var(--margin-mobile); }
+  .involve-row-action   { padding: 40px var(--margin-mobile); }
+  .involve-row-connect  { padding: 40px var(--margin-mobile); }
+  .involve-row-signup   { padding: 40px var(--margin-mobile); }
+  .action-grid          { grid-template-columns: 1fr; }
+  .social-grid          { grid-template-columns: repeat(2, 1fr); }
+  .signup-fields-row    { grid-template-columns: 1fr; }
+  .donation-grid        { grid-template-columns: repeat(2, 1fr); }
+  .quote-section        { padding: 80px var(--margin-mobile); }
+  .form-fields-row      { grid-template-columns: 1fr; }
+  .form-fields-addr     { grid-template-columns: 1fr; }
+  .form-fields-3        { grid-template-columns: 1fr; }
+  .flow-text-image-row  { grid-template-columns: 1fr; }
+  .flow-side-img        { height: clamp(200px, 55vw, 320px); }
+  .flow-gallery         { grid-template-rows: 36px 110px 36px 110px 36px; gap: 10px; }
+}

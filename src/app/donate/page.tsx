@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const PRESET_AMOUNTS = [26, 50, 100, 250, 500, 1000, 1200];
+const PRESET_AMOUNTS = [25, 50, 100, 250, 500, 1000, 1200];
 const REBATE_RATE = 0.75;
 const REBATE_CAP = 1000;
 

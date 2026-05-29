@@ -1,0 +1,32 @@
+/* ── VOLUNTEER PAGE ────────────────────────────────────────────── */
+.volunteer-subtitle {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 32px;
+  margin-top: -20px;
+}
+.volunteer-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.volunteer-check-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--on-surface);
+  cursor: pointer;
+}
+.volunteer-check {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
