@@ -11,10 +11,12 @@
     "voteLineA": "Vote Sue.",
     "voteLineB": "Vote ",
     "voteLineAccent": "New.",
+    "electionDay": "Election day is",
+    "electionDate": "October 26, 2026",
     "ward": "Ward 5 Councillor Oakville",
     "ctaJoin": "Join the Movement",
     "ctaSign": "Get a Sign",
-    "quote": "The voice we need. The leadership we trust."
+    "quote": "Sue"
   },
   "platform": {
     "heading": "The ",

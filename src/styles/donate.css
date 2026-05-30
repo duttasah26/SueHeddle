@@ -111,6 +111,35 @@
   width: 100%;
 }
 .amount-input:focus { border-color: var(--primary); outline: none; }
+.rebate-intro {
+  background: #000;
+  border-left: 6px solid var(--primary);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.rebate-intro-badge {
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.07em;
+  padding: 8px 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.rebate-intro p {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.45;
+}
+.rebate-intro strong { color: var(--primary); }
+.rebate-intro-link { color: var(--primary); font-weight: 700; }
+.rebate-intro-link:hover { text-decoration: underline; }
 .rebate-callout {
   background: var(--primary);
   color: #fff;

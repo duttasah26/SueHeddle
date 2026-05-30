@@ -4,12 +4,18 @@ import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PRESET_AMOUNTS = [25, 50, 100, 250, 500, 1000, 1200];
-const REBATE_RATE = 0.75;
-const REBATE_CAP = 1000;
+const REBATE_RATE = 0.50;
+const REBATE_MIN = 100;
+const REBATE_CAP = 1200;
 
-function calcActualCost(amount: number): string {
+function calcActualCost(amount: number): number {
+  if (amount < REBATE_MIN) return amount;
   const rebate = Math.min(amount, REBATE_CAP) * REBATE_RATE;
-  return (amount - rebate).toFixed(2);
+  return amount - rebate;
+}
+
+function hasRebate(amount: number): boolean {
+  return amount >= REBATE_MIN;
 }
 
 export default function DonatePage() {
@@ -48,6 +54,12 @@ export default function DonatePage() {
         {step === 1 && (
           <section>
             <h1 className="donate-step-title">{t("donate.heading1")}</h1>
+            <div className="rebate-intro">
+              <span className="rebate-intro-badge">50% BACK</span>
+              <p>Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
+                <a href="https://www.oakville.ca/town-hall/elections/candidates/campaign-contribution-rebate-program/" className="rebate-intro-link" target="_blank" rel="noopener noreferrer">Learn more →</a>
+              </p>
+            </div>
             <p className="donate-section-label">{t("donate.labelAmount")}</p>
             <div className="amount-grid">
               {PRESET_AMOUNTS.map((amt) => (
@@ -74,9 +86,15 @@ export default function DonatePage() {
                 <p className="rebate-your-donation">
                   {t("donate.yourDonation").replace("${amount}", displayAmount.toFixed(2))}
                 </p>
-                <p className="rebate-actual-cost">
-                  {t("donate.actualCost").replace("${cost}", actualCost)}
-                </p>
+                {hasRebate(displayAmount) ? (
+                  <p className="rebate-actual-cost">
+                    {t("donate.actualCost").replace("${cost}", actualCost.toFixed(2))}
+                  </p>
+                ) : (
+                  <p className="rebate-actual-cost">
+                    Minimum <span>$100</span> required for the 50% rebate
+                  </p>
+                )}
               </div>
             </div>
 

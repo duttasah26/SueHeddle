@@ -14,7 +14,7 @@ export default function SiteFooter() {
         <a href="tel:+" className="footer-icon-btn" aria-label={t("footer.phoneAriaLabel")}>
           <span className="material-symbols-outlined">phone</span>
         </a>
-        <button className="footer-icon-btn" aria-label={t("footer.shareAriaLabel")}>
+        <button className="footer-icon-btn" aria-label={t("footer.shareAriaLabel")} suppressHydrationWarning>
           <span className="material-symbols-outlined">share</span>
         </button>
       </div>

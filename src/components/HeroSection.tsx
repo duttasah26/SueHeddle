@@ -42,6 +42,9 @@ export default function HeroSection() {
                   {t("hero.voteLineB")}
                   <span className="hero-heading-black">{t("hero.voteLineAccent")}</span>
                 </h1>
+                <p className="hero-election-date">
+                  {t("hero.electionDay")} <span className="hero-election-date-accent">{t("hero.electionDate")}</span>
+                </p>
               </motion.div>
             ) : (
               <motion.div
@@ -61,13 +64,13 @@ export default function HeroSection() {
                     <span className="animated-underline" />
                   </span>
                 </h1>
+                <span className="hero-ward">{t("hero.ward")}</span>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-        <span className="hero-ward">{t("hero.ward")}</span>
         <div className="hero-ctas">
-          <a href="#get-involved" className="hero-btn hero-btn--dark">
+          <a href="/volunteer" className="hero-btn hero-btn--dark">
             {t("hero.ctaJoin")}
           </a>
           <a href="/volunteer" className="hero-btn hero-btn--white">
@@ -79,9 +82,11 @@ export default function HeroSection() {
       <div className="hero-photo">
         <img src="/sue-heddle.png" alt="Sue Heddle, Ward 5 Candidate" />
         <div className="hero-photo-overlay" />
-        <div className="hero-quote-box">
-          <p>&ldquo;{t("hero.quote")}&rdquo;</p>
-        </div>
+        <a href="/about" className="hero-quote-box">
+          <p className="hero-quote-heading">
+            Meet <mark className="hero-quote-mark">{t("hero.quote")}</mark>
+          </p>
+        </a>
       </div>
     </section>
   );

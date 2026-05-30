@@ -1,8 +1,13 @@
 /* ── RESPONSIVE ────────────────────────────────────────────────── */
 @media (max-width: 959.98px) {
+  /* Nav: switch to burger at tablet breakpoint (iPad + phone) */
+  .nav-links            { display: none; }
+  .nav-burger           { display: flex; }
+  .nav-icon             { height: 72px; width: auto; }
+  .nav-brand            { padding: 0 8px 0 0; }
   .hero-section         { grid-template-columns: 1fr; min-height: auto; }
-  .hero-content         { padding: 56px var(--margin-mobile); }
-  .hero-photo           { min-height: 400px; }
+  .hero-photo           { order: -1; min-height: 400px; }
+  .hero-content         { padding: 32px var(--margin-mobile) 48px; order: 1; }
   .hero-brand-mark      { display: none; }
   .hero-quote-box       { display: none; }
   .platform-grid        { grid-template-columns: 1fr; }
@@ -15,12 +20,15 @@
   .amount-grid          { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 744.98px) {
-  .nav-links            { display: none; }
-  .nav-burger           { display: flex; }
   .nav-inner            { padding: 0 8px 0 0; }
-  .nav-brand            { padding: 0 4px; }
-  .nav-icon             { height: 44px; width: auto; }
+  .nav-burger           { padding: 8px 2px 8px 8px; }
+  .nav-brand            { padding: 0 4px 0 0; }
+  .nav-icon             { height: 60px; width: auto; }
   .nav-cta              { padding: 6px 10px; font-size: 12px; box-shadow: 2px 2px 0 var(--primary); }
+  /* Smaller heading so each line fits on narrow phones without wrapping */
+  .hero-heading         { font-size: clamp(56px, 16vw, 80px); }
+  .hero-heading-wrap    { min-height: calc(clamp(56px, 16vw, 80px) * 1.8 + 40px + 36px + 16px + 16px); }
+  .hero-ward            { font-size: 15px; letter-spacing: 0.06em; }
   .hero-ctas            { gap: 16px; }
   .hero-btn             { padding: 16px 24px; font-size: 16px; }
   .platform-inner       { padding: 0 var(--margin-mobile); }
@@ -39,4 +47,28 @@
   .flow-text-image-row  { grid-template-columns: 1fr; }
   .flow-side-img        { height: clamp(200px, 55vw, 320px); }
   .flow-gallery         { grid-template-rows: 36px 110px 36px 110px 36px; gap: 10px; }
+  /* FlowArt sections — remove full-screen pinning on mobile */
+  .flow-section         { min-height: auto; }
+  .flow-art-container   { min-height: auto; padding: 48px var(--margin-mobile); }
+  .flow-gallery         { display: none; }
+  /* Donate/Volunteer pages — compact layout on phones */
+  .donate-page          { padding: 24px 12px; }
+  .donate-card          { padding: 20px 16px; }
+  .donate-logo-wrap     { margin-bottom: 16px; }
+  .donate-logo-img      { height: 64px; }
+  .donate-steps         { margin-bottom: 24px; }
+  .donate-step-dot      { width: 32px; height: 32px; font-size: 12px; }
+  .donate-step-title    { font-size: 22px; margin-bottom: 16px; }
+  .amount-grid          { grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 16px; }
+  .amount-btn           { padding: 12px 4px; font-size: 13px; }
+  .amount-input         { padding: 12px 4px; }
+  .rebate-callout       { padding: 14px; margin-bottom: 16px; }
+  .rebate-your-donation { font-size: 14px; }
+  .rebate-actual-cost   { font-size: 16px; }
+  .residency-check      { padding: 12px; margin-bottom: 16px; }
+  .donate-next-btn      { padding: 14px; font-size: 18px; }
+  .donate-btn-row       { flex-direction: column-reverse; gap: 12px; margin-top: 16px; }
+  .donate-btn-row .donate-next-btn,
+  .donate-btn-row-end .donate-next-btn { width: 100%; flex: 1; }
+  .volunteer-subtitle   { font-size: 15px; margin-bottom: 16px; }
 }

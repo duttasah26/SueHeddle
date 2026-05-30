@@ -64,12 +64,12 @@ export default function GetInvolvedSection() {
               <h3 className="signup-form-title">{t("getInvolved.signUpHeading")}</h3>
               <form onSubmit={(e) => e.preventDefault()}>
                 <div className="signup-fields-row">
-                  <input className="signup-input" type="text" placeholder={t("getInvolved.namePlaceholder")} />
-                  <input className="signup-input" type="email" placeholder={t("getInvolved.emailPlaceholder")} />
+                  <input className="signup-input" type="text" placeholder={t("getInvolved.namePlaceholder")} suppressHydrationWarning />
+                  <input className="signup-input" type="email" placeholder={t("getInvolved.emailPlaceholder")} suppressHydrationWarning />
                 </div>
                 <div className="signup-fields-row">
-                  <input className="signup-input" type="text" placeholder={t("getInvolved.postalPlaceholder")} />
-                  <button type="submit" className="signup-submit">
+                  <input className="signup-input" type="text" placeholder={t("getInvolved.postalPlaceholder")} suppressHydrationWarning />
+                  <button type="submit" className="signup-submit" suppressHydrationWarning>
                     {t("getInvolved.signUpBtn")}
                     <span className="material-symbols-outlined">arrow_forward</span>
                   </button>
