@@ -1,41 +1,32 @@
-const testimonials = [
-  {
-    quote:
-      "Sue actually listens. She understands the pressure Trafalgar is under and has a real plan to fix it.",
-    name: "Mark Stevens",
-    role: "Oak Park Resident",
-  },
-  {
-    quote:
-      "Her leadership with Hockey Cares showed me she’s not just a politician, she’s a community builder.",
-    name: "Sarah L.",
-    role: "Local Business Owner",
-  },
-  {
-    quote:
-      "Sue’s vision for smart growth is exactly what Ward 5 needs to stay livable for future generations.",
-    name: "James Chen",
-    role: "Retired Engineer",
-  },
-];
+"use client";
+
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function TestimonialsSection() {
+  const { t } = useLanguage();
+
+  const testimonials = [
+    { quoteKey: "testimonials.t1Quote", nameKey: "testimonials.t1Name", roleKey: "testimonials.t1Role" },
+    { quoteKey: "testimonials.t2Quote", nameKey: "testimonials.t2Name", roleKey: "testimonials.t2Role" },
+    { quoteKey: "testimonials.t3Quote", nameKey: "testimonials.t3Name", roleKey: "testimonials.t3Role" },
+  ];
+
   return (
     <section className="testimonials-section" id="experience">
       <div className="testimonials-inner">
-        <h2 className="testimonials-heading">Voices of Ward 5</h2>
+        <h2 className="testimonials-heading">{t("testimonials.heading")}</h2>
         <div className="testimonials-grid">
-          {testimonials.map(({ quote, name, role }) => (
-            <div className="testimonial-card" key={name}>
+          {testimonials.map(({ quoteKey, nameKey, roleKey }) => (
+            <div className="testimonial-card" key={nameKey}>
               <div>
                 <span className="material-symbols-outlined testimonial-quote-icon">
                   format_quote
                 </span>
-                <p className="testimonial-text">&ldquo;{quote}&rdquo;</p>
+                <p className="testimonial-text">&ldquo;{t(quoteKey)}&rdquo;</p>
               </div>
               <div>
-                <p className="testimonial-name">{name}</p>
-                <p className="testimonial-role">{role}</p>
+                <p className="testimonial-name">{t(nameKey)}</p>
+                <p className="testimonial-role">{t(roleKey)}</p>
               </div>
             </div>
           ))}

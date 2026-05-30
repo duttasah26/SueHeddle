@@ -220,6 +220,7 @@
   max-width: 900px;
   margin: 0 auto;
 }
+.quote-accent { color: var(--primary); }
 
 /* ── GET INVOLVED ──────────────────────────────────────────────── */
 .involve-row-action {
@@ -241,11 +242,9 @@
   margin: 0 auto;
 }
 .involve-section-label {
-  font-family: var(--font-mono), "JetBrains Mono", monospace;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 36px;
+  font-weight: 900;
   color: var(--primary);
   text-align: center;
   margin-bottom: 32px;
@@ -283,10 +282,10 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px;
+  padding: 24px 16px;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 18px;
   color: #fff;
   transition: opacity 200ms;
 }
@@ -295,7 +294,7 @@
 .social-btn--twitter   { background: #1da1f2; }
 .social-btn--instagram { background: #e1306c; }
 .social-btn--bluesky   { background: #0085ff; }
-.social-btn .material-symbols-outlined { font-size: 20px; }
+.social-btn .material-symbols-outlined { font-size: 22px; }
 .involve-signup-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -369,3 +368,30 @@
   transition: background 200ms, color 200ms;
 }
 .donation-btn:hover { background: #fff; color: #000; }
+.donation-rebate-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(0, 0, 0, 0.18);
+  border-left: 3px solid rgba(255, 255, 255, 0.5);
+}
+.donation-rebate-note .material-symbols-outlined {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.donation-rebate-note p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.75);
+}
+.donation-rebate-note strong { color: #fff; font-weight: 700; }
+.donation-rebate-link {
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: underline;
+  font-weight: 600;
+}
+.donation-rebate-link:hover { color: #fff; }

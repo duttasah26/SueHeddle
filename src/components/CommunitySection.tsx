@@ -1,4 +1,7 @@
-import FlowArt, { FlowSection } from './ui/story-scroll';
+"use client";
+
+import { useLanguage } from "@/contexts/LanguageContext";
+import FlowArt, { FlowSection } from "./ui/story-scroll";
 
 const sliderPhotos = [
   { src: "/images/sue/comm_spirit_3.jpg",  alt: "Sue with community" },
@@ -24,10 +27,11 @@ function Gallery({ images }: { images: { src: string; alt: string }[] }) {
 }
 
 export default function CommunitySection() {
+  const { t } = useLanguage();
   return (
     <>
       <section className="community-section" id="community-support">
-        <h2 className="community-heading">Community Support</h2>
+        <h2 className="community-heading">{t("community.heading")}</h2>
         <div className="slider-container">
           <div className="slider-track">
             {sliderPhotos.map(({ src, alt }) => (
@@ -38,34 +42,22 @@ export default function CommunitySection() {
             ))}
           </div>
         </div>
-        <p className="community-caption">
-          Sue has been a fixture in Oakville for years, championing local causes and
-          building a more connected Ward 5 through action, not just words.
-        </p>
+        <p className="community-caption">{t("community.caption")}</p>
       </section>
 
       <FlowArt aria-label="Community Leadership">
 
-        {/* 1 — Text LEFT, single image RIGHT */}
         <FlowSection
           aria-label="Community Leadership"
-          style={{ backgroundColor: '#e70685', color: '#fff' }}
+          style={{ backgroundColor: "#e70685", color: "#fff" }}
         >
           <div className="flow-text-image-row">
             <div className="flow-text-col">
-              <p className="flow-eyebrow">Community Leadership</p>
+              <p className="flow-eyebrow">{t("community.s1Eyebrow")}</p>
               <hr className="flow-divider" />
-              <h2 className="flow-heading">
-                Rooted.<br />
-                Ready.<br />
-                Running.
-              </h2>
+              <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s1Heading")}</h2>
               <hr className="flow-divider" />
-              <p className="flow-body">
-                Sue Heddle has spent years building meaningful connections across Oakville
-                through hands-on community work, professional service, and a genuine commitment
-                to bringing people together across different backgrounds.
-              </p>
+              <p className="flow-body">{t("community.s1Body")}</p>
             </div>
             <img
               src="/images/sue/comm_spirit_4.jpg"
@@ -75,10 +67,9 @@ export default function CommunitySection() {
           </div>
         </FlowSection>
 
-        {/* 2 — Gallery LEFT, text RIGHT */}
         <FlowSection
           aria-label="Hockey Cares — Bridging Communities Through Sport"
-          style={{ backgroundColor: '#1a1c1c', color: '#fff' }}
+          style={{ backgroundColor: "#1a1c1c", color: "#fff" }}
         >
           <div className="flow-text-image-row">
             <Gallery images={[
@@ -88,60 +79,37 @@ export default function CommunitySection() {
               { src: "/images/sue/culture_3.jpg", alt: "Cultural exchange" },
             ]} />
             <div className="flow-text-col">
-              <p className="flow-eyebrow">01 — Hockey Cares</p>
+              <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
               <hr className="flow-divider" />
-              <h2 className="flow-heading">
-                Bridging<br />
-                Communities<br />
-                Through<br />
-                Sport
-              </h2>
+              <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s2Heading")}</h2>
               <hr className="flow-divider" />
-              <p className="flow-body">
-                Sue founded Hockey Cares in 2017 as a reconciliation initiative that unites
-                Indigenous and non-Indigenous youth through hockey and cultural exchange.
-                What began as a local project has grown into a nationally recognized program.
-              </p>
+              <p className="flow-body">{t("community.s2Body")}</p>
             </div>
           </div>
         </FlowSection>
 
-        {/* 3 — Text LEFT, gallery RIGHT */}
         <FlowSection
           aria-label="National Recognition"
-          style={{ backgroundColor: '#000', color: '#fff' }}
+          style={{ backgroundColor: "#000", color: "#fff" }}
         >
           <div className="flow-text-image-row">
             <div className="flow-text-col">
-              <p className="flow-eyebrow">02 — National Recognition</p>
+              <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
               <hr className="flow-divider" />
-              <h2 className="flow-heading">
-                Canadian<br />
-                REALTORS<br />
-                Care<br />
-                Award
-              </h2>
+              <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s3Heading")}</h2>
               <hr className="flow-divider" />
               <div className="flow-cols">
                 <div className="flow-col">
-                  <p className="flow-col-title">2026</p>
-                  <p className="flow-col-desc">
-                    Presented by the Canadian Real Estate Association — a national honour
-                    recognizing Sue's outstanding contributions to community well-being.
-                  </p>
+                  <p className="flow-col-title">{t("community.s3Col1Title")}</p>
+                  <p className="flow-col-desc">{t("community.s3Col1Desc")}</p>
                 </div>
                 <div className="flow-col">
-                  <p className="flow-col-title">Hockey Cares</p>
-                  <p className="flow-col-desc">
-                    Sue's reconciliation initiative earned national recognition for its
-                    impact on bridging communities across Canada.
-                  </p>
+                  <p className="flow-col-title">{t("community.s3Col2Title")}</p>
+                  <p className="flow-col-desc">{t("community.s3Col2Desc")}</p>
                 </div>
               </div>
               <hr className="flow-divider" />
-              <p className="flow-body flow-body--end">
-                Sport can be a powerful bridge between communities.
-              </p>
+              <p className="flow-body flow-body--end">{t("community.s3Closing")}</p>
             </div>
             <Gallery images={[
               { src: "/images/sue/award.jpg",   alt: "Sue receiving the REALTORS Care Award" },
@@ -152,10 +120,9 @@ export default function CommunitySection() {
           </div>
         </FlowSection>
 
-        {/* 4 — Gallery LEFT, text RIGHT */}
         <FlowSection
           aria-label="Professional Roots in Oakville"
-          style={{ backgroundColor: '#fcf9f8', color: '#1c1b1b' }}
+          style={{ backgroundColor: "#fcf9f8", color: "#1c1b1b" }}
         >
           <div className="flow-text-image-row">
             <Gallery images={[
@@ -165,46 +132,26 @@ export default function CommunitySection() {
               { src: "/images/sue/culture_2.jpg",     alt: "Sue at a local event" },
             ]} />
             <div className="flow-text-col">
-              <p className="flow-eyebrow">03 — Professional Roots in Oakville</p>
+              <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
               <hr className="flow-divider" />
-              <h2 className="flow-heading">
-                Deep<br />
-                Roots.<br />
-                Deep<br />
-                Knowledge.
-              </h2>
+              <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s4Heading")}</h2>
               <hr className="flow-divider" />
-              <p className="flow-body">
-                As a REALTOR® with Century 21 Miller Real Estate Ltd., Sue has spent years
-                developing a deep, practical understanding of Oakville&rsquo;s neighbourhoods,
-                residents, and needs. Her professional work is not separate from her community
-                work — it informs it.
-              </p>
+              <p className="flow-body">{t("community.s4Body")}</p>
             </div>
           </div>
         </FlowSection>
 
-        {/* 5 — Text LEFT, gallery RIGHT */}
         <FlowSection
           aria-label="A Voice for Ward 5"
-          style={{ backgroundColor: '#e70685', color: '#fff' }}
+          style={{ backgroundColor: "#e70685", color: "#fff" }}
         >
           <div className="flow-text-image-row">
             <div className="flow-text-col">
-              <p className="flow-eyebrow">04 — A Voice for Ward 5</p>
+              <p className="flow-eyebrow">{t("community.s5Eyebrow")}</p>
               <hr className="flow-divider" />
-              <h2 className="flow-heading">
-                Step<br />
-                Forward.<br />
-                Lead.
-              </h2>
+              <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s5Heading")}</h2>
               <hr className="flow-divider" />
-              <p className="flow-body">
-                Sue is stepping forward to bring results-driven, compassionate leadership to
-                Oakville Town Council. Her track record of founding programs, earning national
-                recognition, and serving residents professionally makes her uniquely prepared
-                to advocate for Ward 5.
-              </p>
+              <p className="flow-body">{t("community.s5Body")}</p>
             </div>
             <Gallery images={[
               { src: "/images/sue/culture_1.jpg", alt: "Sue at a Ward 5 event" },

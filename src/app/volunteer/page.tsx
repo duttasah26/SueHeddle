@@ -1,6 +1,9 @@
 "use client";
 
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export default function VolunteerPage() {
+  const { t } = useLanguage();
   return (
     <div className="donate-page">
       <div className="donate-card">
@@ -13,54 +16,54 @@ export default function VolunteerPage() {
           </a>
         </div>
 
-        <h1 className="donate-step-title">Sign up to Volunteer</h1>
-        <p className="volunteer-subtitle">Will you volunteer?</p>
+        <h1 className="donate-step-title">{t("volunteer.heading")}</h1>
+        <p className="volunteer-subtitle">{t("volunteer.subtitle")}</p>
 
-        <form onSubmit={(e) => { e.preventDefault(); alert("Thank you for volunteering!"); }}>
+        <form onSubmit={(e) => { e.preventDefault(); alert(t("volunteer.thankYou")); }}>
           <div className="form-fields-row">
             <div className="form-field">
-              <label className="form-field-label">First Name</label>
+              <label className="form-field-label">{t("volunteer.labelFirstName")}</label>
               <input className="form-field-input" type="text" />
             </div>
             <div className="form-field">
-              <label className="form-field-label">Last Name</label>
+              <label className="form-field-label">{t("volunteer.labelLastName")}</label>
               <input className="form-field-input" type="text" />
             </div>
           </div>
 
           <div className="form-fields-row">
             <div className="form-field">
-              <label className="form-field-label">Email *</label>
+              <label className="form-field-label">{t("volunteer.labelEmail")}</label>
               <input className="form-field-input" type="email" required />
             </div>
             <div className="form-field">
-              <label className="form-field-label">Cell Phone</label>
+              <label className="form-field-label">{t("volunteer.labelPhone")}</label>
               <input className="form-field-input" type="tel" />
             </div>
           </div>
 
           <div className="form-fields-addr">
             <div className="form-field">
-              <label className="form-field-label">Address</label>
+              <label className="form-field-label">{t("volunteer.labelAddress")}</label>
               <input className="form-field-input" type="text" />
             </div>
             <div className="form-field">
-              <label className="form-field-label">Unit</label>
+              <label className="form-field-label">{t("volunteer.labelUnit")}</label>
               <input className="form-field-input" type="text" />
             </div>
           </div>
 
           <div className="form-fields-3">
             <div className="form-field">
-              <label className="form-field-label">City</label>
+              <label className="form-field-label">{t("volunteer.labelCity")}</label>
               <input className="form-field-input" type="text" />
             </div>
             <div className="form-field">
-              <label className="form-field-label">Province</label>
+              <label className="form-field-label">{t("volunteer.labelProvince")}</label>
               <input className="form-field-input" type="text" />
             </div>
             <div className="form-field">
-              <label className="form-field-label">Postal Code</label>
+              <label className="form-field-label">{t("volunteer.labelPostal")}</label>
               <input className="form-field-input" type="text" />
             </div>
           </div>
@@ -68,20 +71,20 @@ export default function VolunteerPage() {
           <div className="volunteer-checks">
             <label className="volunteer-check-label">
               <input type="checkbox" className="volunteer-check" />
-              Sue can count on my vote!
+              {t("volunteer.checkVote")}
             </label>
             <label className="volunteer-check-label">
               <input type="checkbox" className="volunteer-check" />
-              I&rsquo;d like a lawn sign
+              {t("volunteer.checkSign")}
             </label>
             <label className="volunteer-check-label">
               <input type="checkbox" className="volunteer-check" />
-              I want to volunteer
+              {t("volunteer.checkVolunteer")}
             </label>
           </div>
 
           <button className="donate-next-btn" type="submit">
-            Save volunteer info
+            {t("volunteer.saveBtn")}
             <span className="material-symbols-outlined">arrow_forward</span>
           </button>
         </form>

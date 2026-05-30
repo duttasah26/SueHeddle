@@ -1,42 +1,48 @@
-const platforms = [
-  {
-    icon: "architecture",
-    name: "Smart Growth",
-    desc: "Protecting neighbourhoods and managing density on the Trafalgar corridor. We need infrastructure that matches our ambition.",
-    items: ["Traffic Congestion Fixes", "Sensible Housing Strategies"],
-  },
-  {
-    icon: "commute",
-    name: "Tackle Traffic",
-    desc: "Faster, better connected, and realistic transit solutions. Moving Ward 5 residents efficiently every single day.",
-    items: ["Priority Corridors", "Frequent Service Reliability"],
-  },
-  {
-    icon: "campaign",
-    name: "Strong Leadership",
-    desc: "Community-minded leadership that gets things done for Ward 5. A relentless advocate for local interests on Council.",
-    items: ["Results-Driven Advocacy", "Community-First Decisions"],
-  },
-];
+"use client";
+
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function PlatformSection() {
+  const { t } = useLanguage();
+
+  const cards = [
+    {
+      icon: "architecture",
+      nameKey: "platform.card1Name",
+      descKey: "platform.card1Desc",
+      items: ["platform.card1Item1", "platform.card1Item2"],
+    },
+    {
+      icon: "commute",
+      nameKey: "platform.card2Name",
+      descKey: "platform.card2Desc",
+      items: ["platform.card2Item1", "platform.card2Item2"],
+    },
+    {
+      icon: "campaign",
+      nameKey: "platform.card3Name",
+      descKey: "platform.card3Desc",
+      items: ["platform.card3Item1", "platform.card3Item2"],
+    },
+  ];
+
   return (
     <section id="vision" className="platform">
       <div className="platform-inner">
         <h2 className="platform-heading">
-          The <span className="accent">Blueprint.</span>
+          {t("platform.heading")}<span className="accent">{t("platform.headingAccent")}</span>
         </h2>
         <div className="platform-grid">
-          {platforms.map(({ icon, name, desc, items }) => (
-            <div className="platform-card" key={name}>
+          {cards.map(({ icon, nameKey, descKey, items }) => (
+            <div className="platform-card" key={nameKey}>
               <span className="material-symbols-outlined platform-icon">{icon}</span>
-              <h3 className="platform-card-title">{name}</h3>
-              <p className="platform-card-desc">{desc}</p>
+              <h3 className="platform-card-title">{t(nameKey)}</h3>
+              <p className="platform-card-desc">{t(descKey)}</p>
               <ul className="platform-card-items">
-                {items.map((item) => (
-                  <li className="platform-card-item" key={item}>
+                {items.map((itemKey) => (
+                  <li className="platform-card-item" key={itemKey}>
                     <span className="material-symbols-outlined">check_circle</span>
-                    {item}
+                    {t(itemKey)}
                   </li>
                 ))}
               </ul>

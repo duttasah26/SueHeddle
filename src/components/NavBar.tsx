@@ -1,17 +1,57 @@
+"use client";
+
+import { useState } from "react";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export default function NavBar() {
+  const { t } = useLanguage();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const close = () => setMobileOpen(false);
+
   return (
-    <header className="nav">
-      <div className="nav-inner">
-        <a href="/" className="nav-brand">
-          <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
-        </a>
-        <nav className="nav-links">
-          <a href="#home" className="nav-link">Home</a>
-          <a href="#vision" className="nav-link">Strategy</a>
-          <a href="#community-support" className="nav-link">Experience</a>
-        </nav>
-        <a href="/donate" className="nav-cta">Donate</a>
-      </div>
-    </header>
+    <>
+      <header className="nav">
+        <div className="nav-inner">
+          <button className="nav-burger" onClick={() => setMobileOpen(true)} aria-label="Open menu">
+            <span className="material-symbols-outlined">menu</span>
+          </button>
+          <a href="/" className="nav-brand">
+            <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
+          </a>
+          <nav className="nav-links">
+            <a href="/about" className="nav-link">{t("nav.about")}</a>
+            <a href="/#vision" className="nav-link">{t("nav.strategy")}</a>
+            <a href="/#community-support" className="nav-link">{t("nav.experience")}</a>
+            <a href="/#get-involved" className="nav-link">{t("nav.joinUs")}</a>
+          </nav>
+          <LanguageSwitcher />
+          <a href="/donate" className="nav-cta">{t("nav.donate")}</a>
+        </div>
+      </header>
+
+      {mobileOpen && (
+        <div className="mobile-menu">
+          <div className="mobile-menu-header">
+            <a href="/" className="nav-brand" onClick={close}>
+              <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
+            </a>
+            <button className="mobile-menu-close" onClick={close} aria-label="Close menu">
+              <span className="material-symbols-outlined">close</span>
+            </button>
+          </div>
+          <nav className="mobile-menu-links">
+            <a href="/about" className="mobile-menu-link" onClick={close}>{t("nav.about")}</a>
+            <a href="/#vision" className="mobile-menu-link" onClick={close}>{t("nav.strategy")}</a>
+            <a href="/#community-support" className="mobile-menu-link" onClick={close}>{t("nav.experience")}</a>
+            <a href="/#get-involved" className="mobile-menu-link" onClick={close}>{t("nav.joinUs")}</a>
+          </nav>
+          <div className="mobile-menu-footer">
+            <LanguageSwitcher />
+            <a href="/donate" className="mobile-menu-donate" onClick={close}>{t("nav.donate")}</a>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

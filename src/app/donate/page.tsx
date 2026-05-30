@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PRESET_AMOUNTS = [25, 50, 100, 250, 500, 1000, 1200];
 const REBATE_RATE = 0.75;
@@ -12,9 +13,11 @@ function calcActualCost(amount: number): string {
 }
 
 export default function DonatePage() {
+  const { t } = useLanguage();
   const [step, setStep] = useState(1);
   const [selectedAmount, setSelectedAmount] = useState(250);
   const [customAmount, setCustomAmount] = useState("");
+  const [isOakvilleResident, setIsOakvilleResident] = useState(false);
 
   const displayAmount = customAmount ? parseFloat(customAmount) || 0 : selectedAmount;
   const actualCost = calcActualCost(displayAmount);
@@ -44,8 +47,8 @@ export default function DonatePage() {
         {/* Step 1: Amount */}
         {step === 1 && (
           <section>
-            <h1 className="donate-step-title">Make a Donation</h1>
-            <p className="donate-section-label">Amount</p>
+            <h1 className="donate-step-title">{t("donate.heading1")}</h1>
+            <p className="donate-section-label">{t("donate.labelAmount")}</p>
             <div className="amount-grid">
               {PRESET_AMOUNTS.map((amt) => (
                 <button
@@ -59,7 +62,7 @@ export default function DonatePage() {
               <input
                 className="amount-input"
                 type="text"
-                placeholder="Other"
+                placeholder={t("donate.otherPlaceholder")}
                 value={customAmount}
                 onChange={(e) => { setCustomAmount(e.target.value); }}
               />
@@ -69,16 +72,39 @@ export default function DonatePage() {
               <span className="material-symbols-outlined">calculate</span>
               <div>
                 <p className="rebate-your-donation">
-                  Your donation: ${displayAmount.toFixed(2)}
+                  {t("donate.yourDonation").replace("${amount}", displayAmount.toFixed(2))}
                 </p>
                 <p className="rebate-actual-cost">
-                  Actual cost: just <span>${actualCost}</span> after your rebate!
+                  {t("donate.actualCost").replace("${cost}", actualCost)}
                 </p>
               </div>
             </div>
 
+            {/* Oakville residency checkbox */}
+            <label className="residency-check">
+              <input
+                type="checkbox"
+                checked={isOakvilleResident}
+                onChange={(e) => setIsOakvilleResident(e.target.checked)}
+              />
+              <div className="residency-check-body">
+                <p className="residency-check-title">I AM A RESIDENT OF OAKVILLE</p>
+                <p className="residency-check-desc">
+                  To be eligible for the 50% Campaign Contribution Rebate, contributors must be eligible electors residing in Oakville with a minimum contribution of $100.{" "}
+                  <a
+                    href="https://www.oakville.ca/town-hall/elections/candidates/campaign-contribution-rebate-program/"
+                    className="residency-check-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Learn More
+                  </a>
+                </p>
+              </div>
+            </label>
+
             <button className="donate-next-btn" onClick={() => setStep(2)}>
-              Next Step
+              {t("donate.nextStep")}
               <span className="material-symbols-outlined">arrow_forward</span>
             </button>
           </section>
@@ -87,34 +113,34 @@ export default function DonatePage() {
         {/* Step 2: Information */}
         {step === 2 && (
           <section>
-            <h1 className="donate-step-title">Your information</h1>
+            <h1 className="donate-step-title">{t("donate.heading2")}</h1>
             <div className="form-fields-row">
               <div className="form-field">
-                <label className="form-field-label">First Name *</label>
+                <label className="form-field-label">{t("donate.labelFirstName")}</label>
                 <input className="form-field-input" type="text" />
               </div>
               <div className="form-field">
-                <label className="form-field-label">Last Name *</label>
+                <label className="form-field-label">{t("donate.labelLastName")}</label>
                 <input className="form-field-input" type="text" />
               </div>
             </div>
             <div className="form-fields-col">
               <div className="form-field">
-                <label className="form-field-label">Email *</label>
+                <label className="form-field-label">{t("donate.labelEmail")}</label>
                 <input className="form-field-input" type="email" />
               </div>
               <div className="form-field">
-                <label className="form-field-label">Phone Number</label>
+                <label className="form-field-label">{t("donate.labelPhone")}</label>
                 <input className="form-field-input" type="tel" />
               </div>
             </div>
             <div className="donate-btn-row">
               <button className="donate-back-btn" onClick={() => setStep(1)}>
                 <span className="material-symbols-outlined">arrow_back</span>
-                Back
+                {t("donate.back")}
               </button>
               <button className="donate-next-btn" style={{ width: "auto", flex: "none" }} onClick={() => setStep(3)}>
-                Next Step
+                {t("donate.nextStep")}
                 <span className="material-symbols-outlined">arrow_forward</span>
               </button>
             </div>
@@ -124,33 +150,33 @@ export default function DonatePage() {
         {/* Step 3: Payment */}
         {step === 3 && (
           <section>
-            <h1 className="donate-step-title">Payment Details</h1>
+            <h1 className="donate-step-title">{t("donate.heading3")}</h1>
             <div className="form-fields-col">
               <div className="form-field">
-                <label className="form-field-label">Card Number *</label>
+                <label className="form-field-label">{t("donate.labelCard")}</label>
                 <input className="form-field-input" type="text" placeholder="•••• •••• •••• ••••" />
               </div>
               <div className="form-fields-row">
                 <div className="form-field">
-                  <label className="form-field-label">Expiry *</label>
+                  <label className="form-field-label">{t("donate.labelExpiry")}</label>
                   <input className="form-field-input" type="text" placeholder="MM / YY" />
                 </div>
                 <div className="form-field">
-                  <label className="form-field-label">CVV *</label>
+                  <label className="form-field-label">{t("donate.labelCvv")}</label>
                   <input className="form-field-input" type="text" placeholder="•••" />
                 </div>
               </div>
               <div className="form-field">
-                <label className="form-field-label">Address *</label>
+                <label className="form-field-label">{t("donate.labelAddress")}</label>
                 <input className="form-field-input" type="text" />
               </div>
               <div className="form-fields-row">
                 <div className="form-field">
-                  <label className="form-field-label">City *</label>
+                  <label className="form-field-label">{t("donate.labelCity")}</label>
                   <input className="form-field-input" type="text" />
                 </div>
                 <div className="form-field">
-                  <label className="form-field-label">Postal Code *</label>
+                  <label className="form-field-label">{t("donate.labelPostal")}</label>
                   <input className="form-field-input" type="text" />
                 </div>
               </div>
@@ -158,20 +184,21 @@ export default function DonatePage() {
             <div className="donate-btn-row">
               <button className="donate-back-btn" onClick={() => setStep(2)}>
                 <span className="material-symbols-outlined">arrow_back</span>
-                Back
+                {t("donate.back")}
               </button>
               <button
                 className="donate-next-btn"
                 style={{ width: "auto", flex: "none" }}
-                onClick={() => alert("Thank you for your donation!")}
+                onClick={() => alert(t("donate.thankYou"))}
               >
-                Donate ${displayAmount.toFixed(2)}
+                {t("donate.donateBtnLabel").replace("${amount}", displayAmount.toFixed(2))}
                 <span className="material-symbols-outlined">favorite</span>
               </button>
             </div>
           </section>
         )}
       </div>
+
     </div>
   );
 }

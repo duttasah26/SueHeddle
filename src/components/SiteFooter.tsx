@@ -1,15 +1,20 @@
+"use client";
+
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export default function SiteFooter() {
+  const { t } = useLanguage();
   return (
     <footer className="footer">
       <img src="/images/icons/brand.png" alt="Sue Heddle" className="footer-brand-icon" />
       <div className="footer-icons">
-        <a href="mailto:sue@sueheddle.ca" className="footer-icon-btn" aria-label="Email">
+        <a href="mailto:sue@sueheddle.ca" className="footer-icon-btn" aria-label={t("footer.emailAriaLabel")}>
           <span className="material-symbols-outlined">mail</span>
         </a>
-        <a href="tel:+" className="footer-icon-btn" aria-label="Phone">
+        <a href="tel:+" className="footer-icon-btn" aria-label={t("footer.phoneAriaLabel")}>
           <span className="material-symbols-outlined">phone</span>
         </a>
-        <button className="footer-icon-btn" aria-label="Share">
+        <button className="footer-icon-btn" aria-label={t("footer.shareAriaLabel")}>
           <span className="material-symbols-outlined">share</span>
         </button>
       </div>

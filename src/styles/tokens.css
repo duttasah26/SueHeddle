@@ -18,7 +18,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; overflow-x: clip; }
 body {
-  font-family: var(--font-display), "Lexend", sans-serif;
+  font-family: var(--font-display), "Lexend", var(--font-noto), "Noto Sans", system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   background: var(--primary);
@@ -36,6 +36,12 @@ section { scroll-margin-top: 76px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/* ── RTL helpers ────────────────────────────────────────────────── */
+[dir="rtl"] .nav-links { flex-direction: row-reverse; }
+[dir="rtl"] .form-fields-row { flex-direction: row-reverse; }
+[dir="rtl"] .action-btn { text-align: right; }
+[dir="rtl"] .hero-ctas { flex-direction: row-reverse; }
 
 /* ── Material Symbols ──────────────────────────────────────────── */
 .material-symbols-outlined {

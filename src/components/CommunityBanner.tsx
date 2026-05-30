@@ -1,10 +1,15 @@
+"use client";
+
+import { useLanguage } from "@/contexts/LanguageContext";
+
 export default function CommunityBanner() {
+  const { t } = useLanguage();
   return (
     <section className="quote-section">
       <span className="material-symbols-outlined quote-mark">format_quote</span>
       <h2 className="quote-text">
-        I don&apos;t just live in Ward 5. I am invested in it. I&apos;m ready
-        to be the advocate we deserve.
+        {t("banner.quotePre")}
+        <span className="quote-accent">{t("banner.quoteAccent")}</span>
       </h2>
     </section>
   );

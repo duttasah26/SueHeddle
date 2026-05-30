@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Lexend, JetBrains_Mono } from "next/font/google";
+import { Lexend, JetBrains_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import SiteFooter from "@/components/SiteFooter";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const lexend = Lexend({
   subsets: ["latin"],
@@ -14,6 +15,13 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   weight: ["500", "700"],
+  display: "swap",
+});
+
+const notoSans = Noto_Sans({
+  subsets: ["latin"],
+  variable: "--font-noto",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -34,9 +42,11 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0&display=block"
         />
       </head>
-      <body className={`${lexend.variable} ${jetbrainsMono.variable}`}>
-        {children}
-        <SiteFooter />
+      <body className={`${lexend.variable} ${jetbrainsMono.variable} ${notoSans.variable}`}>
+        <LanguageProvider>
+          {children}
+          <SiteFooter />
+        </LanguageProvider>
       </body>
     </html>
   );
