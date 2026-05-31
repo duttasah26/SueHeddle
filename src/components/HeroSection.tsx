@@ -19,11 +19,13 @@ export default function HeroSection() {
   return (
     <section id="home" className="hero-section">
       <div className="hero-content">
-        <img
-          src="/images/icons/circle_icon.png"
-          alt=""
-          className="hero-brand-mark"
-        />
+        <div className="hero-brand-mark-wrap">
+          <img
+            src="/images/icons/circle_icon.png"
+            alt=""
+            className="hero-brand-mark"
+          />
+        </div>
         <div className="hero-heading-wrap" suppressHydrationWarning>
           {/* initial={false}: first render appears immediately, no opening gap */}
           <AnimatePresence mode="wait" initial={false}>

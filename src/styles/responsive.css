@@ -8,7 +8,8 @@
   .hero-section         { grid-template-columns: 1fr; min-height: auto; }
   .hero-photo           { order: -1; min-height: 400px; }
   .hero-content         { padding: 32px var(--margin-mobile) 48px; order: 1; }
-  .hero-brand-mark      { display: none; }
+  .hero-brand-mark-wrap { width: 80px; height: 80px; }
+  .hero-brand-mark      { width: 80px; height: 80px; }
   .hero-quote-box       { display: none; }
   .platform-grid        { grid-template-columns: 1fr; }
   .testimonials-grid    { grid-template-columns: 1fr; gap: 24px; }
@@ -27,7 +28,7 @@
   .nav-cta              { padding: 6px 10px; font-size: 12px; box-shadow: 2px 2px 0 var(--primary); }
   /* Smaller heading so each line fits on narrow phones without wrapping */
   .hero-heading         { font-size: clamp(56px, 16vw, 80px); }
-  .hero-heading-wrap    { min-height: calc(clamp(56px, 16vw, 80px) * 1.8 + 40px + 36px + 16px + 16px); }
+  .hero-heading-wrap    { min-height: calc(clamp(56px, 16vw, 80px) * 1.8 + 40px + 36px + 48px + 16px); }
   .hero-ward            { font-size: 15px; letter-spacing: 0.06em; }
   .hero-ctas            { gap: 16px; }
   .hero-btn             { padding: 16px 24px; font-size: 16px; }
@@ -46,11 +47,19 @@
   .form-fields-3        { grid-template-columns: 1fr; }
   .flow-text-image-row  { grid-template-columns: 1fr; }
   .flow-side-img        { height: clamp(200px, 55vw, 320px); }
-  .flow-gallery         { grid-template-rows: 36px 110px 36px 110px 36px; gap: 10px; }
   /* FlowArt sections — remove full-screen pinning on mobile */
   .flow-section         { min-height: auto; }
   .flow-art-container   { min-height: auto; padding: 48px var(--margin-mobile); }
-  .flow-gallery         { display: none; }
+  /* Gallery: simplified 2×2 grid on mobile */
+  .flow-gallery {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 130px 130px;
+    gap: 10px;
+  }
+  .flow-gallery-cell:nth-child(1) { grid-column: 1; grid-row: 1; }
+  .flow-gallery-cell:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .flow-gallery-cell:nth-child(3) { grid-column: 1; grid-row: 2; }
+  .flow-gallery-cell:nth-child(4) { grid-column: 2; grid-row: 2; }
   /* Donate/Volunteer pages — compact layout on phones */
   .donate-page          { padding: 24px 12px; }
   .donate-card          { padding: 20px 16px; }

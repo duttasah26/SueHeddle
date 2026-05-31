@@ -98,27 +98,13 @@ export default function DonatePage() {
               </div>
             </div>
 
-            {/* Oakville residency checkbox */}
             <label className="residency-check">
               <input
                 type="checkbox"
                 checked={isOakvilleResident}
                 onChange={(e) => setIsOakvilleResident(e.target.checked)}
               />
-              <div className="residency-check-body">
-                <p className="residency-check-title">I AM A RESIDENT OF OAKVILLE</p>
-                <p className="residency-check-desc">
-                  To be eligible for the 50% Campaign Contribution Rebate, contributors must be eligible electors residing in Oakville with a minimum contribution of $100.{" "}
-                  <a
-                    href="https://www.oakville.ca/town-hall/elections/candidates/campaign-contribution-rebate-program/"
-                    className="residency-check-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Learn More
-                  </a>
-                </p>
-              </div>
+              <p className="residency-check-title">I AM A RESIDENT OF OAKVILLE</p>
             </label>
 
             <button className="donate-next-btn" onClick={() => setStep(2)}>

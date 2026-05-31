@@ -21,7 +21,7 @@ body {
   font-family: var(--font-display), "Lexend", var(--font-noto), "Noto Sans", system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  background: var(--primary);
+  background: #1c1b1b;
   color: var(--on-surface);
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;

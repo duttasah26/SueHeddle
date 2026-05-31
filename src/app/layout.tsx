@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lexend, JetBrains_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import SiteFooter from "@/components/SiteFooter";
+import PageTransition from "@/components/PageTransition";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const lexend = Lexend({
@@ -44,7 +45,9 @@ export default function RootLayout({
       </head>
       <body className={`${lexend.variable} ${jetbrainsMono.variable} ${notoSans.variable}`}>
         <LanguageProvider>
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
           <SiteFooter />
         </LanguageProvider>
       </body>

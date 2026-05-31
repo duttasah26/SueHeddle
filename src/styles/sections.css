@@ -110,7 +110,6 @@
   width: max-content;
   animation: sliderScroll 30s linear infinite;
 }
-.slider-track:hover { animation-play-state: paused; }
 @keyframes sliderScroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -382,21 +381,21 @@
 .donation-rebate-note {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 10px;
-  padding: 8px 10px;
-  background: rgba(0, 0, 0, 0.15);
-  border-left: 2px solid rgba(255, 255, 255, 0.4);
+  gap: 10px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid rgba(255, 255, 255, 0.5);
 }
 .donation-rebate-note .material-symbols-outlined {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
   flex-shrink: 0;
 }
 .donation-rebate-note p {
-  font-size: 11px;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.8);
 }
 .donation-rebate-note strong { color: #fff; font-weight: 700; }
 .donation-rebate-link {
