@@ -34,7 +34,7 @@
 }
 .intro-p:last-child { margin-bottom: 0; }
 .intro-commitment-label {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--on-surface);
   margin-bottom: 12px;

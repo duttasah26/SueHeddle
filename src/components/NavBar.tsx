@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -16,39 +17,39 @@ export default function NavBar() {
           <button className="nav-burger" onClick={() => setMobileOpen(true)} aria-label="Open menu">
             <span className="material-symbols-outlined">menu</span>
           </button>
-          <a href="/" className="nav-brand">
+          <Link href="/" className="nav-brand">
             <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
-          </a>
+          </Link>
           <nav className="nav-links">
-            <a href="/about" className="nav-link">{t("nav.about")}</a>
-            <a href="/#vision" className="nav-link">{t("nav.strategy")}</a>
-            <a href="/#community-support" className="nav-link">{t("nav.experience")}</a>
-            <a href="/#get-involved" className="nav-link">{t("nav.joinUs")}</a>
+            <Link href="/about" className="nav-link">{t("nav.about")}</Link>
+            <Link href="/#vision" className="nav-link">{t("nav.strategy")}</Link>
+            <Link href="/#community-support" className="nav-link">{t("nav.experience")}</Link>
+            <Link href="/#get-involved" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
           <LanguageSwitcher />
-          <a href="/donate" className="nav-cta">{t("nav.donate")}</a>
+          <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
         </div>
       </header>
 
       {mobileOpen && (
         <div className="mobile-menu">
           <div className="mobile-menu-header">
-            <a href="/" className="nav-brand" onClick={close}>
+            <Link href="/" className="nav-brand" onClick={close}>
               <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
-            </a>
+            </Link>
             <button className="mobile-menu-close" onClick={close} aria-label="Close menu">
               <span className="material-symbols-outlined">close</span>
             </button>
           </div>
           <nav className="mobile-menu-links">
-            <a href="/about" className="mobile-menu-link" onClick={close}>{t("nav.about")}</a>
-            <a href="/#vision" className="mobile-menu-link" onClick={close}>{t("nav.strategy")}</a>
-            <a href="/#community-support" className="mobile-menu-link" onClick={close}>{t("nav.experience")}</a>
-            <a href="/#get-involved" className="mobile-menu-link" onClick={close}>{t("nav.joinUs")}</a>
+            <Link href="/about" className="mobile-menu-link" onClick={close}>{t("nav.about")}</Link>
+            <Link href="/#vision" className="mobile-menu-link" onClick={close}>{t("nav.strategy")}</Link>
+            <Link href="/#community-support" className="mobile-menu-link" onClick={close}>{t("nav.experience")}</Link>
+            <Link href="/#get-involved" className="mobile-menu-link" onClick={close}>{t("nav.joinUs")}</Link>
           </nav>
           <div className="mobile-menu-footer">
             <LanguageSwitcher />
-            <a href="/donate" className="mobile-menu-donate" onClick={close}>{t("nav.donate")}</a>
+            <Link href="/donate" className="mobile-menu-donate" onClick={close}>{t("nav.donate")}</Link>
           </div>
         </div>
       )}

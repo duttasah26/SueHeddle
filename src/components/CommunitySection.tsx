@@ -55,11 +55,13 @@ export default function CommunitySection() {
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s1Body")}</p>
               </div>
-              <img
-                src="/images/sue/comm_spirit_4.jpg"
-                alt="Sue with community members"
-                className="flow-side-img"
-              />
+              <div className="flow-side-img-wrap">
+                <img
+                  src="/images/sue/comm_spirit_4.jpg"
+                  alt="Sue with community members"
+                  className="flow-side-img"
+                />
+              </div>
             </div>
           </div>
         </section>

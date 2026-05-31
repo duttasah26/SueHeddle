@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PRESET_AMOUNTS = [25, 50, 100, 250, 500, 1000, 1200];
@@ -24,6 +24,12 @@ export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState(250);
   const [customAmount, setCustomAmount] = useState("");
   const [isOakvilleResident, setIsOakvilleResident] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const amt = parseFloat(params.get("amount") ?? "");
+    if (amt && PRESET_AMOUNTS.includes(amt)) setSelectedAmount(amt);
+  }, []);
 
   const displayAmount = customAmount ? parseFloat(customAmount) || 0 : selectedAmount;
   const actualCost = calcActualCost(displayAmount);

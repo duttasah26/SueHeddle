@@ -79,6 +79,15 @@
   object-fit: cover;
   object-position: center;
 }
+/* Side image zoom wrapper */
+.flow-side-img-wrap {
+  overflow: hidden;
+  border-radius: 10px;
+}
+.flow-side-img-wrap:hover .flow-side-img {
+  transform: scale(1.05);
+}
+
 /* Side-by-side text + single image */
 .flow-text-image-row {
   display: grid;
@@ -95,7 +104,8 @@
   width: 100%;
   height: clamp(300px, 40vw, 500px);
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 0;
+  transition: transform 350ms ease;
 }
 /* Staggered 4-image gallery grid */
 .flow-gallery {
@@ -120,4 +130,9 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  transition: transform 350ms ease;
+}
+.flow-gallery-cell:hover .flow-gallery-img {
+  transform: scale(1.07);
+  filter: brightness(1.06);
 }
