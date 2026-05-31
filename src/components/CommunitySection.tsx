@@ -3,22 +3,42 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const sliderPhotos = [
-  { src: "/images/sue/comm_spirit_3.jpg",  alt: "Sue with community" },
-  { src: "/images/sue/comm_spirit_4.jpg",  alt: "Sue at community event" },
-  { src: "/images/sue/comm_spirit_5.jpg",  alt: "Sue with supporters" },
-  { src: "/images/sue/culture_1.jpg",      alt: "Sue with Ward 5 residents" },
-  { src: "/images/sue/culture_2.jpg",      alt: "Sue at local event" },
-  { src: "/images/sue/hockey_1.jpg",       alt: "Sue at Hockey Cares" },
-  { src: "/images/sue/hockey_2.jpg",       alt: "Hockey Cares event" },
-  { src: "/images/sue/award.jpg",          alt: "Sue receiving award" },
+  { src: "/images/sue/award.jpg",             alt: "Sue receiving award" },
+  { src: "/images/sue/award_2.jpg",           alt: "Award ceremony" },
+  { src: "/images/sue/award_3.jpg",           alt: "National recognition event" },
+  { src: "/images/sue/award_10.jpg",          alt: "Award event" },
+  { src: "/images/sue/award_12.jpg",          alt: "Sue receiving the REALTORS Care Award" },
+  { src: "/images/sue/comm_spirit_3.jpg",     alt: "Sue with community" },
+  { src: "/images/sue/comm_spirit_4.jpg",     alt: "Sue at community event" },
+  { src: "/images/sue/comm_spirit_5.jpg",     alt: "Sue with supporters" },
+  { src: "/images/sue/comm_spirit_8 (2).jpg", alt: "Sue with community members" },
+  { src: "/images/sue/comm_spirit_9.jpg",     alt: "Community spirit" },
+  { src: "/images/sue/comm_spirit_10.jpg",    alt: "Sue at community gathering" },
+  { src: "/images/sue/comm_spirit_13.jpg",    alt: "Sue with residents" },
+  { src: "/images/sue/comm_spirit_15.jpg",    alt: "Community event" },
+  { src: "/images/sue/culture_1.jpg",         alt: "Sue with Ward 5 residents" },
+  { src: "/images/sue/culture_2.jpg",         alt: "Sue at local event" },
+  { src: "/images/sue/culture_3.jpg",         alt: "Cultural exchange" },
+  { src: "/images/sue/culture_4.jpg",         alt: "Sue with local supporters" },
+  { src: "/images/sue/culture_5.jpg",         alt: "Cultural community event" },
+  { src: "/images/sue/culture_6.jpg",         alt: "Sue at cultural gathering" },
+  { src: "/images/sue/culture_7.jpg",         alt: "Community culture event" },
+  { src: "/images/sue/culture_10.jpg",        alt: "Cultural celebration" },
+  { src: "/images/sue/culture_11.jpg",        alt: "Sue with community" },
+  { src: "/images/sue/hockey_1.jpg",          alt: "Sue at Hockey Cares" },
+  { src: "/images/sue/hockey_2.jpg",          alt: "Hockey Cares event" },
+  { src: "/images/sue/hockey_3.jpg",          alt: "Youth hockey program" },
+  { src: "/images/sue/hockey_4.jpg",          alt: "Hockey Cares community" },
+  { src: "/images/sue/hockey_5.jpg",          alt: "Hockey event" },
+  { src: "/images/sue/hockey_6.jpg",          alt: "Hockey Cares gathering" },
 ];
 
-function Gallery({ images }: { images: { src: string; alt: string }[] }) {
+function Gallery({ images }: { images: { src: string; alt: string; objectPosition?: string }[] }) {
   return (
     <div className="flow-gallery">
-      {images.map(({ src, alt }, i) => (
+      {images.map(({ src, alt, objectPosition }, i) => (
         <div key={i} className="flow-gallery-cell">
-          <img src={src} alt={alt} className="flow-gallery-img" />
+          <img src={src} alt={alt} className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
         </div>
       ))}
     </div>
@@ -70,10 +90,11 @@ export default function CommunitySection() {
           <div className="flow-art-container" style={{ backgroundColor: "#1a1c1c", color: "#fff" }}>
             <div className="flow-text-image-row">
               <Gallery images={[
-                { src: "/images/sue/hockey_1.jpg",  alt: "Hockey Cares event" },
+                { src: "/images/sue/hockey_1.jpg",  alt: "Hockey Cares event", objectPosition: "50% 20%" },
                 { src: "/images/sue/hockey_2.jpg",  alt: "Hockey Cares community" },
-                { src: "/images/sue/hockey_3.jpg",  alt: "Youth hockey program" },
-                { src: "/images/sue/culture_3.jpg", alt: "Cultural exchange" },
+                { src: "/images/sue/hockey_5.jpg", alt: "Cultural exchange" },
+                { src: "/images/sue/hockey_6.jpg", alt: "Cultural exchange" },
+                
               ]} />
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
@@ -106,10 +127,10 @@ export default function CommunitySection() {
                 </div>
               </div>
               <Gallery images={[
-                { src: "/images/sue/award.jpg",   alt: "Sue receiving the REALTORS Care Award" },
-                { src: "/images/sue/award_2.jpg", alt: "Award ceremony" },
+                { src: "/images/sue/award_12.jpg",   alt: "Sue receiving the REALTORS Care Award"},
+                { src: "/images/sue/award_2.jpg", alt: "Award ceremony", objectPosition: "50% 15%" },
                 { src: "/images/sue/award_3.jpg", alt: "National recognition event" },
-                { src: "/images/sue/hockey_1.jpg", alt: "Hockey Cares — the program behind the award" },
+                { src: "/images/sue/award_10.jpg", alt: "Hockey Cares — the program behind the award", objectPosition: "50% 35%" },
               ]} />
             </div>
           </div>
@@ -119,8 +140,8 @@ export default function CommunitySection() {
           <div className="flow-art-container" style={{ backgroundColor: "#fcf9f8", color: "#1c1b1b" }}>
             <div className="flow-text-image-row">
               <Gallery images={[
-                { src: "/images/sue/comm_spirit_3.jpg", alt: "Sue in the Oakville community" },
-                { src: "/images/sue/comm_spirit_5.jpg", alt: "Sue connecting with residents" },
+                { src: "/images/sue/comm_spirit_3.jpg", alt: "Sue in the Oakville community", objectPosition: "50% 40%" },
+                { src: "/images/sue/comm_spirit_5.jpg", alt: "Sue connecting with residents", objectPosition: "50% 20%" },
                 { src: "/images/sue/culture_1.jpg",     alt: "Community engagement" },
                 { src: "/images/sue/culture_2.jpg",     alt: "Sue at a local event" },
               ]} />
@@ -146,10 +167,10 @@ export default function CommunitySection() {
                 <p className="flow-body">{t("community.s5Body")}</p>
               </div>
               <Gallery images={[
-                { src: "/images/sue/culture_1.jpg", alt: "Sue at a Ward 5 event" },
-                { src: "/images/sue/culture_2.jpg", alt: "Sue with Oakville residents" },
-                { src: "/images/sue/culture_3.jpg", alt: "Community gathering" },
-                { src: "/images/sue/culture_4.jpg", alt: "Sue with local supporters" },
+                { src: "/images/sue/comm_spirit_13.jpg", alt: "Sue at a Ward 5 event" },
+                { src: "/images/sue/comm_spirit_15.jpg", alt: "Community event" },
+                { src: "/images/sue/comm_spirit_8 (2).jpg", alt: "Community gathering" },
+                { src: "/images/sue/comm_spirit_9.jpg", alt: "Sue with local supporters" },
               ]} />
             </div>
           </div>

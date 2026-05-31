@@ -17,7 +17,7 @@ export default function NavBar() {
           <button className="nav-burger" onClick={() => setMobileOpen(true)} aria-label="Open menu">
             <span className="material-symbols-outlined">menu</span>
           </button>
-          <Link href="/" className="nav-brand">
+          <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
           </Link>
           <nav className="nav-links">
