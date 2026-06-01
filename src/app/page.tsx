@@ -25,7 +25,7 @@ export default function SplashPage() {
         muted
         playsInline
         onTimeUpdate={(e) => {
-          if (e.currentTarget.currentTime >= 9) setVideoEnded(true);
+          if (e.currentTarget.currentTime >= 8) setVideoEnded(true);
         }}
         onEnded={() => setVideoEnded(true)}
       >
