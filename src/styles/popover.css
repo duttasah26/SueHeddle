@@ -1,0 +1,134 @@
+/* ── CENTERED SHARE OVERLAY ──────────────────────────────────── */
+.sp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.55);
+  animation: spOverlayIn 0.18s ease;
+}
+@keyframes spOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── SHARE DIALOG CARD ───────────────────────────────────────── */
+.sp-content {
+  width: 272px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+  outline: none;
+  animation: spOpen 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes spOpen {
+  from { opacity: 0; transform: scale(0.93) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+/* ── INNER LAYOUT ────────────────────────────────────────────── */
+.sp-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+}
+.sp-title {
+  font-family: var(--font-display), 'Lexend', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+/* ── SOCIAL ICON ROW ─────────────────────────────────────────── */
+.sp-socials {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.sp-social-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: opacity 150ms ease, transform 120ms ease;
+  flex-shrink: 0;
+}
+.sp-social-btn:hover { opacity: 0.85; transform: scale(1.06); }
+.sp-social-btn--wa  { background: #25D366; }
+.sp-social-btn--ig  {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+.sp-social-btn--sms { background: #007AFF; }
+.sp-social-btn .material-symbols-outlined { font-size: 20px; }
+
+/* ── URL ROW ─────────────────────────────────────────────────── */
+.sp-url-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.sp-url-input {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 8px 38px 8px 10px;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  outline: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: default;
+}
+.sp-url-input:focus { border-color: rgba(255,255,255,0.25); }
+.sp-copy-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255,255,255,0.5);
+  border-radius: 0 8px 8px 0;
+  transition: color 150ms ease;
+}
+.sp-copy-btn:hover { color: #fff; }
+.sp-copy-btn .material-symbols-outlined { font-size: 16px; }
+.sp-copy-btn--done { color: var(--primary, #e70685); }
+.sp-copy-btn--done:hover { color: var(--primary, #e70685); }
+
+/* ── FEEDBACK ────────────────────────────────────────────────── */
+.sp-feedback {
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary, #e70685);
+  height: 14px;
+  animation: spFade 1.8s ease forwards;
+}
+@keyframes spFade {
+  0%   { opacity: 0; }
+  12%  { opacity: 1; }
+  75%  { opacity: 1; }
+  100% { opacity: 0; }
+}

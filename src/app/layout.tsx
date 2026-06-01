@@ -35,6 +35,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0&display=block"
+        />
+      </head>
       <body className={`${lexend.variable} ${jetbrainsMono.variable} ${notoSans.variable}`}>
         <LanguageProvider>{children}</LanguageProvider>
       </body>

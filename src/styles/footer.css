@@ -1,22 +1,16 @@
-/* ── FOOTER ────────────────────────────────────────────────────── */
+/* ── FOOTER ─────────────────────────────────────────────────────── */
 .footer {
   background: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 24px;
-  gap: 12px;
-}
-.footer-brand-icon {
-  width: 160px;
-  height: 160px;
-  object-fit: contain;
-  filter: grayscale(1) brightness(0) invert(1);
+  padding: 32px 24px;
 }
 .footer-icons {
   display: flex;
   justify-content: center;
-  gap: 36px;
+  gap: 40px;
+  align-items: center;
 }
 .footer-icon-btn {
   display: flex;
@@ -26,7 +20,7 @@
   background: none;
   border: none;
   text-decoration: none;
-  transition: opacity 150ms var(--ease);
+  transition: opacity 150ms ease;
 }
-.footer-icon-btn:hover { opacity: 0.6; }
+.footer-icon-btn:hover { opacity: 0.55; }
 .footer-icon-btn .material-symbols-outlined { font-size: 28px; }
