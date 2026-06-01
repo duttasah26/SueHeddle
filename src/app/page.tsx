@@ -53,7 +53,7 @@ export default function SplashPage() {
               {phase === 0 ? (
                 <motion.div
                   key="vote"
-                  className="splash-phase"
+                  className="splash-phase splash-phase--vote"
                   initial={{ opacity: 0, y: 56 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={PHASE_EXIT}

@@ -1,34 +1,7 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
-import MarkerHighlight from '@/components/MarkerHighlight';
 import '@/styles/landing.css';
 
-const PRIORITIES = [
-  {
-    num: '01',
-    title: 'Smart Growth.',
-    icon: 'trending_up',
-    desc: "Responsible development that preserves Oakville's character while planning thoughtfully for a growing community.",
-  },
-  {
-    num: '02',
-    title: 'Better Transit.',
-    icon: 'commute',
-    desc: 'Improved public transit options that connect Ward 5 to the rest of Oakville and the Greater Toronto Area.',
-  },
-  {
-    num: '03',
-    title: 'Strong Leadership.',
-    icon: 'groups',
-    desc: 'A councillor who listens, who shows up, and who fights every day for what Ward 5 residents deserve.',
-  },
-];
-
 export default function LandingContent() {
-  const commitRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(commitRef, { once: true, margin: '-6%' });
-
   return (
     <article>
       {/* ── TAGLINE SECTION ─────────────────────────────────────── */}
@@ -74,65 +47,11 @@ export default function LandingContent() {
           <div className="landing-bio-img-col">
             <div className="landing-bio-img-wrap">
               <img
-                src="/sue-heddle.png"
+                src="/images/sue/hero_shot.png"
                 alt="Sue Heddle"
                 className="landing-bio-img"
               />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── COMMITMENT SECTION (black) ───────────────────────────── */}
-      <section className="landing-commit-section" ref={commitRef}>
-        <div className="landing-commit-inner">
-          <motion.p
-            className="landing-commit-label"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-          >
-            My commitment is simple:
-          </motion.p>
-
-          <div className="landing-commit-list">
-            {PRIORITIES.map((p, i) => (
-              <motion.div
-                key={p.num}
-                className="lp-item"
-                initial={{ opacity: 0, y: 32 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.1 + i * 0.12, ease: 'easeOut' }}
-              >
-                <div className="lp-top-row">
-                  <motion.span
-                    className="material-symbols-outlined lp-icon"
-                    initial={{ scale: 0, rotate: -20 }}
-                    animate={inView ? { scale: 1, rotate: 0 } : {}}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 260,
-                      damping: 18,
-                      delay: 0.15 + i * 0.12,
-                    }}
-                  >
-                    {p.icon}
-                  </motion.span>
-                  <span className="lp-num">{p.num}</span>
-                </div>
-                <div className="lp-title-wrap">
-                  <span className="lp-title-base">{p.title}</span>
-                  <span
-                    className={`lp-title-overlay${inView ? ' is-swept' : ''}`}
-                    style={{ '--sweep-delay': `${0.18 + i * 0.14}s` } as React.CSSProperties}
-                    aria-hidden="true"
-                  >
-                    {p.title}
-                  </span>
-                </div>
-                <p className="lp-desc">{p.desc}</p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>

@@ -102,7 +102,7 @@
   width: 100%;
   height: clamp(380px, 55vw, 620px);
   object-fit: cover;
-  object-position: top center;
+  object-position: 50% 50%;
   display: block;
   transition: transform 400ms ease;
 }
