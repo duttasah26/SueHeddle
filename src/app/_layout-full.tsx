@@ -1,6 +1,11 @@
+// BACKUP — full site layout
+// To restore: copy this file's contents into layout.tsx
 import type { Metadata } from "next";
 import { Lexend, JetBrains_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
+import SiteFooter from "@/components/SiteFooter";
+import PageTransition from "@/components/PageTransition";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const lexend = Lexend({
   subsets: ["latin"],
@@ -24,9 +29,9 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sue Heddle | Ward 5 Councillor — Oakville 2026",
+  title: "Sue Heddle | Bold Leadership for Ward 5",
   description:
-    "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election.",
+    "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election. Learn about her platform, community involvement, and how you can get involved.",
 };
 
 export default function RootLayout({
@@ -34,8 +39,19 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0&display=block"
+        />
+      </head>
       <body className={`${lexend.variable} ${jetbrainsMono.variable} ${notoSans.variable}`}>
-        {children}
+        <LanguageProvider>
+          <PageTransition>
+            {children}
+          </PageTransition>
+          <SiteFooter />
+        </LanguageProvider>
       </body>
     </html>
   );

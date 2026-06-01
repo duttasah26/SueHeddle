@@ -1,0 +1,216 @@
+/* ── SPLASH PAGE ─────────────────────────────────────────────── */
+.splash-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+/* ── VIDEO ─────────────────────────────────────────────────────── */
+.splash-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+.splash-video--out {
+  opacity: 0;
+}
+
+/* ── BLACK BG (fades in when video ends) ───────────────────────── */
+.splash-bg {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.splash-bg--on {
+  opacity: 1;
+}
+
+/* ── CONTENT (fades in after bg) ───────────────────────────────── */
+.splash-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  /* Without an explicit width the flex item collapses to intrinsic width,
+     which is ~0 since all heading children are absolutely positioned.
+     That makes width:100% on the phase divs resolve to ~0px — text overflows. */
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.2s;
+}
+.splash-content--in {
+  opacity: 1;
+}
+
+/* ── ICON ───────────────────────────────────────────────────────── */
+.splash-icon-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  width: clamp(72px, 12vw, 148px);
+  height: clamp(72px, 12vw, 148px);
+  margin-bottom: clamp(16px, 2.5vw, 32px);
+  flex-shrink: 0;
+}
+.splash-icon-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 75%
+  );
+  background-size: 250% 250%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  animation: splashIconShine 3.5s ease-in-out infinite;
+}
+@keyframes splashIconShine {
+  0%    { background-position: 200% 0;  opacity: 0; }
+  6%    { opacity: 1; }
+  42%   { background-position: -100% 0; opacity: 0.85; }
+  52%   { background-position: -100% 0; opacity: 0; }
+  52.1% { background-position: 200% 0;  opacity: 0; }
+  100%  { background-position: 200% 0;  opacity: 0; }
+}
+.splash-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ── HEADING PHASE CONTAINER ────────────────────────────────────── */
+/*
+  min-height = static Elect content only (no anim buffer — overflow:hidden removed).
+  Elect:  elect(4.5vw) + gap(6) + 2×name(15vw)×0.9 + underline(14) = 31.5vw + 20
+  VOTE phase is shorter; the heading-wrap will have some dead space for it — that's OK.
+  Removing overflow:hidden lets the spring animation breathe without dead space artifacts.
+*/
+.splash-heading-wrap {
+  position: relative;
+  min-height: clamp(160px, calc(20px + 31.5vw), 370px);
+  width: 100%;
+  margin-bottom: clamp(20px, 3vw, 36px);
+}
+.splash-phase {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── TEXT ───────────────────────────────────────────────────────── */
+.splash-elect {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(30px, 4.5vw, 60px);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 6px;
+}
+
+.splash-name {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  /* min 48px lets 15vw govern on narrow phones — keeps "VOTE NEW." on one line */
+  font-size: clamp(48px, 15vw, 148px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.splash-pink {
+  color: var(--primary, #e70685);
+}
+
+/* Heddle underline animation */
+.splash-name-rel {
+  position: relative;
+  display: inline-block;
+}
+.splash-underline {
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  height: 7px;
+  background: #fff;
+  width: 0;
+  animation: splashUnderline 1.4s ease-out 0.3s forwards;
+}
+@keyframes splashUnderline {
+  0%   { width: 0%;   opacity: 0; }
+  10%  { width: 0%;   opacity: 0; }
+  60%  { width: 70%;  opacity: 0.9; }
+  100% { width: 100%; opacity: 1; }
+}
+
+.splash-ward {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: clamp(16px, 2.5vw, 26px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 6px;
+}
+
+.splash-date {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: clamp(11px, 1.5vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ── LANDSCAPE / SHORT SCREENS ──────────────────────────────────── */
+@media (max-height: 560px) {
+  .splash-icon-wrap {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 10px;
+  }
+  .splash-heading-wrap {
+    min-height: clamp(115px, calc(15px + 22vh), 220px);
+    margin-bottom: 10px;
+  }
+  .splash-name {
+    font-size: clamp(36px, 9vh, 90px);
+  }
+  .splash-elect {
+    font-size: clamp(20px, 5vh, 40px);
+  }
+  .splash-ward {
+    font-size: clamp(11px, 1.8vw, 16px);
+    margin-bottom: 4px;
+  }
+  .splash-date {
+    font-size: clamp(10px, 1.4vw, 13px);
+  }
+}
