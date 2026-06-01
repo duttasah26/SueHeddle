@@ -15,7 +15,7 @@ export default function SplashPage() {
     if (!videoEnded) return;
     const id = setInterval(() => setPhase(p => (p + 1) % 2), 4500);
     return () => clearInterval(id);
-  }, [videoEnded]);
+ }, [videoEnded]);
 
   return (
     <div className="splash-root">
@@ -24,9 +24,12 @@ export default function SplashPage() {
         autoPlay
         muted
         playsInline
+        onTimeUpdate={(e) => {
+          if (e.currentTarget.currentTime >= 9) setVideoEnded(true);
+        }}
         onEnded={() => setVideoEnded(true)}
       >
-        <source src="/videos/promo.mp4" type="video/mp4" />
+        <source src="/videos/promo.mp4#t=1.2"type="video/mp4" />
       </video>
 
       <div className={`splash-bg${videoEnded ? " splash-bg--on" : ""}`} />
