@@ -1,9 +1,13 @@
 'use client';
+import { useState } from 'react';
 import '@/styles/landing.css';
+import ScrollArrow from '@/components/ui/scroll-arrow';
 
 export default function LandingContent() {
+  const [arrowDismissed, setArrowDismissed] = useState(false);
+
   return (
-    <article>
+    <article id="landing">
       {/* ── TAGLINE SECTION ─────────────────────────────────────── */}
       <section className="landing-tagline-section">
         <div className="landing-tagline-inner">
@@ -14,10 +18,17 @@ export default function LandingContent() {
             <span className="lh-pink">Future</span> Together.
           </h2>
         </div>
+        <ScrollArrow
+          visible={!arrowDismissed}
+          onClick={() => {
+            setArrowDismissed(true);
+            document.getElementById('bio')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
       </section>
 
       {/* ── BIO SECTION ─────────────────────────────────────────── */}
-      <section className="landing-bio-section">
+      <section id="bio" className="landing-bio-section">
         <div className="landing-bio-inner">
           <div className="landing-bio-text">
             <span className="landing-eyebrow landing-eyebrow--dark">About Sue</span>

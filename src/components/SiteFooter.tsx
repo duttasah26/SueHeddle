@@ -48,6 +48,7 @@ export default function SiteFooter() {
 
   return (
     <footer className="footer">
+      <p className="footer-title">Stay Connected</p>
       <div className="footer-icons">
         <a
           href="mailto:sue@sueheddle.ca"

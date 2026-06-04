@@ -6,6 +6,7 @@ import "@/styles/splash.css";
 import SmoothScroll from "@/components/ui/smooth-scroll";
 import LandingContent from "@/components/LandingContent";
 import SiteFooter from "@/components/SiteFooter";
+import ScrollArrow from "@/components/ui/scroll-arrow";
 
 const PHASE_EXIT = { opacity: 0, y: -56, transition: { duration: 0.28, ease: "easeIn" as const } };
 const PHASE_SPRING = { type: "spring" as const, stiffness: 72, damping: 20 };
@@ -13,11 +14,19 @@ const PHASE_SPRING = { type: "spring" as const, stiffness: 72, damping: 20 };
 export default function SplashPage() {
   const [videoEnded, setVideoEnded] = useState(false);
   const [phase, setPhase] = useState(0);
+  const [arrowVisible, setArrowVisible] = useState(false);
+  const [arrowDismissed, setArrowDismissed] = useState(false);
 
   useEffect(() => {
     if (!videoEnded) return;
     const id = setInterval(() => setPhase(p => (p + 1) % 2), 4500);
     return () => clearInterval(id);
+  }, [videoEnded]);
+
+  useEffect(() => {
+    if (!videoEnded) return;
+    const t = setTimeout(() => setArrowVisible(true), 2500);
+    return () => clearTimeout(t);
   }, [videoEnded]);
 
   return (
@@ -92,6 +101,14 @@ export default function SplashPage() {
           <p className="splash-ward">Ward 5 Councillor &middot; Oakville</p>
           <p className="splash-date">Election Day &middot; October 26, 2026</p>
         </div>
+
+        <ScrollArrow
+          visible={arrowVisible && !arrowDismissed}
+          onClick={() => {
+            setArrowDismissed(true);
+            document.getElementById("landing")?.scrollIntoView({ behavior: "smooth" });
+          }}
+        />
       </div>
 
       {/* ── LANDING SECTIONS ────────────────────────────────────── */}

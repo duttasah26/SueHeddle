@@ -1,4 +1,14 @@
 /* ── FOOTER ─────────────────────────────────────────────────────── */
+.footer-title {
+  font-family: var(--font-display), 'Lexend', sans-serif;
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .footer {
   background: #000;
   display: flex;
