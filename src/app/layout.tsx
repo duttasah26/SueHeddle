@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Lexend, JetBrains_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
+import SiteFooter from "@/components/SiteFooter";
+import PageTransition from "@/components/PageTransition";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const lexend = Lexend({
@@ -25,9 +27,9 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sue Heddle for Ward 5 Councillor 2026",
+  title: "Sue Heddle | Bold Leadership for Ward 5",
   description:
-    "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election.",
+    "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election. Learn about her platform, community involvement, and how you can get involved.",
 };
 
 export default function RootLayout({
@@ -42,7 +44,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${lexend.variable} ${jetbrainsMono.variable} ${notoSans.variable}`}>
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <PageTransition>
+            {children}
+          </PageTransition>
+          <SiteFooter />
+        </LanguageProvider>
       </body>
     </html>
   );
