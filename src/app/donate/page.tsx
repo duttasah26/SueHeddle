@@ -36,7 +36,7 @@ export default function DonatePage() {
 
   return (
     <div className="donate-page">
-      <div className="donate-card">
+      <div className="donate-card" suppressHydrationWarning>
         <div className="donate-card-corner-tl" />
         <div className="donate-card-corner-br" />
 

@@ -1,20 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const PHASE_EXIT = { opacity: 0, y: -56, transition: { duration: 0.28, ease: "easeIn" as const } };
-const PHASE_SPRING = { type: "spring" as const, stiffness: 72, damping: 20 };
+const SPRING = { type: "spring" as const, stiffness: 72, damping: 20 };
 
 export default function HeroSection() {
   const { t } = useLanguage();
   const [phase, setPhase] = useState(0);
+  const [heddleKey, setHeddleKey] = useState(0);
 
   useEffect(() => {
     const id = setInterval(() => setPhase(p => (p + 1) % 2), 4500);
     return () => clearInterval(id);
   }, []);
+
+  // Remount the animated underline each time the heddle phase becomes active
+  useEffect(() => {
+    if (phase === 1) setHeddleKey(k => k + 1);
+  }, [phase]);
 
   return (
     <section id="home" className="hero-section">
@@ -27,49 +32,44 @@ export default function HeroSection() {
           />
         </div>
         <div className="hero-heading-wrap" suppressHydrationWarning>
-          {/* initial={false}: first render appears immediately, no opening gap */}
-          <AnimatePresence mode="wait" initial={false}>
-            {phase === 0 ? (
-              <motion.div
-                key="vote"
-                className="hero-phase hero-phase-vote"
-                initial={{ opacity: 0, y: 56 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={PHASE_EXIT}
-                transition={PHASE_SPRING}
-                suppressHydrationWarning
-              >
-                <h1 className="hero-heading">
-                  {t("hero.voteLineA")}<br />
-                  {t("hero.voteLineB")}
-                  <span className="hero-heading-black">{t("hero.voteLineAccent")}</span>
-                </h1>
-                <p className="hero-election-date">
-                  {t("hero.electionDay")} <span className="hero-election-date-accent">{t("hero.electionDate")}</span>
-                </p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="heddle"
-                className="hero-phase"
-                initial={{ opacity: 0, y: 56 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={PHASE_EXIT}
-                transition={PHASE_SPRING}
-                suppressHydrationWarning
-              >
-                <div className="hero-elect">{t("hero.elect")}</div>
-                <h1 className="hero-heading">
-                  Sue<br />
-                  <span className="hero-heading-rel">
-                    Heddle
-                    <span className="animated-underline" />
-                  </span>
-                </h1>
-                <span className="hero-ward">{t("hero.ward")}</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Both phases stay in the DOM so the grid cell always sizes to the tallest one */}
+          <motion.div
+            className="hero-phase hero-phase-vote"
+            animate={{ opacity: phase === 0 ? 1 : 0 }}
+            initial={{ opacity: 1 }}
+            transition={SPRING}
+            aria-hidden={phase !== 0}
+            style={{ pointerEvents: phase === 0 ? "auto" : "none" }}
+            suppressHydrationWarning
+          >
+            <h1 className="hero-heading">
+              {t("hero.voteLineA")}<br />
+              {t("hero.voteLineB")}
+              <span className="hero-heading-black">{t("hero.voteLineAccent")}</span>
+            </h1>
+            <p className="hero-election-date">
+              {t("hero.electionDay")} <span className="hero-election-date-accent">{t("hero.electionDate")}</span>
+            </p>
+          </motion.div>
+          <motion.div
+            className="hero-phase"
+            animate={{ opacity: phase === 1 ? 1 : 0 }}
+            initial={{ opacity: 0 }}
+            transition={SPRING}
+            aria-hidden={phase !== 1}
+            style={{ pointerEvents: phase === 1 ? "auto" : "none" }}
+            suppressHydrationWarning
+          >
+            <div className="hero-elect">{t("hero.elect")}</div>
+            <h1 className="hero-heading">
+              Sue<br />
+              <span className="hero-heading-rel">
+                Heddle
+                <span className="animated-underline" key={heddleKey} />
+              </span>
+            </h1>
+            <span className="hero-ward">{t("hero.ward")}</span>
+          </motion.div>
         </div>
         <div className="hero-ctas">
           <a href="/volunteer" className="hero-btn hero-btn--dark">

@@ -24,8 +24,8 @@
   padding: 0 10px;
 }
 .nav-icon {
-  width: 140px;
-  height: 140px;
+  height: clamp(60px, 8.5vw, 76px);
+  width: auto;
   object-fit: contain;
   transition: filter 150ms var(--ease), transform 150ms var(--ease);
 }

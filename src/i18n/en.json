@@ -19,8 +19,8 @@
     "quote": "Sue"
   },
   "platform": {
-    "heading": "The ",
-    "headingAccent": "Blueprint.",
+    "heading": "My ",
+    "headingAccent": "Vision",
     "card1Name": "Smart Growth",
     "card1Desc": "Growth is coming to Oakville — the question is how we manage it. I support carefully planned, balanced growth that protects our neighbourhoods and provides housing for families, seniors and young professionals without excessive density on the Trafalgar corridor.",
     "card1Item1": "Housing for Families, Seniors & Young Professionals",
@@ -194,7 +194,10 @@
   },
   "intro": {
     "heading": "Building Ward 5's Future Together",
-    "p1": "Ward 5 is entering an important new chapter, and I believe we have an opportunity to shape that future in a way that protects what residents value most while preparing our community for the years ahead.",
+    "p1": "Oakville has been my home, my community, and my passion for many years.",
+    "p1b": "Throughout my life, I have believed that strong communities are built when people come together to support one another, solve problems, and create opportunities for others.",
+    "p1c": "That belief inspired me to found Hockey Cares, an organization dedicated to helping youth and families through sport and community support. It guided my work as Chair of SafetyNet, where I helped bring together community partners to address important local issues. It also led me to volunteer with SAVIS, supporting individuals and families during some of life's most difficult moments.",
+    "p1d": "These experiences taught me how to listen, how to bring people together, and how to turn ideas into action.",
     "p2": "That's why I am running for Ward 5 Councillor.",
     "commitment": "My commitment is simple:",
     "point1": "Smart Growth.",

@@ -136,3 +136,25 @@
   transform: scale(1.07);
   filter: brightness(1.06);
 }
+.flow-gallery--captioned .flow-gallery-cell:hover .flow-gallery-img {
+  filter: brightness(0.35);
+}
+.flow-gallery-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(11px, 1.1vw, 14px);
+  font-weight: 600;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+.flow-gallery--captioned .flow-gallery-cell:hover .flow-gallery-caption {
+  opacity: 1;
+}

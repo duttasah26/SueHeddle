@@ -33,12 +33,13 @@ const sliderPhotos = [
   { src: "/images/sue/hockey_6.jpg",          alt: "Hockey Cares gathering" },
 ];
 
-function Gallery({ images }: { images: { src: string; alt: string; objectPosition?: string }[] }) {
+function Gallery({ images, showCaption }: { images: { src: string; alt: string; objectPosition?: string }[]; showCaption?: boolean }) {
   return (
-    <div className="flow-gallery">
+    <div className={`flow-gallery${showCaption ? " flow-gallery--captioned" : ""}`}>
       {images.map(({ src, alt, objectPosition }, i) => (
         <div key={i} className="flow-gallery-cell">
           <img src={src} alt={alt} className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
+          {showCaption && <span className="flow-gallery-caption">{alt}</span>}
         </div>
       ))}
     </div>
@@ -99,7 +100,10 @@ export default function CommunitySection() {
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s2Heading")}</h2>
+                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
+                  <span style={{ color: "var(--primary)" }}>{"Bridging\nCommunities"}</span>
+                  {"\nThrough\nSport"}
+                </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s2Body")}</p>
               </div>
@@ -113,7 +117,9 @@ export default function CommunitySection() {
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s3Heading")}</h2>
+                <h2 className="flow-heading">
+                  Canadian<br />REALTORS<br /><span style={{ color: "var(--primary)" }}>Care</span><br />Award
+                </h2>
                 <hr className="flow-divider" />
                 <div className="flow-cols">
                   <div className="flow-col">
@@ -126,11 +132,11 @@ export default function CommunitySection() {
                   </div>
                 </div>
               </div>
-              <Gallery images={[
+              <Gallery showCaption images={[
                 { src: "/images/sue/award_12.jpg",   alt: "Sue receiving the REALTORS Care Award"},
-                { src: "/images/sue/award_2.jpg", alt: "Award ceremony", objectPosition: "50% 15%" },
+                { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%" },
                 { src: "/images/sue/award_3.jpg", alt: "National recognition event" },
-                { src: "/images/sue/award_10.jpg", alt: "Hockey Cares — the program behind the award", objectPosition: "50% 35%" },
+                { src: "/images/sue/award_2.jpg", alt: "Sue with current Oakville mayor, Rob Burton", objectPosition: "50% 20%" },
               ]} />
             </div>
           </div>

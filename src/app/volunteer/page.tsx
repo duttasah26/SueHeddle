@@ -19,7 +19,7 @@ export default function VolunteerPage() {
         <h1 className="donate-step-title">{t("volunteer.heading")}</h1>
         <p className="volunteer-subtitle">{t("volunteer.subtitle")}</p>
 
-        <form onSubmit={(e) => { e.preventDefault(); alert(t("volunteer.thankYou")); }}>
+        <form onSubmit={(e) => { e.preventDefault(); alert(t("volunteer.thankYou")); }} suppressHydrationWarning>
           <div className="form-fields-row">
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelFirstName")}</label>

@@ -64,19 +64,11 @@
 }
 .hero-heading-wrap {
   position: relative;
-  /* 1.8× heading covers two-line height; +elect +36px underline/gap; +ward5 height +16px breathing */
-  min-height: calc(clamp(80px, 11vw, 128px) * 1.8 + clamp(40px, 5.5vw, 72px) + 36px + clamp(20px, 2.4vw, 30px) + 16px);
-  overflow: hidden;
+  display: grid;
+  grid-template-areas: "phase";
 }
 .hero-phase {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-/* Vote heading starts at the same top position as ELECT */
-.hero-phase-vote {
-  padding-top: 0;
+  grid-area: phase;
 }
 .hero-heading {
   font-family: var(--font-display), "Lexend", sans-serif;
@@ -93,17 +85,19 @@
 .animated-underline {
   position: absolute;
   bottom: -16px;
-  left: 6.5px;
+  left: 5px;
+  right: 0;
   height: 8px;
   background: white;
-  width: 0;
+  transform: scaleX(0);
+  transform-origin: left;
   animation: underlineGrowth 1.4s ease-out 0.3s forwards;
 }
 @keyframes underlineGrowth {
-  0%   { width: 0;     opacity: 0; }
-  10%  { width: 0;     opacity: 0; }
-  60%  { width: 280px; opacity: 0.9; }
-  100% { width: 340px; opacity: 1; }
+  0%   { transform: scaleX(0); opacity: 0; }
+  10%  { transform: scaleX(0); opacity: 0; }
+  60%  { transform: scaleX(1); opacity: 0.9; }
+  100% { transform: scaleX(1); opacity: 1; }
 }
 .hero-ward {
   font-family: var(--font-display), "Lexend", sans-serif;
