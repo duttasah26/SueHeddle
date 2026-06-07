@@ -14,7 +14,7 @@ export default function NavBar() {
     <>
       <header className="nav">
         <div className="nav-inner">
-          <button className="nav-burger" onClick={() => setMobileOpen(true)} aria-label="Open menu">
+          <button className="nav-burger" onClick={() => setMobileOpen(true)} aria-label="Open menu" suppressHydrationWarning>
             <span className="material-symbols-outlined">menu</span>
           </button>
           <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const SPRING = { type: "spring" as const, stiffness: 72, damping: 20 };
+const TRANSITION = { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const };
 
 export default function HeroSection() {
   const { t } = useLanguage();
@@ -12,14 +12,15 @@ export default function HeroSection() {
   const [heddleKey, setHeddleKey] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setPhase(p => (p + 1) % 2), 4500);
+    const id = setInterval(() => {
+      setPhase(p => {
+        const next = (p + 1) % 2;
+        if (next === 1) setHeddleKey(k => k + 1);
+        return next;
+      });
+    }, 4500);
     return () => clearInterval(id);
   }, []);
-
-  // Remount the animated underline each time the heddle phase becomes active
-  useEffect(() => {
-    if (phase === 1) setHeddleKey(k => k + 1);
-  }, [phase]);
 
   return (
     <section id="home" className="hero-section">
@@ -31,16 +32,12 @@ export default function HeroSection() {
             className="hero-brand-mark"
           />
         </div>
-        <div className="hero-heading-wrap" suppressHydrationWarning>
-          {/* Both phases stay in the DOM so the grid cell always sizes to the tallest one */}
+        <div className="hero-heading-wrap">
           <motion.div
             className="hero-phase hero-phase-vote"
-            animate={{ opacity: phase === 0 ? 1 : 0 }}
-            initial={{ opacity: 1 }}
-            transition={SPRING}
+            animate={{ y: phase === 0 ? 0 : "-100%" }}
+            transition={TRANSITION}
             aria-hidden={phase !== 0}
-            style={{ pointerEvents: phase === 0 ? "auto" : "none" }}
-            suppressHydrationWarning
           >
             <h1 className="hero-heading">
               {t("hero.voteLineA")}<br />
@@ -53,12 +50,10 @@ export default function HeroSection() {
           </motion.div>
           <motion.div
             className="hero-phase"
-            animate={{ opacity: phase === 1 ? 1 : 0 }}
-            initial={{ opacity: 0 }}
-            transition={SPRING}
+            initial={{ y: "100%" }}
+            animate={{ y: phase === 1 ? 0 : "100%" }}
+            transition={TRANSITION}
             aria-hidden={phase !== 1}
-            style={{ pointerEvents: phase === 1 ? "auto" : "none" }}
-            suppressHydrationWarning
           >
             <div className="hero-elect">{t("hero.elect")}</div>
             <h1 className="hero-heading">

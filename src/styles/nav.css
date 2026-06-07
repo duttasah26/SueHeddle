@@ -9,7 +9,7 @@
 }
 .nav-inner {
   padding: 0 16px;
-  height: 76px;
+  height: 88px;
   display: flex;
   align-items: center;
   position: relative;
@@ -24,7 +24,7 @@
   padding: 0 10px;
 }
 .nav-icon {
-  height: clamp(60px, 8.5vw, 76px);
+  height: clamp(72px, 9vw, 88px);
   width: auto;
   object-fit: contain;
   transition: filter 150ms var(--ease), transform 150ms var(--ease);
@@ -51,7 +51,7 @@
 }
 .nav-link:hover { color: var(--primary); }
 .nav-cta {
-  background: var(--on-surface);
+  background: var(--primary);
   color: #fff;
   padding: 10px 32px;
   font-family: var(--font-display), "Lexend", sans-serif;
@@ -60,12 +60,12 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   border: 2px solid var(--on-surface);
-  box-shadow: 4px 4px 0 var(--primary);
+  box-shadow: 4px 4px 0 #000;
   transition: background 150ms var(--ease), box-shadow 150ms, transform 150ms;
   white-space: nowrap;
 }
-.nav-cta:hover  { background: var(--primary); box-shadow: 4px 4px 0 var(--on-surface); }
-.nav-cta:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--primary); }
+.nav-cta:hover  { background: #000; box-shadow: 4px 4px 0 var(--primary); }
+.nav-cta:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
 
 /* ── Burger button ──────────────────────────────────────────────── */
 .nav-burger {
@@ -92,7 +92,7 @@
   flex-direction: column;
 }
 .mobile-menu-header {
-  height: 76px;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -152,8 +152,8 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-align: center;
-  border: 2px solid var(--primary);
-  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--on-surface);
+  box-shadow: 4px 4px 0 #000;
   transition: background 150ms var(--ease);
 }
 .mobile-menu-donate:hover { background: #000; }

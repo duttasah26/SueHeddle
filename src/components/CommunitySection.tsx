@@ -101,7 +101,8 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  <span style={{ color: "var(--primary)" }}>{"Bridging\nCommunities"}</span>
+                  {"Bridging\n"}
+                  <span style={{ color: "var(--primary)" }}>{"Communities"}</span>
                   {"\nThrough\nSport"}
                 </h2>
                 <hr className="flow-divider" />
@@ -113,7 +114,7 @@ export default function CommunitySection() {
 
         <section aria-label="National Recognition" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#000", color: "#fff" }}>
-            <div className="flow-text-image-row">
+            <div className="flow-text-image-row flow-row--text-first">
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
@@ -164,7 +165,7 @@ export default function CommunitySection() {
 
         <section aria-label="A Voice for Ward 5" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#e70685", color: "#fff" }}>
-            <div className="flow-text-image-row">
+            <div className="flow-text-image-row flow-row--text-first">
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s5Eyebrow")}</p>
                 <hr className="flow-divider" />

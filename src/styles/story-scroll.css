@@ -69,9 +69,11 @@
   margin-bottom: 8px;
 }
 .flow-col-desc {
-  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
-  line-height: 1.6;
-  opacity: 0.75;
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.9rem, 1.3vw, 1.05rem);
+  line-height: 1.7;
+  opacity: 0.88;
 }
 .flow-section-img {
   width: 100%;
@@ -157,4 +159,10 @@
 }
 .flow-gallery--captioned .flow-gallery-cell:hover .flow-gallery-caption {
   opacity: 1;
+}
+
+/* On mobile, sections where text is DOM-first get their image shown first */
+@media (max-width: 744.98px) {
+  .flow-row--text-first .flow-gallery,
+  .flow-row--text-first .flow-side-img-wrap { order: -1; }
 }

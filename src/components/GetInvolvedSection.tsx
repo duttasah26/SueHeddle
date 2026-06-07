@@ -91,12 +91,7 @@ export default function GetInvolvedSection() {
                 <span className="material-symbols-outlined">info</span>
                 <p>
                   Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
-                  <a
-                    href="https://www.oakville.ca/town-hall/elections/candidates/campaign-contribution-rebate-program/"
-                    className="donation-rebate-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href="/rebate" className="donation-rebate-link">
                     Learn more →
                   </a>
                 </p>

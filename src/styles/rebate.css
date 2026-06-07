@@ -1,0 +1,278 @@
+/* ── REBATE PAGE ──────────────────────────────────────────────────── */
+
+/* Hero */
+.rebate-hero {
+  padding: 140px var(--margin-desktop) 48px;
+  background: var(--dark-bg);
+}
+.rebate-hero-content { max-width: var(--container-max); margin: 0 auto; }
+.rebate-hero-eyebrow {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: block;
+}
+.rebate-hero-heading {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(56px, 8vw, 112px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-bottom: 28px;
+}
+.rebate-hero-heading .accent { color: var(--primary); }
+.rebate-hero-sub {
+  font-size: 20px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.6);
+  max-width: 560px;
+}
+
+/* Stats — small cards, same aesthetic as platform cards */
+.rebate-stats {
+  background: var(--dark-bg);
+  padding: 32px var(--margin-desktop) 64px;
+  border-bottom: 4px solid var(--on-surface);
+}
+.rebate-stats-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.rebate-stat {
+  background: #fff;
+  border: 4px solid var(--on-surface);
+  box-shadow: 5px 5px 0 #000;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
+}
+.rebate-stat:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #000;
+}
+.rebate-stat-value {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+  line-height: 1;
+}
+.rebate-stat-label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--on-surface);
+}
+
+/* Content sections */
+.rebate-section {
+  padding: 80px 0;
+  border-bottom: 4px solid var(--on-surface);
+}
+.rebate-section--dark { background: var(--dark-bg); color: #fff; }
+.rebate-section--light { background: #fff; color: var(--on-surface); }
+.rebate-section-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--margin-desktop);
+}
+.rebate-section-heading {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(40px, 5.5vw, 72px);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 48px;
+}
+.rebate-section--dark .rebate-section-heading { color: #fff; }
+.rebate-section--light .rebate-section-heading { color: var(--on-surface); }
+.rebate-section-heading .accent { color: var(--primary); }
+
+/* Eligibility 2-col */
+.rebate-eligibility {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.rebate-elig-col-title {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 20px;
+}
+.rebate-elig-col--yes .rebate-elig-col-title { color: #4ade80; }
+.rebate-elig-col--no  .rebate-elig-col-title { color: #f87171; }
+.rebate-elig-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.rebate-elig-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+.rebate-elig-list li::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 2px;
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.rebate-elig-col--yes .rebate-elig-list li::before {
+  background-color: #4ade80;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M2 6l3 3 5-5' stroke='%23000' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.rebate-elig-col--no .rebate-elig-list li::before {
+  background-color: #f87171;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round' d='M3 3l6 6M9 3l-6 6'/%3E%3C/svg%3E");
+}
+
+/* Steps */
+.rebate-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.rebate-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 24px;
+  padding: 32px 0;
+  border-top: 2px solid rgba(0,0,0,0.12);
+  align-items: start;
+}
+.rebate-step:first-child { border-top: none; padding-top: 0; }
+.rebate-step-num {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--primary);
+  line-height: 1;
+}
+.rebate-step-title {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--on-surface);
+  margin-bottom: 8px;
+}
+.rebate-step-desc {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--on-surface);
+  opacity: 0.75;
+}
+
+/* Dates */
+.rebate-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.rebate-date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 28px 0;
+  border-top: 2px solid rgba(255,255,255,0.12);
+  align-items: center;
+}
+.rebate-date-row:first-child { border-top: none; padding-top: 0; }
+.rebate-date-label {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 6px;
+}
+.rebate-date-value {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1.1;
+}
+.rebate-date-note {
+  font-size: 15px;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.6);
+}
+
+/* CTA */
+.rebate-cta {
+  padding: 80px var(--margin-desktop);
+  background: var(--primary);
+  text-align: center;
+}
+.rebate-cta-heading {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.rebate-cta-sub {
+  font-size: 18px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 40px;
+}
+.rebate-cta-btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 20px 48px;
+  border: 2px solid #fff;
+  box-shadow: 6px 6px 0 #fff;
+  transition: all 200ms;
+}
+.rebate-cta-btn:hover { background: #fff; color: #000; }
+
+/* Responsive */
+@media (max-width: 959.98px) {
+  .rebate-hero          { padding: 120px var(--margin-mobile) 40px; }
+  .rebate-stats         { padding: 24px var(--margin-mobile) 48px; }
+  .rebate-stats-inner   { grid-template-columns: repeat(2, 1fr); }
+  .rebate-section-inner { padding: 0 var(--margin-mobile); }
+  .rebate-cta           { padding: 64px var(--margin-mobile); }
+}
+@media (max-width: 744.98px) {
+  .rebate-eligibility { grid-template-columns: 1fr; gap: 32px; }
+  .rebate-date-row    { grid-template-columns: 1fr; gap: 8px; }
+  .rebate-step        { grid-template-columns: 40px 1fr; gap: 16px; }
+  .rebate-step-num    { font-size: 28px; }
+}
