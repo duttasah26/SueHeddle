@@ -85,6 +85,7 @@
   transition: background 250ms, color 250ms;
 }
 .donate-step-dot.active   { background: var(--primary); color: #fff; }
+.donate-step-dot.done     { background: var(--primary); color: #fff; }
 .donate-step-dot.inactive { background: #e5e2e1; color: var(--on-surface); }
 .donate-step-line {
   width: 32px;
@@ -102,7 +103,7 @@
 }
 .donate-step-title {
   font-family: var(--font-display), "Lexend", sans-serif;
-  font-size: 28px;
+  font-size: clamp(32px, 5vw, 44px);
   font-weight: 700;
   color: var(--primary);
   margin-bottom: 32px;
@@ -313,4 +314,62 @@
   text-decoration: underline;
   font-weight: 600;
   font-size: 12px;
+}
+
+/* ── STRIPE CARD ELEMENT ────────────────────────────────────────── */
+.stripe-card-element {
+  padding: 14px 12px;
+  border: 2px solid transparent;
+  background: #e5e2e1;
+  transition: border-color 150ms;
+}
+.stripe-card-element--focus { border-color: var(--primary); }
+
+.donate-payment-error {
+  color: #c0392b;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: -8px;
+  margin-bottom: 12px;
+}
+.donate-next-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 4px 4px 0 #000;
+}
+
+/* ── CERTIFICATION BOX ──────────────────────────────────────────── */
+.donate-cert-box {
+  display: block;
+  background: var(--primary);
+  color: #fff;
+  padding: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+.donate-cert-text {
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.donate-cert-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* ── PROCESSING FEE OPT-IN ──────────────────────────────────────── */
+.donate-fee-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--on-surface);
+  margin-bottom: 24px;
+  cursor: pointer;
+  line-height: 1.4;
 }

@@ -67,6 +67,12 @@
 .nav-cta:hover  { background: #000; box-shadow: 4px 4px 0 var(--primary); }
 .nav-cta:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
 
+/* Join The Campaign — outlined secondary CTA, pushes CTAs to the right */
+.nav-cta--join {
+  margin-left: auto;
+  margin-right: 8px;
+}
+
 /* ── Burger button ──────────────────────────────────────────────── */
 .nav-burger {
   display: none;
@@ -161,8 +167,8 @@
 /* ── Language Switcher ──────────────────────────────────────────── */
 .lang-switcher {
   position: relative;
-  margin-left: auto;
-  margin-right: 16px;
+  margin-left: 4px;
+  margin-right: 0;
 }
 .lang-switcher-btn {
   display: flex;
@@ -208,7 +214,7 @@
 
 /* Mobile lang switcher overrides */
 @media (max-width: 959.98px) {
-  .lang-switcher { margin-right: 8px; }
+  .lang-switcher { margin-right: 0; }
   .lang-switcher-btn { padding: 6px 8px; font-size: 13px; }
 }
 .mobile-menu-footer .lang-switcher { margin-right: 0; }

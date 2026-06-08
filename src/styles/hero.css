@@ -166,20 +166,20 @@
 .hero-photo {
   position: relative;
   overflow: hidden;
-  background: var(--on-surface);
+  background: transparent;
 }
 .hero-photo img {
+  position: absolute;
+  left: 0;
   width: 100%;
-  height: 100%;
+  /* crop 10% top + 20% bottom: render at 100/70 = 143%, shift up by 10/70 = 14.3% */
+  height: 143%;
+  top: -14.3%;
   object-fit: cover;
-  object-position: center top;
   display: block;
 }
 .hero-photo-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(180, 0, 102, 0.2);
-  mix-blend-mode: multiply;
+  display: none;
 }
 .hero-quote-box {
   position: absolute;

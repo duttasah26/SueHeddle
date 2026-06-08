@@ -20,13 +20,14 @@ export default function NavBar() {
           <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
           </Link>
+          <LanguageSwitcher />
           <nav className="nav-links">
             <Link href="/about" className="nav-link">{t("nav.about")}</Link>
             <Link href="/#vision" className="nav-link">{t("nav.strategy")}</Link>
             <Link href="/#community-support" className="nav-link">{t("nav.experience")}</Link>
             <Link href="/#get-involved" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
-          <LanguageSwitcher />
+          <Link href="/volunteer" className="nav-cta nav-cta--join">Join The Campaign</Link>
           <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
         </div>
       </header>
@@ -46,6 +47,7 @@ export default function NavBar() {
             <Link href="/#vision" className="mobile-menu-link" onClick={close}>{t("nav.strategy")}</Link>
             <Link href="/#community-support" className="mobile-menu-link" onClick={close}>{t("nav.experience")}</Link>
             <Link href="/#get-involved" className="mobile-menu-link" onClick={close}>{t("nav.joinUs")}</Link>
+            <Link href="/volunteer" className="mobile-menu-link" onClick={close}>Join The Campaign</Link>
           </nav>
           <div className="mobile-menu-footer">
             <LanguageSwitcher />

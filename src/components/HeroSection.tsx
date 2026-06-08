@@ -77,7 +77,7 @@ export default function HeroSection() {
       </div>
 
       <div className="hero-photo">
-        <img src="/sue-heddle.png" alt="Sue Heddle, Ward 5 Candidate" />
+        <img src="/images/sue/hero_shot.png" alt="Sue Heddle, Ward 5 Candidate" />
         <div className="hero-photo-overlay" />
         <a href="/about" className="hero-quote-box">
           <p className="hero-quote-heading">

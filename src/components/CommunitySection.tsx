@@ -51,7 +51,11 @@ export default function CommunitySection() {
   return (
     <>
       <section className="community-section" id="community-support">
-        <h2 className="community-heading">{t("community.heading")}</h2>
+        <h2 className="community-heading">
+          {t("community.heading")}
+          <span style={{ color: "var(--primary)" }}>{t("community.headingAccent")}</span>
+          {t("community.headingPost")}
+        </h2>
         <div className="slider-container">
           <div className="slider-track">
             {[...sliderPhotos, ...sliderPhotos].map(({ src, alt }, i) => (

@@ -7,6 +7,9 @@
   .nav-burger           { display: flex; }
   .nav-icon             { height: 76px; width: auto; }
   .nav-brand            { padding: 0 8px 0 0; }
+  .nav-cta--join        { display: none !important; }
+  /* Donate takes over the auto-margin push to the right */
+  .nav-cta:not(.nav-cta--join) { margin-left: auto; }
 
   /* Hero: stack photo over content */
   .hero-section         { grid-template-columns: 1fr; min-height: auto; }

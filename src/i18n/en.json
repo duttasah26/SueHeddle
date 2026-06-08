@@ -3,7 +3,7 @@
     "about": "About Sue",
     "strategy": "Strategy",
     "experience": "Experience",
-    "joinUs": "Join Us",
+    "joinUs": "Join Team Sue",
     "donate": "Donate"
   },
   "hero": {
@@ -35,7 +35,9 @@
     "card3Item2": "A Strong Voice for Ward 5 at Town Hall"
   },
   "community": {
-    "heading": "A Proven Community Leader for Ward 5",
+    "heading": "A Proven ",
+    "headingAccent": "Community Leader",
+    "headingPost": " for Ward 5",
     "caption": "Sue has been a fixture in Oakville for years, championing local causes and building a more connected Ward 5 through action, not just words.",
     "s1Eyebrow": "Community Leadership",
     "s1Heading": "Rooted.\nReady.\nRunning.",
@@ -65,9 +67,9 @@
     "t2Quote": "Sue's commitment goes far beyond organizing a program. She is deeply invested in the well-being of our youth and the strength of our community. She continues to show up, year after year, building trust and ensuring the program grows in a way that respects our culture and values.",
     "t2Name": "Hailey Chum",
     "t2Role": "Youth Outreach Coordinator, Constance Lake First Nation",
-    "t3Quote": "Sue’s vision for smart growth is exactly what Ward 5 needs to stay livable for future generations.",
-    "t3Name": "Ward 5 Resident",
-    "t3Role": "Oakville"
+    "t3Quote": "Sue brings people together. She is an effective listener, a thoughtful leader, and someone who approaches challenges with integrity, compassion, and a focus on practical solutions.",
+    "t3Name": "Bill Shields",
+    "t3Role": "Executive Director, SafetyNet Children’s & Youth Charities"
   },
   "banner": {
     "quote": "Together, we can build a future that works for current residents, future generations, and everyone who chooses to call Ward 5 home.",
@@ -193,7 +195,9 @@
     "introHeading": "My Commitment to Ward 5"
   },
   "intro": {
-    "heading": "Building Ward 5's Future Together",
+    "heading": "Building Ward 5's ",
+    "headingAccent": "Future",
+    "headingPost": " Together",
     "p1": "Oakville has been my home, my community, and my passion for many years.",
     "p1b": "Throughout my life, I have believed that strong communities are built when people come together to support one another, solve problems, and create opportunities for others.",
     "p1c": "That belief inspired me to found Hockey Cares, an organization dedicated to helping youth and families through sport and community support. It guided my work as Chair of SafetyNet, where I helped bring together community partners to address important local issues. It also led me to volunteer with SAVIS, supporting individuals and families during some of life's most difficult moments.",

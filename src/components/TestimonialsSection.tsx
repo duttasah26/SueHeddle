@@ -24,8 +24,8 @@ export default function TestimonialsSection() {
       quoteKey: "testimonials.t3Quote",
       nameKey: "testimonials.t3Name",
       roleKey: "testimonials.t3Role",
-      image: undefined as string | undefined,
-      imagePosition: undefined as string | undefined,
+      image: "/images/testimonial/safetynet.png",
+      imagePosition: "center top",
     },
   ];
 

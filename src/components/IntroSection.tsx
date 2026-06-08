@@ -33,7 +33,11 @@ export default function IntroSection() {
           </ul>
           <p className="intro-p">{t("intro.p3")}</p>
         </div>
-        <h2 className="intro-heading">{t("intro.heading")}</h2>
+        <h2 className="intro-heading">
+          {t("intro.heading")}
+          <span style={{ color: "var(--primary)" }}>{t("intro.headingAccent")}</span>
+          {t("intro.headingPost")}
+        </h2>
       </div>
     </section>
   );
