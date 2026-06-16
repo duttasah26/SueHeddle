@@ -97,8 +97,9 @@ export default function GetInvolvedSection() {
             <div>
               <h3 className="signup-form-title">{t("getInvolved.signUpHeading")}</h3>
               {newsSubmitted ? (
-                <p style={{ marginTop: 16, color: "var(--primary)", fontWeight: 600 }}>
-                  You&apos;re signed up!
+                <p style={{ marginTop: 16, color: "#fff", fontWeight: 700, fontSize: 18, display: "flex", alignItems: "center", gap: 8 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: 22 }}>favorite</span>
+                  Thanks for signing up!
                 </p>
               ) : (
                 <form onSubmit={handleNewsSubmit}>

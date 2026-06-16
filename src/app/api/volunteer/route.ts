@@ -1,3 +1,4 @@
+import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { appendRow } from "@/lib/googleSheets";
 
@@ -19,6 +20,61 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 function sanitize(v: unknown, maxLen = 100): string {
   if (typeof v !== "string") return "";
   return v.trim().slice(0, maxLen);
+}
+
+function volunteerHtml(firstName: string): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You for Volunteering — Sue Heddle</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f4f4;font-family:system-ui,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 16px;">
+    <tr><td align="center">
+      <table width="560" cellpadding="0" cellspacing="0" style="background:#fff;border-radius:4px;overflow:hidden;">
+
+        <tr>
+          <td style="background:#1a1a1a;padding:24px 32px;text-align:center;">
+            <img src="https://sueheddle.ca/images/icons/circle_icon.png" alt="Sue Heddle" height="48"
+              style="display:block;margin:0 auto;" />
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:40px 32px 32px;">
+            <h1 style="margin:0 0 16px;font-size:26px;color:#e70685;font-weight:700;">
+              Thank you, ${firstName}!
+            </h1>
+            <p style="margin:0 0 16px;color:#333;font-size:15px;line-height:1.6;">
+              We've received your volunteer sign-up for the <strong>Sue Heddle — Ward 5</strong> campaign.
+              Someone from our team will be in touch soon with next steps.
+            </p>
+            <p style="margin:0 0 32px;color:#555;font-size:15px;line-height:1.6;">
+              Together, we're building a stronger, more connected Ward 5. We couldn't do it without you.
+            </p>
+            <a href="https://sueheddle.ca" style="display:inline-block;background:#e70685;color:#fff;
+              padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;">
+              Visit sueheddle.ca
+            </a>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:20px 32px;background:#f4f4f4;border-top:1px solid #e5e5e5;text-align:center;">
+            <p style="margin:0;font-size:12px;color:#aaa;">
+              Sue Heddle for Ward 5 Councillor &middot; Oakville, ON<br />
+              <a href="https://sueheddle.ca" style="color:#e70685;">sueheddle.ca</a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>`;
 }
 
 export async function POST(req: NextRequest) {
@@ -79,6 +135,16 @@ export async function POST(req: NextRequest) {
       { error: "Submission could not be saved. Please try again." },
       { status: 502 }
     );
+  }
+
+  if (process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL,
+      to: email,
+      subject: `Thank you for volunteering, ${firstName}!`,
+      html: volunteerHtml(firstName),
+    }).catch((err) => console.error("Resend error (volunteer):", err));
   }
 
   return NextResponse.json({ ok: true });

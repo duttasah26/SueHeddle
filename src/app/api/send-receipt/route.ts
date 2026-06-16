@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { appendRow } from "@/lib/googleSheets";
 
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 5;
@@ -43,7 +44,7 @@ function receiptHtml(
         <!-- Header -->
         <tr>
           <td style="background:#1a1a1a;padding:24px 32px;text-align:center;">
-            <img src="https://sueheddle.ca/images/icons/brand.png" alt="Sue Heddle" height="48"
+            <img src="https://sueheddle.ca/images/icons/circle_icon.png" alt="Sue Heddle" height="48"
               style="display:block;margin:0 auto;" />
           </td>
         </tr>
@@ -163,6 +164,25 @@ export async function POST(req: NextRequest) {
   if (typeof paymentIntentId !== "string" || !PI_RE.test(paymentIntentId)) {
     return NextResponse.json({ error: "Invalid payment reference." }, { status: 400 });
   }
+
+  const timestamp = new Date().toLocaleString("en-CA", {
+    timeZone: "America/Toronto",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit",
+  });
+  const fullName = `${firstName.trim()} ${lastName.trim()}`;
+
+  // Write to Donations and Newsletter sheets (fire-and-forget, non-blocking)
+  Promise.allSettled([
+    appendRow("Donations", [timestamp, firstName.trim(), lastName.trim(), email, `$${numAmount.toFixed(2)}`, paymentIntentId]),
+    appendRow("Newsletter", [timestamp, fullName, email, ""]),
+  ]).then((results) => {
+    results.forEach((r, i) => {
+      if (r.status === "rejected") {
+        console.error(`Sheets error (${i === 0 ? "Donations" : "Newsletter"}):`, r.reason);
+      }
+    });
+  });
 
   if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
     return NextResponse.json({ ok: true });
