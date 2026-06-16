@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function CommunityBanner() {
+export default function BannerSection() {
   const { t } = useLanguage();
   return (
     <section className="quote-section">

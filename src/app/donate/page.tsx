@@ -1,20 +1,22 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
+import type { PaymentRequest as StripePaymentRequest } from "@stripe/stripe-js";
 import {
   Elements,
   CardNumberElement,
   CardExpiryElement,
   CardCvcElement,
+  PaymentRequestButtonElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
+const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
+  : null;
 
 const stripeAppearance: StripeElementsOptions["appearance"] = {
   theme: "stripe",
@@ -56,25 +58,29 @@ function calcActualCost(amount: number): number {
   return amount - Math.min(amount, REBATE_CAP) * REBATE_RATE;
 }
 
-function calcStripeFee(amount: number): number {
-  return Math.round((amount * STRIPE_PCT + STRIPE_FLAT) * 100) / 100;
+// Returns the gross amount to charge so the campaign nets exactly `amount` after Stripe fees.
+// Formula: gross = (amount + STRIPE_FLAT) / (1 - STRIPE_PCT)
+function calcEffectiveWithFee(amount: number): number {
+  return Math.round(((amount + STRIPE_FLAT) / (1 - STRIPE_PCT)) * 100) / 100;
 }
 
 interface PaymentFormProps {
   effectiveAmount: number;
+  displayAmount: number;
   stripeFee: number;
   coverFee: boolean;
   setCoverFee: (v: boolean) => void;
   firstName: string;
   lastName: string;
+  email: string;
   onBack: () => void;
   onSuccess: () => void;
   t: (key: string) => string;
 }
 
 function PaymentForm({
-  effectiveAmount, stripeFee, coverFee, setCoverFee,
-  firstName, lastName, onBack, onSuccess, t,
+  effectiveAmount, displayAmount, stripeFee, coverFee, setCoverFee,
+  firstName, lastName, email, onBack, onSuccess, t,
 }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
@@ -86,6 +92,93 @@ function PaymentForm({
   const [numFocused, setNumFocused]     = useState(false);
   const [expFocused, setExpFocused]     = useState(false);
   const [cvcFocused, setCvcFocused]     = useState(false);
+
+  // Apple Pay / Google Pay
+  const [paymentRequest, setPaymentRequest] = useState<StripePaymentRequest | null>(null);
+
+  // Refs to keep event handler current without re-registering it
+  const effectiveAmountRef = useRef(effectiveAmount);
+  const certifiedRef       = useRef(certified);
+  const onSuccessRef       = useRef(onSuccess);
+  useEffect(() => { effectiveAmountRef.current = effectiveAmount; }, [effectiveAmount]);
+  useEffect(() => { certifiedRef.current = certified; }, [certified]);
+  useEffect(() => { onSuccessRef.current = onSuccess; }, [onSuccess]);
+
+  // Create payment request once when Stripe loads
+  useEffect(() => {
+    if (!stripe) return;
+    const pr = stripe.paymentRequest({
+      country: "CA",
+      currency: "cad",
+      total: {
+        label: "Donation to Sue Heddle – Ward 5",
+        amount: Math.round(effectiveAmountRef.current * 100),
+      },
+      requestPayerName: false,
+      requestPayerEmail: false,
+    });
+    pr.canMakePayment().then((result) => {
+      if (result) setPaymentRequest(pr);
+    });
+    pr.on("paymentmethod", async (event) => {
+      if (!certifiedRef.current) {
+        event.complete("fail");
+        setPaymentError("Please confirm the certification checkbox before donating.");
+        return;
+      }
+      setProcessing(true);
+      setPaymentError("");
+      try {
+        const res = await fetch("/api/create-payment-intent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ amount: effectiveAmountRef.current }),
+        });
+        const data = await res.json();
+        if (data.error) { event.complete("fail"); setPaymentError(data.error); return; }
+        const { error } = await stripe.confirmCardPayment(
+          data.clientSecret,
+          { payment_method: event.paymentMethod.id },
+          { handleActions: false }
+        );
+        if (error) {
+          event.complete("fail");
+          setPaymentError(error.message ?? "Payment failed. Please try again.");
+        } else {
+          event.complete("success");
+          fetch("/api/send-receipt", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              firstName: firstName.trim(),
+              lastName: lastName.trim(),
+              email,
+              amount: displayAmount,
+              paymentIntentId: data.clientSecret.split("_secret_")[0],
+            }),
+          }).catch(() => {});
+          onSuccessRef.current();
+        }
+      } catch {
+        event.complete("fail");
+        setPaymentError("Something went wrong. Please try again.");
+      } finally {
+        setProcessing(false);
+      }
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stripe]);
+
+  // Keep payment sheet amount in sync when fee toggle changes
+  useEffect(() => {
+    if (!paymentRequest) return;
+    paymentRequest.update({
+      total: {
+        label: "Donation to Sue Heddle – Ward 5",
+        amount: Math.round(effectiveAmount * 100),
+      },
+    });
+  }, [paymentRequest, effectiveAmount]);
 
   const [address, setAddress] = useState("");
   const [unit, setUnit]       = useState("");
@@ -149,6 +242,17 @@ function PaymentForm({
       if (error) {
         setPaymentError(error.message ?? "Payment failed. Please try again.");
       } else if (paymentIntent?.status === "succeeded") {
+        fetch("/api/send-receipt", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            email,
+            amount: displayAmount,
+            paymentIntentId: paymentIntent.id,
+          }),
+        }).catch(() => {});
         onSuccess();
       }
     } catch {
@@ -161,6 +265,21 @@ function PaymentForm({
   return (
     <section>
       <h1 className="donate-step-title">{t("donate.heading3")}</h1>
+
+      {/* — Apple Pay / Google Pay — */}
+      {paymentRequest && (
+        <div className="donate-wallet-section">
+          <PaymentRequestButtonElement
+            options={{
+              paymentRequest,
+              style: {
+                paymentRequestButton: { type: "donate", theme: "dark", height: "48px" },
+              },
+            }}
+          />
+          <div className="donate-wallet-divider"><span>or pay with card</span></div>
+        </div>
+      )}
 
       {/* — Split card fields — */}
       <div className="form-fields-col" style={{ marginBottom: 24 }}>
@@ -310,12 +429,11 @@ export default function DonatePage() {
 
   useEffect(() => { if (step !== 3) setCoverFee(false); }, [step]);
 
-  const displayAmount  = customAmount ? parseFloat(customAmount) || 0 : selectedAmount;
-  const actualCost     = calcActualCost(displayAmount);
-  const stripeFee      = calcStripeFee(displayAmount);
-  const effectiveAmount = coverFee
-    ? Math.round((displayAmount + stripeFee) * 100) / 100
-    : displayAmount;
+  const displayAmount          = customAmount ? parseFloat(customAmount) || 0 : selectedAmount;
+  const actualCost             = calcActualCost(displayAmount);
+  const effectiveAmountWithFee = calcEffectiveWithFee(displayAmount);
+  const stripeFee              = Math.round((effectiveAmountWithFee - displayAmount) * 100) / 100;
+  const effectiveAmount        = coverFee ? effectiveAmountWithFee : displayAmount;
 
   if (donated) {
     return (
@@ -494,11 +612,13 @@ export default function DonatePage() {
           <Elements stripe={stripePromise} options={{ appearance: stripeAppearance }}>
             <PaymentForm
               effectiveAmount={effectiveAmount}
+              displayAmount={displayAmount}
               stripeFee={stripeFee}
               coverFee={coverFee}
               setCoverFee={setCoverFee}
               firstName={firstName}
               lastName={lastName}
+              email={email}
               onBack={() => setStep(2)}
               onSuccess={() => setDonated(true)}
               t={t}

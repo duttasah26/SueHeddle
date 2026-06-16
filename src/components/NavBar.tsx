@@ -25,7 +25,7 @@ export default function NavBar() {
             <Link href="/about" className="nav-link">{t("nav.about")}</Link>
             <Link href="/#vision" className="nav-link">{t("nav.strategy")}</Link>
             <Link href="/#community-support" className="nav-link">{t("nav.experience")}</Link>
-            <Link href="/#get-involved" className="nav-link">{t("nav.joinUs")}</Link>
+            <Link href="/#experience" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
           <Link href="/volunteer" className="nav-cta nav-cta--join">Join The Campaign</Link>
           <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>

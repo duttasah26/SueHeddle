@@ -1,8 +1,6 @@
 import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 // In-memory rate limiter — best-effort on serverless (resets per cold start).
 // Limits each IP to MAX_REQUESTS per WINDOW_MS.
 const WINDOW_MS = 60_000;
@@ -19,9 +17,15 @@ function isRateLimited(ip: string): boolean {
 }
 
 const MIN_AMOUNT = 1;
-const MAX_AMOUNT = 10_000;
+// Slightly above 10k to allow fee pass-through on max donations
+const MAX_AMOUNT = 10_400;
 
 export async function POST(req: NextRequest) {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return NextResponse.json({ error: "Payment service not configured." }, { status: 503 });
+  }
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
 
@@ -51,11 +55,19 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round(numAmount * 100),
-    currency: "cad",
-    automatic_payment_methods: { enabled: true },
-  });
+  let paymentIntent;
+  try {
+    paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(numAmount * 100),
+      currency: "cad",
+      payment_method_types: ["card"],
+    });
+  } catch {
+    return NextResponse.json(
+      { error: "Payment could not be initialized. Please try again." },
+      { status: 502 }
+    );
+  }
 
   return NextResponse.json({ clientSecret: paymentIntent.client_secret });
 }

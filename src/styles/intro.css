@@ -33,6 +33,44 @@
   margin-bottom: 16px;
 }
 .intro-p:last-child { margin-bottom: 0; }
+.intro-link {
+  color: var(--primary);
+  text-decoration: none;
+  background-image: linear-gradient(var(--primary), var(--primary));
+  background-repeat: no-repeat;
+  background-position: left bottom 1px;
+  background-size: 0% 2px;
+  transition: background-size 260ms cubic-bezier(0.4, 0, 0.2, 1);
+  padding-bottom: 1px;
+}
+.intro-link:hover {
+  background-size: 100% 2px;
+}
+.intro-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.intro-point-item {
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--on-surface);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.intro-point-item::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+  margin-top: calc((1.75em - 6px) / 2);
+}
 .intro-commitment-label {
   font-size: 18px;
   font-weight: 600;

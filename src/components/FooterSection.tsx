@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function SiteFooter() {
+export default function FooterSection() {
   const { t } = useLanguage();
   return (
     <footer className="footer">

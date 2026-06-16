@@ -35,6 +35,9 @@ yarn-error.log*
 .env.local
 .env.*.local
 
+# internal dev reference — never push
+HANDOFF.md
+
 # vercel
 .vercel
 

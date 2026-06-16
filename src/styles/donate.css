@@ -1,3 +1,28 @@
+/* ── WALLET (Apple Pay / Google Pay) ───────────────────────────── */
+.donate-wallet-section {
+  margin-bottom: 24px;
+}
+.donate-wallet-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  color: var(--on-surface-variant);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.donate-wallet-divider::before,
+.donate-wallet-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--on-surface);
+  opacity: 0.15;
+}
+
 /* ── DONATE PAGE ───────────────────────────────────────────────── */
 .donate-page {
   min-height: 100vh;

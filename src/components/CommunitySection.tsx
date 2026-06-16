@@ -30,7 +30,22 @@ const sliderPhotos = [
   { src: "/images/sue/hockey_3.jpg",          alt: "Youth hockey program" },
   { src: "/images/sue/hockey_4.jpg",          alt: "Hockey Cares community" },
   { src: "/images/sue/hockey_5.jpg",          alt: "Hockey event" },
-  { src: "/images/sue/hockey_6.jpg",          alt: "Hockey Cares gathering" },
+  { src: "/images/sue/hockey_6.jpg",           alt: "Hockey Cares gathering" },
+  { src: "/images/sue/fireman_1.jpg",          alt: "Sue with essential workers" },
+  { src: "/images/sue/fireman_2.jpg",          alt: "Supporting essential workers" },
+  { src: "/images/award/award (1).jpg",        alt: "Sue at award event" },
+  { src: "/images/award/award (2).jpg",        alt: "Award ceremony" },
+  { src: "/images/award/award (3).jpg",        alt: "Award event" },
+  { src: "/images/award/award (4).jpg",        alt: "Sue receiving recognition" },
+  { src: "/images/award/award (5).jpg",        alt: "Award presentation" },
+  { src: "/images/award/award (6).jpg",        alt: "Recognition event" },
+  { src: "/images/award/award (7).jpg",        alt: "Sue at awards" },
+  { src: "/images/award/award (8).jpg",        alt: "Community award" },
+  { src: "/images/award/award (9).jpg",        alt: "Award ceremony" },
+  { src: "/images/award/award (10).jpg",       alt: "Award event" },
+  { src: "/images/award/award (11).jpg",       alt: "Sue receiving award" },
+  { src: "/images/award/award (12).jpg",       alt: "Award recognition" },
+  { src: "/images/award/award (13).jpg",       alt: "Community recognition" },
 ];
 
 function Gallery({ images, showCaption }: { images: { src: string; alt: string; objectPosition?: string }[]; showCaption?: boolean }) {
@@ -105,8 +120,8 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {"Bridging\n"}
-                  <span style={{ color: "var(--primary)" }}>{"Communities"}</span>
+                  {"Connecting\n"}
+                  <span style={{ color: "var(--primary)" }}>{"Oakville"}</span>
                   {"\nThrough\nSport"}
                 </h2>
                 <hr className="flow-divider" />
@@ -123,7 +138,7 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading">
-                  Canadian<br />REALTORS<br /><span style={{ color: "var(--primary)" }}>Care</span><br />Award
+                  Sue Winning<br /><span style={{ color: "var(--primary)" }}>National</span><br />Awards
                 </h2>
                 <hr className="flow-divider" />
                 <div className="flow-cols">
@@ -138,10 +153,10 @@ export default function CommunitySection() {
                 </div>
               </div>
               <Gallery showCaption images={[
-                { src: "/images/sue/award_12.jpg",   alt: "Sue receiving the REALTORS Care Award"},
+                { src: "/images/sue/award_12.jpg", alt: "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall" },
                 { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%" },
-                { src: "/images/sue/award_3.jpg", alt: "National recognition event" },
-                { src: "/images/sue/award_2.jpg", alt: "Sue with current Oakville mayor, Rob Burton", objectPosition: "50% 20%" },
+                { src: "/images/sue/award_3.jpg",  alt: "Sue at King Charles III medal award ceremony" },
+                { src: "/images/sue/award_2.jpg",  alt: "Sue with current Oakville mayor, Rob Burton", objectPosition: "50% 20%" },
               ]} />
             </div>
           </div>
@@ -153,13 +168,17 @@ export default function CommunitySection() {
               <Gallery images={[
                 { src: "/images/sue/comm_spirit_3.jpg", alt: "Sue in the Oakville community", objectPosition: "50% 40%" },
                 { src: "/images/sue/comm_spirit_5.jpg", alt: "Sue connecting with residents", objectPosition: "50% 20%" },
-                { src: "/images/sue/culture_1.jpg",     alt: "Community engagement" },
+                { src: "/images/sue/fireman_2.jpg",     alt: "Sue supporting essential workers" },
                 { src: "/images/sue/culture_2.jpg",     alt: "Sue at a local event" },
               ]} />
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s4Heading")}</h2>
+                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
+                  {"Cultures.\n"}
+                  <span style={{ color: "var(--primary)" }}>{"Communities."}</span>
+                  {"\nConnections."}
+                </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s4Body")}</p>
               </div>
@@ -178,10 +197,10 @@ export default function CommunitySection() {
                 <p className="flow-body">{t("community.s5Body")}</p>
               </div>
               <Gallery images={[
-                { src: "/images/sue/comm_spirit_13.jpg", alt: "Sue at a Ward 5 event" },
-                { src: "/images/sue/comm_spirit_15.jpg", alt: "Community event" },
-                { src: "/images/sue/comm_spirit_8 (2).jpg", alt: "Community gathering" },
-                { src: "/images/sue/comm_spirit_9.jpg", alt: "Sue with local supporters" },
+                { src: "/images/award/award (6).jpg",  alt: "Sue Heddle at award ceremony" },
+                { src: "/images/award/award (1).jpg",  alt: "Award recognition event" },
+                { src: "/images/award/award (8).jpg",  alt: "Community award presentation" },
+                { src: "/images/award/award (2).jpg", alt: "Sue receiving award" },
               ]} />
             </div>
           </div>
