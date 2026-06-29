@@ -3,19 +3,41 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "@/styles/splash.css";
+import Link from "next/link";
 import SmoothScroll from "@/components/ui/smooth-scroll";
 import LandingContent from "@/components/LandingContent";
+import GetInvolvedSection from "@/components/GetInvolvedSection";
 import SiteFooter from "@/components/SiteFooter";
 import ScrollArrow from "@/components/ui/scroll-arrow";
 
 const PHASE_EXIT = { opacity: 0, y: -56, transition: { duration: 0.28, ease: "easeIn" as const } };
 const PHASE_SPRING = { type: "spring" as const, stiffness: 72, damping: 20 };
 
+const SEEN_KEY = "splash_seen";
+
+function markSeen() {
+  try {
+    sessionStorage.setItem(SEEN_KEY, "1");
+    document.cookie = "site_unlocked=1; path=/; samesite=lax";
+  } catch {}
+}
+
 export default function SplashPage() {
   const [videoEnded, setVideoEnded] = useState(false);
   const [phase, setPhase] = useState(0);
   const [arrowVisible, setArrowVisible] = useState(false);
   const [arrowDismissed, setArrowDismissed] = useState(false);
+
+  // Skip video on return visits — runs after hydration so server/client HTML match
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem(SEEN_KEY)) {
+        document.cookie = "site_unlocked=1; path=/; samesite=lax";
+        setVideoEnded(true);
+        setArrowVisible(true);
+      }
+    } catch {}
+  }, []);
 
   useEffect(() => {
     if (!videoEnded) return;
@@ -33,18 +55,20 @@ export default function SplashPage() {
     <SmoothScroll>
       {/* ── SPLASH ──────────────────────────────────────────────── */}
       <div className="splash-root">
-        <video
-          className={`splash-video${videoEnded ? " splash-video--out" : ""}`}
-          autoPlay
-          muted
-          playsInline
-          onTimeUpdate={(e) => {
-            if (e.currentTarget.currentTime >= 8) setVideoEnded(true);
-          }}
-          onEnded={() => setVideoEnded(true)}
-        >
-          <source src="/videos/promo.mp4#t=1.2" type="video/mp4" />
-        </video>
+        {!videoEnded && (
+          <video
+            className={`splash-video${videoEnded ? " splash-video--out" : ""}`}
+            autoPlay
+            muted
+            playsInline
+            onTimeUpdate={(e) => {
+              if (e.currentTarget.currentTime >= 8) { markSeen(); setVideoEnded(true); }
+            }}
+            onEnded={() => { markSeen(); setVideoEnded(true); }}
+          >
+            <source src="/videos/promo.mp4#t=1.2" type="video/mp4" />
+          </video>
+        )}
 
         <div className={`splash-bg${videoEnded ? " splash-bg--on" : ""}`} />
 
@@ -109,10 +133,17 @@ export default function SplashPage() {
             document.getElementById("landing")?.scrollIntoView({ behavior: "smooth" });
           }}
         />
+
+        {videoEnded && (
+          <Link href="/donate" className="splash-donate-btn">
+            Donate
+          </Link>
+        )}
       </div>
 
       {/* ── LANDING SECTIONS ────────────────────────────────────── */}
       <LandingContent />
+      <GetInvolvedSection />
       <SiteFooter />
     </SmoothScroll>
   );

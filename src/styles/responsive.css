@@ -19,6 +19,13 @@
   .testimonials-inner   { padding: 0 var(--margin-mobile); }
   .platform-inner       { padding: 0 var(--margin-mobile); }
   .amount-grid          { grid-template-columns: repeat(2, 1fr); }
+  /* GetInvolved section — tablet */
+  .involve-section-label { font-size: 26px; margin-bottom: 24px; }
+  .social-btn            { font-size: 15px; padding: 18px 12px; gap: 8px; }
+  .signup-form-title     { font-size: 22px; margin-bottom: 20px; }
+  .donation-form-title   { font-size: 22px; margin-bottom: 20px; }
+  /* Splash donate button — tablet */
+  .splash-donate-btn     { padding: 8px 20px; font-size: 13px; top: 16px; right: 16px; }
 }
 @media (max-width: 744.98px) {
   .nav-inner            { padding: 0 8px 0 0; }
@@ -41,6 +48,9 @@
   .social-grid          { grid-template-columns: repeat(2, 1fr); }
   .signup-fields-row    { grid-template-columns: 1fr; }
   .donation-grid        { grid-template-columns: repeat(2, 1fr); }
+  /* Swap Donate above Sign Up on phones */
+  .involve-signup-grid > :nth-child(1) { order: 2; }
+  .involve-signup-grid > :nth-child(2) { order: 1; }
   .quote-section        { padding: 80px var(--margin-mobile); }
   .form-fields-row      { grid-template-columns: 1fr; }
   .form-fields-addr     { grid-template-columns: 1fr; }
@@ -63,8 +73,23 @@
   /* Donate/Volunteer pages — compact layout on phones */
   .donate-page          { padding: 24px 12px; }
   .donate-card          { padding: 20px 16px; }
-  .donate-logo-wrap     { margin-bottom: 16px; }
-  .donate-logo-img      { height: 64px; }
+  .donate-logo-wrap     { margin-bottom: 20px; }
+  .donate-logo-img      { height: 96px; }
+  /* GetInvolved section — phones */
+  .involve-section-label   { font-size: 20px; margin-bottom: 16px; }
+  .social-btn              { font-size: 13px; padding: 14px 8px; gap: 6px; }
+  .social-btn svg          { width: 16px; height: 16px; }
+  .social-btn .material-symbols-outlined { font-size: 18px; }
+  .signup-form-title       { font-size: 18px; margin-bottom: 16px; }
+  .donation-form-title     { font-size: 18px; margin-bottom: 16px; }
+  .donation-rebate-note    { padding: 10px; margin-top: 10px; }
+  .donation-rebate-note p  { font-size: 12px; line-height: 1.4; }
+  /* Donate page rebate intro — stack on phones */
+  .rebate-intro            { flex-direction: column; gap: 12px; padding: 16px; }
+  .rebate-intro-badge      { font-size: 13px; padding: 6px 12px; align-self: flex-start; }
+  .rebate-intro p          { font-size: 14px; }
+  /* Splash donate button — phones */
+  .splash-donate-btn       { padding: 7px 14px; font-size: 11px; top: 12px; right: 12px; box-shadow: 2px 2px 0 var(--on-surface); }
   .donate-steps         { margin-bottom: 24px; }
   .donate-step-dot      { width: 32px; height: 32px; font-size: 12px; }
   .donate-step-title    { font-size: 22px; margin-bottom: 16px; }

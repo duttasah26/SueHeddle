@@ -2,13 +2,25 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function NavBar() {
+export default function NavBar({ slim = false }: { slim?: boolean }) {
   const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const close = () => setMobileOpen(false);
+
+  if (slim) {
+    return (
+      <header className="nav nav--slim">
+        <div className="nav-inner">
+          <Link href="/" className="nav-brand">
+            <img src="/images/icons/circle_icon.png" alt="Sue Heddle" className="nav-icon" />
+          </Link>
+          <Link href="/donate" className="nav-cta" style={{ marginLeft: "auto" }}>{t("nav.donate")}</Link>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <>
@@ -26,7 +38,6 @@ export default function NavBar() {
             <Link href="/#community-support" className="nav-link">{t("nav.experience")}</Link>
             <Link href="/#get-involved" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
-          <LanguageSwitcher />
           <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
         </div>
       </header>
@@ -48,7 +59,6 @@ export default function NavBar() {
             <Link href="/#get-involved" className="mobile-menu-link" onClick={close}>{t("nav.joinUs")}</Link>
           </nav>
           <div className="mobile-menu-footer">
-            <LanguageSwitcher />
             <Link href="/donate" className="mobile-menu-donate" onClick={close}>{t("nav.donate")}</Link>
           </div>
         </div>

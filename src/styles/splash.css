@@ -1,3 +1,25 @@
+/* ── DONATE BUTTON (post-video, top-right) ──────────────────── */
+.splash-donate-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 20;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 32px;
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 2px solid var(--primary);
+  box-shadow: 4px 4px 0 var(--on-surface);
+  transition: background 150ms var(--ease), box-shadow 150ms, transform 150ms;
+  white-space: nowrap;
+}
+.splash-donate-btn:hover  { background: #fff; color: var(--primary); box-shadow: 4px 4px 0 var(--primary); }
+.splash-donate-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--primary); }
+
 /* ── SPLASH PAGE ─────────────────────────────────────────────── */
 .splash-root {
   position: relative;
@@ -190,7 +212,7 @@
 
 .splash-date {
   font-family: var(--font-mono), "JetBrains Mono", monospace;
-  font-size: clamp(11px, 1.5vw, 15px);
+  font-size: clamp(13px, 1.8vw, 18px);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;

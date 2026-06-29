@@ -84,7 +84,7 @@ export default function SiteFooter() {
       <p className="footer-title">Stay Connected</p>
       <div className="footer-icons">
         <a
-          href="mailto:SueHeddle@gmail.com"
+          href="mailto:sueheddle@gmail.com"
           className="footer-icon-btn"
           aria-label={t("footer.emailAriaLabel") || "Email Sue Heddle"}
         >
@@ -105,6 +105,7 @@ export default function SiteFooter() {
           className="footer-icon-btn"
           aria-label="Share"
           onClick={() => setShareOpen(true)}
+          suppressHydrationWarning
         >
           <span className="material-symbols-outlined">share</span>
         </button>

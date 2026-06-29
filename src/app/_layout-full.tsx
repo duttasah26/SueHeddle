@@ -29,7 +29,7 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sue Heddle | Bold Leadership for Ward 5",
+  title: "Sue Heddle | Vote Sue for Ward 5",
   description:
     "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election. Learn about her platform, community involvement, and how you can get involved.",
 };

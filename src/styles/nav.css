@@ -7,6 +7,28 @@
   background: var(--surface);
   border-bottom: 4px solid var(--on-surface);
 }
+.nav--slim {
+  background: var(--dark-bg, #0a0a0a);
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+.nav--slim .nav-brand {
+  padding-left: 8px;
+}
+.nav--slim .nav-icon {
+  width: 48px;
+  height: 48px;
+}
+.nav--slim .nav-brand:hover .nav-icon {
+  filter: none;
+  transform: scale(1.1);
+}
+.nav--slim .nav-cta {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 4px 4px 0 rgba(255,255,255,0.15);
+}
+.nav--slim .nav-cta:hover  { background: #fff; color: var(--primary); box-shadow: 4px 4px 0 var(--primary); }
+.nav--slim .nav-cta:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--primary); }
 .nav-inner {
   padding: 0 16px;
   height: 76px;

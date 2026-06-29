@@ -339,10 +339,10 @@
   transition: opacity 200ms;
 }
 .social-btn:hover { opacity: 0.88; }
-.social-btn--email     { background: var(--primary); }
-.social-btn--twitter   { background: #1da1f2; }
+.social-btn--email     { background: #EA4335; }
+.social-btn--linkedin  { background: #0A66C2; }
 .social-btn--instagram { background: #e1306c; }
-.social-btn--bluesky   { background: #0085ff; }
+.social-btn--facebook  { background: #1877F2; }
 .social-btn .material-symbols-outlined { font-size: 22px; }
 .involve-signup-grid {
   display: grid;

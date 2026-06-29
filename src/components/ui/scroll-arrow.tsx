@@ -11,7 +11,7 @@ const DOT_VALUES = [2, 1, 0, 1, 2];
 export default function ScrollArrow({ onClick, className, visible }: Props) {
   const visClass = visible === false ? '' : visible === true ? ' scroll-arrow--visible' : '';
   return (
-    <button className={`scroll-arrow${visClass}${className ? ` ${className}` : ''}`} onClick={onClick} aria-label="Scroll to content">
+    <button className={`scroll-arrow${visClass}${className ? ` ${className}` : ''}`} onClick={onClick} aria-label="Scroll to content" suppressHydrationWarning>
       {[3, 2, 1, 0].map((parentIdx) => (
         <span
           key={parentIdx}
