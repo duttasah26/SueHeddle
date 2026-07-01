@@ -1,13 +1,12 @@
 "use client";
 
-import "@/styles/rebate.css";
 import NavBar from "@/components/NavBar";
 import GetInvolvedSection from "@/components/GetInvolvedSection";
 
 export default function RebatePage() {
   return (
     <>
-      <NavBar slim />
+      <NavBar />
       <main>
 
         {/* Hero */}
@@ -89,7 +88,7 @@ export default function RebatePage() {
                 <p className="rebate-elig-col-title">Eligible</p>
                 <ul className="rebate-elig-list">
                   <li>Eligible elector residing in the Town of Oakville</li>
-                  <li>Listed on the Oakville voters&apos; list</li>
+                  <li>Listed on the Oakville voters' list</li>
                   <li>Contribution of $100 or more (not cash)</li>
                   <li>Application submitted by June 28, 2027</li>
                 </ul>
@@ -119,7 +118,7 @@ export default function RebatePage() {
                 <div>
                   <p className="rebate-step-title">Make a contribution</p>
                   <p className="rebate-step-desc">
-                    Donate $100 or more to Sue&apos;s campaign by cheque, money order, e-transfer, or credit card.
+                    Donate $100 or more to Sue's campaign by cheque, money order, e-transfer, or credit card.
                     Cash contributions do not qualify. Maximum is $1,200 per candidate.
                   </p>
                 </div>
@@ -129,8 +128,8 @@ export default function RebatePage() {
                 <div>
                   <p className="rebate-step-title">Campaign submits the application</p>
                   <p className="rebate-step-desc">
-                    The campaign registers your contribution through the Town of Oakville&apos;s online portal.
-                    You&apos;ll receive an email with a personal link to complete your portion of the rebate claim.
+                    The campaign registers your contribution through the Town of Oakville's online portal.
+                    You'll receive an email with a personal link to complete your portion of the rebate claim.
                   </p>
                 </div>
               </div>
@@ -202,4 +201,3 @@ export default function RebatePage() {
     </>
   );
 }
-

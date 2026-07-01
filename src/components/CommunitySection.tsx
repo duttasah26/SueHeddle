@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const sliderPhotos = [
@@ -16,6 +17,7 @@ const sliderPhotos = [
   { src: "/images/sue/comm_spirit_10.jpg",    alt: "Sue at community gathering" },
   { src: "/images/sue/comm_spirit_13.jpg",    alt: "Sue with residents" },
   { src: "/images/sue/comm_spirit_15.jpg",    alt: "Community event" },
+  { src: "/images/sue/comm_spirit_x.jpg",     alt: "Sue at community event" },
   { src: "/images/sue/culture_1.jpg",         alt: "Sue with Ward 5 residents" },
   { src: "/images/sue/culture_2.jpg",         alt: "Sue at local event" },
   { src: "/images/sue/culture_3.jpg",         alt: "Cultural exchange" },
@@ -30,17 +32,75 @@ const sliderPhotos = [
   { src: "/images/sue/hockey_3.jpg",          alt: "Youth hockey program" },
   { src: "/images/sue/hockey_4.jpg",          alt: "Hockey Cares community" },
   { src: "/images/sue/hockey_5.jpg",          alt: "Hockey event" },
-  { src: "/images/sue/hockey_6.jpg",          alt: "Hockey Cares gathering" },
+  { src: "/images/sue/hockey_6.jpg",           alt: "Hockey Cares gathering" },
+  { src: "/images/sue/fireman_1.jpg",          alt: "Sue with essential workers" },
+  { src: "/images/sue/fireman_2.jpg",          alt: "Supporting essential workers" },
+  { src: "/images/award/award (1).jpg",        alt: "Sue at award event" },
+  { src: "/images/award/award (2).jpg",        alt: "Award ceremony" },
+  { src: "/images/award/award (3).jpg",        alt: "Award event" },
+  { src: "/images/award/award (4).jpg",        alt: "Sue receiving recognition" },
+  { src: "/images/award/award (5).jpg",        alt: "Award presentation" },
+  { src: "/images/award/award (6).jpg",        alt: "Recognition event" },
+  { src: "/images/award/award (7).jpg",        alt: "Sue at awards" },
+  { src: "/images/award/award (8).jpg",        alt: "Community award" },
+  { src: "/images/award/award (9).jpg",        alt: "Award ceremony" },
+  { src: "/images/award/award (10).jpg",       alt: "Award event" },
+  { src: "/images/award/award (11).jpg",       alt: "Sue receiving award" },
+  { src: "/images/award/award (12).jpg",       alt: "Award recognition" },
+  { src: "/images/award/award (13).jpg",       alt: "Community recognition" },
 ];
 
-function Gallery({ images }: { images: { src: string; alt: string; objectPosition?: string }[] }) {
+function Gallery({ images, showCaption, centerVideo }: { images: { src: string; alt: string; objectPosition?: string; caption?: string }[]; showCaption?: boolean; centerVideo?: string }) {
+  const [muted, setMuted] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPaused(false); }
+    else { v.pause(); setPaused(true); }
+  }
+
+  function toggleMute() {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  }
+
   return (
-    <div className="flow-gallery">
-      {images.map(({ src, alt, objectPosition }, i) => (
-        <div key={i} className="flow-gallery-cell">
-          <img src={src} alt={alt} className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
+    <div className={`flow-gallery${showCaption ? " flow-gallery--captioned" : ""}${centerVideo ? " flow-gallery--has-video" : ""}`}>
+      {images.map(({ src, alt, objectPosition, caption }, i) => {
+        const hasCaption = showCaption || !!caption;
+        return (
+          <div key={i} className={`flow-gallery-cell${hasCaption ? " flow-gallery-cell--captioned" : ""}`}>
+            <img src={src} alt={alt} className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
+            {hasCaption && <span className="flow-gallery-caption">{caption ?? alt}</span>}
+          </div>
+        );
+      })}
+      {centerVideo && (
+        <div className="flow-gallery-video-wrap">
+          <video
+            ref={videoRef}
+            src={centerVideo}
+            autoPlay
+            muted={muted}
+            loop
+            playsInline
+            className="flow-gallery-video"
+          />
+          <div className="flow-gallery-video-controls">
+            <button suppressHydrationWarning onClick={togglePlay} aria-label={paused ? "Play" : "Pause"} className="flow-gallery-video-btn">
+              <span className="material-symbols-outlined">{paused ? "play_arrow" : "pause"}</span>
+            </button>
+            <button suppressHydrationWarning onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"} className="flow-gallery-video-btn">
+              <span className="material-symbols-outlined">{muted ? "volume_off" : "volume_up"}</span>
+            </button>
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 }
@@ -50,7 +110,11 @@ export default function CommunitySection() {
   return (
     <>
       <section className="community-section" id="community-support">
-        <h2 className="community-heading">{t("community.heading")}</h2>
+        <h2 className="community-heading">
+          {t("community.heading")}
+          <span style={{ color: "var(--primary)" }}>{t("community.headingAccent")}</span>
+          {t("community.headingPost")}
+        </h2>
         <div className="slider-container">
           <div className="slider-track">
             {[...sliderPhotos, ...sliderPhotos].map(({ src, alt }, i) => (
@@ -99,7 +163,11 @@ export default function CommunitySection() {
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s2Heading")}</h2>
+                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
+                  {"Connecting\n"}
+                  <span style={{ color: "var(--primary)" }}>{"Oakville"}</span>
+                  {"\nThrough\nSport"}
+                </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s2Body")}</p>
               </div>
@@ -109,11 +177,13 @@ export default function CommunitySection() {
 
         <section aria-label="National Recognition" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#000", color: "#fff" }}>
-            <div className="flow-text-image-row">
+            <div className="flow-text-image-row flow-row--text-first">
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s3Heading")}</h2>
+                <h2 className="flow-heading">
+                  Sue Winning<br /><span style={{ color: "var(--primary)" }}>National</span><br />Awards
+                </h2>
                 <hr className="flow-divider" />
                 <div className="flow-cols">
                   <div className="flow-col">
@@ -126,11 +196,11 @@ export default function CommunitySection() {
                   </div>
                 </div>
               </div>
-              <Gallery images={[
-                { src: "/images/sue/award_12.jpg",   alt: "Sue receiving the REALTORS Care Award"},
-                { src: "/images/sue/award_2.jpg", alt: "Award ceremony", objectPosition: "50% 15%" },
-                { src: "/images/sue/award_3.jpg", alt: "National recognition event" },
-                { src: "/images/sue/award_10.jpg", alt: "Hockey Cares — the program behind the award", objectPosition: "50% 35%" },
+              <Gallery showCaption centerVideo="https://res.cloudinary.com/aurx0hy5/video/upload/v1782869683/sue-clip_ys7ide.mp4" images={[
+                { src: "/images/sue/award_12.jpg", alt: "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall" },
+                { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%" },
+                { src: "/images/sue/award_3.jpg",  alt: "Sue at King Charles III medal award ceremony" },
+                { src: "/images/sue/award_2.jpg",  alt: "Sue with current Oakville mayor, Rob Burton", objectPosition: "50% 20%" },
               ]} />
             </div>
           </div>
@@ -139,16 +209,20 @@ export default function CommunitySection() {
         <section aria-label="Professional Roots in Oakville" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#fcf9f8", color: "#1c1b1b" }}>
             <div className="flow-text-image-row">
-              <Gallery images={[
-                { src: "/images/sue/comm_spirit_3.jpg", alt: "Sue in the Oakville community", objectPosition: "50% 40%" },
-                { src: "/images/sue/comm_spirit_5.jpg", alt: "Sue connecting with residents", objectPosition: "50% 20%" },
-                { src: "/images/sue/culture_1.jpg",     alt: "Community engagement" },
-                { src: "/images/sue/culture_2.jpg",     alt: "Sue at a local event" },
+              <Gallery showCaption images={[
+                { src: "/images/sue/comm_spirit_3.jpg", alt: "Working with indigenous women to create awareness about missing and murdered women", objectPosition: "50% 40%" },
+                { src: "/images/sue/comm_spirit.jpg",   alt: "Sue serving breakfast with RCMP in Kuaaruk, Nunavut", objectPosition: "50% 20%" },
+                { src: "/images/sue/fireman_2.jpg",     alt: "Sue presenting a plaque to the Oakville fire department" },
+                { src: "/images/sue/culture_2.jpg",     alt: "Sue attending Chinese Lunar New Year celebration" },
               ]} />
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s4Heading")}</h2>
+                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
+                  {"Cultures.\n"}
+                  <span style={{ color: "var(--primary)" }}>{"Communities."}</span>
+                  {"\nConnections."}
+                </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s4Body")}</p>
               </div>
@@ -158,7 +232,7 @@ export default function CommunitySection() {
 
         <section aria-label="A Voice for Ward 5" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#e70685", color: "#fff" }}>
-            <div className="flow-text-image-row">
+            <div className="flow-text-image-row flow-row--text-first">
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s5Eyebrow")}</p>
                 <hr className="flow-divider" />
@@ -167,10 +241,10 @@ export default function CommunitySection() {
                 <p className="flow-body">{t("community.s5Body")}</p>
               </div>
               <Gallery images={[
-                { src: "/images/sue/comm_spirit_13.jpg", alt: "Sue at a Ward 5 event" },
-                { src: "/images/sue/comm_spirit_15.jpg", alt: "Community event" },
-                { src: "/images/sue/comm_spirit_8 (2).jpg", alt: "Community gathering" },
-                { src: "/images/sue/comm_spirit_9.jpg", alt: "Sue with local supporters" },
+                { src: "/images/award/award (6).jpg",  alt: "Sue Heddle at award ceremony" },
+                { src: "/images/award/award (1).jpg",  alt: "Award recognition event" },
+                { src: "/images/award/award (8).jpg",  alt: "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip", caption: "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip" },
+                { src: "/images/award/award (2).jpg",  alt: "Sue receiving award" },
               ]} />
             </div>
           </div>

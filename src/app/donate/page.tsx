@@ -13,6 +13,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useLanguage } from "@/contexts/LanguageContext";
+import LoadingDots from "@/components/LoadingDots";
 
 const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
@@ -50,6 +51,7 @@ const MAX_DONATION = 10_000;
 const STRIPE_PCT = 0.029;
 const STRIPE_FLAT = 0.30;
 
+// Canadian postal code: A1A 1A1 or A1A1A1
 const CA_POSTAL_RE = /^[A-Za-z]\d[A-Za-z]\s?\d[A-Za-z]\d$/;
 
 function calcActualCost(amount: number): number {
@@ -57,13 +59,14 @@ function calcActualCost(amount: number): number {
   return amount - Math.min(amount, REBATE_CAP) * REBATE_RATE;
 }
 
+// Returns the gross amount to charge so the campaign nets exactly `amount` after Stripe fees.
+// Formula: gross = (amount + STRIPE_FLAT) / (1 - STRIPE_PCT)
 function calcEffectiveWithFee(amount: number): number {
   return Math.round(((amount + STRIPE_FLAT) / (1 - STRIPE_PCT)) * 100) / 100;
 }
 
 interface PaymentFormProps {
   effectiveAmount: number;
-  displayAmount: number;
   stripeFee: number;
   coverFee: boolean;
   setCoverFee: (v: boolean) => void;
@@ -72,12 +75,12 @@ interface PaymentFormProps {
   email: string;
   isOakvilleResident: boolean;
   onBack: () => void;
-  onSuccess: (postal: string, address: string, unit: string, city: string) => void;
+  onSuccess: () => void;
   t: (key: string) => string;
 }
 
 function PaymentForm({
-  effectiveAmount, displayAmount, stripeFee, coverFee, setCoverFee,
+  effectiveAmount, stripeFee, coverFee, setCoverFee,
   firstName, lastName, email, isOakvilleResident, onBack, onSuccess, t,
 }: PaymentFormProps) {
   const stripe = useStripe();
@@ -86,12 +89,15 @@ function PaymentForm({
   const [paymentError, setPaymentError] = useState("");
   const [certified, setCertified] = useState(false);
 
+  // Per-field focus state for separate card elements
   const [numFocused, setNumFocused]     = useState(false);
   const [expFocused, setExpFocused]     = useState(false);
   const [cvcFocused, setCvcFocused]     = useState(false);
 
+  // Apple Pay / Google Pay
   const [paymentRequest, setPaymentRequest] = useState<StripePaymentRequest | null>(null);
 
+  // Refs to keep event handler current without re-registering it
   const effectiveAmountRef = useRef(effectiveAmount);
   const certifiedRef       = useRef(certified);
   const onSuccessRef       = useRef(onSuccess);
@@ -99,6 +105,7 @@ function PaymentForm({
   useEffect(() => { certifiedRef.current = certified; }, [certified]);
   useEffect(() => { onSuccessRef.current = onSuccess; }, [onSuccess]);
 
+  // Create payment request once when Stripe loads
   useEffect(() => {
     if (!stripe) return;
     const pr = stripe.paymentRequest({
@@ -130,6 +137,19 @@ function PaymentForm({
         });
         const data = await res.json();
         if (data.error) { event.complete("fail"); setPaymentError(data.error); return; }
+        const piId = data.clientSecret.split("_secret_")[0];
+        await fetch("/api/set-payment-metadata", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            paymentIntentId: piId,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            email,
+            isOakvilleResident,
+            address: "", unit: "", city: "", province: "ON", postal: "",
+          }),
+        }).catch(() => {});
         const { error } = await stripe.confirmCardPayment(
           data.clientSecret,
           { payment_method: event.paymentMethod.id },
@@ -140,20 +160,7 @@ function PaymentForm({
           setPaymentError(error.message ?? "Payment failed. Please try again.");
         } else {
           event.complete("success");
-          fetch("/api/send-receipt", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              firstName: firstName.trim(),
-              lastName: lastName.trim(),
-              email,
-              amount: displayAmount,
-              paymentIntentId: data.clientSecret.split("_secret_")[0],
-              oakvilleResident: isOakvilleResident,
-              address: "", unit: "", city: "", province: "ON", postal: "",
-            }),
-          }).catch(() => {});
-          onSuccessRef.current("", "", "", "");
+          onSuccessRef.current();
         }
       } catch {
         event.complete("fail");
@@ -165,6 +172,7 @@ function PaymentForm({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stripe]);
 
+  // Keep payment sheet amount in sync when fee toggle changes
   useEffect(() => {
     if (!paymentRequest) return;
     paymentRequest.update({
@@ -184,6 +192,7 @@ function PaymentForm({
   const handleDonate = useCallback(async () => {
     if (!stripe || !elements) return;
 
+    // — frontend guards —
     if (!certified) {
       setPaymentError("Please certify the above statements before donating.");
       return;
@@ -213,6 +222,24 @@ function PaymentForm({
       const data = await res.json();
       if (data.error) { setPaymentError(data.error); return; }
 
+      const piId = data.clientSecret.split("_secret_")[0];
+      await fetch("/api/set-payment-metadata", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paymentIntentId: piId,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email,
+          isOakvilleResident,
+          address: address.trim(),
+          unit: unit.trim(),
+          city: city.trim(),
+          province,
+          postal: postal.trim().toUpperCase(),
+        }),
+      }).catch(() => {});
+
       const cardNumberElement = elements.getElement(CardNumberElement);
       if (!cardNumberElement) return;
 
@@ -236,24 +263,7 @@ function PaymentForm({
       if (error) {
         setPaymentError(error.message ?? "Payment failed. Please try again.");
       } else if (paymentIntent?.status === "succeeded") {
-        fetch("/api/send-receipt", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            firstName: firstName.trim(),
-            lastName: lastName.trim(),
-            email,
-            amount: displayAmount,
-            paymentIntentId: paymentIntent.id,
-            oakvilleResident: isOakvilleResident,
-            address: address.trim(),
-            unit: unit.trim(),
-            city: city.trim(),
-            province,
-            postal: postal.trim().toUpperCase(),
-          }),
-        }).catch(() => {});
-        onSuccess(postal.trim().toUpperCase(), address.trim(), unit.trim(), city.trim());
+        onSuccess();
       }
     } catch {
       setPaymentError("Something went wrong. Please try again.");
@@ -266,6 +276,7 @@ function PaymentForm({
     <section>
       <h1 className="donate-step-title">{t("donate.heading3")}</h1>
 
+      {/* — Apple Pay / Google Pay — */}
       {paymentRequest && (
         <div className="donate-wallet-section">
           <PaymentRequestButtonElement
@@ -280,6 +291,7 @@ function PaymentForm({
         </div>
       )}
 
+      {/* — Split card fields — */}
       <div className="form-fields-col" style={{ marginBottom: 24 }}>
         <div className="form-field">
           <label className="form-field-label">{t("donate.labelCard")} *</label>
@@ -318,6 +330,7 @@ function PaymentForm({
 
       {paymentError && <p className="donate-payment-error">{paymentError}</p>}
 
+      {/* — Billing address — */}
       <p className="donate-section-label" style={{ marginBottom: 12 }}>Billing Address</p>
       <div className="form-fields-col">
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 8 }}>
@@ -352,6 +365,7 @@ function PaymentForm({
         </div>
       </div>
 
+      {/* — Certification (required) — */}
       <label className="donate-cert-box">
         <p className="donate-cert-text">
           I certify this contribution is made from my own funds, and I am a resident of Ontario.
@@ -367,6 +381,7 @@ function PaymentForm({
         </span>
       </label>
 
+      {/* — Processing fee opt-in — */}
       <label className="donate-fee-check">
         <input
           type="checkbox"
@@ -391,61 +406,12 @@ function PaymentForm({
           disabled={!stripe || processing || !certified}
         >
           {processing
-            ? "Processing…"
+            ? <LoadingDots label="Processing" />
             : t("donate.donateBtnLabel").replace("${amount}", effectiveAmount.toFixed(2))}
           {!processing && <span className="material-symbols-outlined">favorite</span>}
         </button>
       </div>
     </section>
-  );
-}
-
-function NewsletterSignupPrompt({ firstName, email, postal }: { firstName: string; email: string; postal: string }) {
-  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
-
-  async function handleSignup() {
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: firstName.trim(), email, postal }),
-      });
-      setStatus(res.ok ? "done" : "error");
-    } catch {
-      setStatus("error");
-    }
-  }
-
-  if (status === "done") {
-    return (
-      <div style={{ background: "#f8f4f3", border: "2px solid #e5e2e1", padding: "20px 24px", marginBottom: 8, textAlign: "center" }}>
-        <span className="material-symbols-outlined" style={{ color: "var(--primary)", fontSize: 28, display: "block", marginBottom: 8 }}>check_circle</span>
-        <p style={{ fontSize: 14, color: "var(--on-surface)", fontWeight: 700, margin: 0 }}>You&apos;re on the list!</p>
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ background: "#f8f4f3", border: "2px solid #e5e2e1", padding: "20px 24px", marginBottom: 8 }}>
-      <p style={{ fontSize: 14, fontWeight: 700, color: "var(--on-surface)", margin: "0 0 6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>
-        Stay in the loop
-      </p>
-      <p style={{ fontSize: 14, color: "var(--on-surface-variant)", margin: "0 0 16px", lineHeight: 1.5 }}>
-        Get updates on Ward 5 events and ways to get involved.
-      </p>
-      <button
-        className="donate-next-btn"
-        onClick={handleSignup}
-        disabled={status === "loading"}
-        style={{ fontSize: 16, padding: "14px 20px" }}
-      >
-        {status === "loading" ? "Signing up…" : "Sign me up for updates"}
-      </button>
-      {status === "error" && (
-        <p style={{ fontSize: 13, color: "#c0392b", marginTop: 10, marginBottom: 0 }}>Something went wrong. Please try again.</p>
-      )}
-    </div>
   );
 }
 
@@ -464,7 +430,6 @@ export default function DonatePage() {
   const [phone, setPhone]         = useState("");
   const [step1Error, setStep1Error] = useState("");
   const [step2Error, setStep2Error] = useState("");
-  const [billingPostal, setBillingPostal] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -495,11 +460,8 @@ export default function DonatePage() {
             <p style={{ color: "var(--on-surface-variant)", marginTop: 8 }}>
               Your donation of ${displayAmount.toFixed(2)} has been processed.
             </p>
+            <a href="/" style={{ display: "inline-block", marginTop: 32 }} className="donate-next-btn">Return Home</a>
           </div>
-
-          <NewsletterSignupPrompt firstName={firstName} email={email} postal={billingPostal} />
-
-          <a href="/" style={{ display: "inline-block", marginTop: 24 }} className="donate-next-btn">Return Home</a>
         </div>
       </div>
     );
@@ -515,6 +477,7 @@ export default function DonatePage() {
           <a href="/"><img src="/images/icons/brand.png" alt="Sue Heddle" className="donate-logo-img" /></a>
         </div>
 
+        {/* Step indicator */}
         <div className="donate-steps">
           {[1, 2, 3].map((n, i) => (
             <div key={`step-group-${n}`} style={{ display: "contents" }}>
@@ -528,9 +491,16 @@ export default function DonatePage() {
           ))}
         </div>
 
+        {/* Step 1 — Amount */}
         {step === 1 && (
           <section>
             <h1 className="donate-step-title">{t("donate.heading1")}</h1>
+            <div className="donate-etransfer-banner">
+              <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0 }}>email</span>
+              <p>Prefer e-transfer? Send to{" "}
+                <a href="mailto:sueheddle@gmail.com" className="donate-etransfer-email">sueheddle@gmail.com</a>
+              </p>
+            </div>
             <div className="rebate-intro">
               <span className="rebate-intro-badge">50% BACK</span>
               <p>Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
@@ -598,6 +568,7 @@ export default function DonatePage() {
           </section>
         )}
 
+        {/* Step 2 — Information */}
         {step === 2 && (
           <section>
             <h1 className="donate-step-title">{t("donate.heading2")}</h1>
@@ -652,11 +623,11 @@ export default function DonatePage() {
           </section>
         )}
 
+        {/* Step 3 — Payment */}
         {step === 3 && (
           <Elements stripe={stripePromise} options={{ appearance: stripeAppearance }}>
             <PaymentForm
               effectiveAmount={effectiveAmount}
-              displayAmount={displayAmount}
               stripeFee={stripeFee}
               coverFee={coverFee}
               setCoverFee={setCoverFee}
@@ -665,11 +636,12 @@ export default function DonatePage() {
               email={email}
               isOakvilleResident={isOakvilleResident}
               onBack={() => setStep(2)}
-              onSuccess={(postal) => { setBillingPostal(postal); setDonated(true); }}
+              onSuccess={() => setDonated(true)}
               t={t}
             />
           </Elements>
         )}
+
       </div>
     </div>
   );

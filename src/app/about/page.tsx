@@ -1,8 +1,51 @@
 "use client";
 
+import { useState, useRef } from "react";
 import NavBar from "@/components/NavBar";
 import GetInvolvedSection from "@/components/GetInvolvedSection";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+function AwardVideo() {
+  const [muted,  setMuted]  = useState(true);
+  const [paused, setPaused] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPaused(false); }
+    else          { v.pause(); setPaused(true); }
+  }
+
+  function toggleMute() {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  }
+
+  return (
+    <div className="about-video-wrap">
+      <video
+        ref={videoRef}
+        src="https://res.cloudinary.com/aurx0hy5/video/upload/v1782869663/award_pmhpbd.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="about-video"
+      />
+      <div className="flow-gallery-video-controls">
+        <button suppressHydrationWarning onClick={togglePlay} aria-label={paused ? "Play" : "Pause"} className="flow-gallery-video-btn">
+          <span className="material-symbols-outlined">{paused ? "play_arrow" : "pause"}</span>
+        </button>
+        <button suppressHydrationWarning onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"} className="flow-gallery-video-btn">
+          <span className="material-symbols-outlined">{muted ? "volume_off" : "volume_up"}</span>
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const { t } = useLanguage();
@@ -14,49 +57,32 @@ export default function AboutPage() {
         <section className="about-hero">
           <div className="about-hero-inner">
             <h1 className="about-hero-heading">
-              {t("about.heroHeading")}
+              {t("about.heroHeading")}{" "}
               <span className="accent">{t("about.heroHeadingAccent")}</span>
             </h1>
-            <p className="about-hero-subtitle">{t("about.heroSubtitle")}</p>
-          </div>
-        </section>
-
-        {/* Bio */}
-        <section className="about-bio">
-          <div className="about-section-inner">
-            <div className="about-bio-body">
-              <p>{t("about.bioP1")}</p>
-              <p>{t("about.bioP2")}</p>
-              <p>
-                {t("about.bioP3Pre")}
-                <strong className="about-bio-highlight">Hockey Cares</strong>
-                {t("about.bioP3Mid1")}
-                <strong className="about-bio-highlight">SafetyNet</strong>
-                {t("about.bioP3Mid2")}
-                <strong className="about-bio-highlight">SAVIS</strong>
-                {t("about.bioP3Post")}
-              </p>
-              <p>{t("about.bioP4")}</p>
-              <p>{t("about.bioP5")}</p>
-            </div>
+            <p className="about-hero-subtitle">
+              Building Ward 5's <span style={{ color: "var(--primary)" }}>Future</span> Together
+            </p>
           </div>
         </section>
 
         {/* Why I'm Running */}
         <section className="about-why">
-          <div className="about-section-inner">
-            <h2 className="about-section-heading">{t("about.whyHeading")}</h2>
+          <div className="about-why-inner">
             <div className="about-why-body">
               <p>{t("about.whyP1")}</p>
               <p>{t("about.whyP2")}</p>
               <p>{t("about.whyP3")}</p>
               <p>{t("about.whyP4")}</p>
             </div>
+            <AwardVideo />
           </div>
         </section>
 
         {/* Get Involved */}
-        <GetInvolvedSection />
+        <div className="about-involve">
+          <GetInvolvedSection />
+        </div>
       </main>
     </>
   );

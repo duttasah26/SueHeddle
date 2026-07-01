@@ -1,11 +1,6 @@
-import Stripe from "stripe";
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { appendRow } from "@/lib/googleSheets";
-
-function esc(s: string): string {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
 
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 5;
@@ -28,13 +23,13 @@ function receiptHtml(
   lastName: string,
   amount: number,
   paymentIntentId: string,
+  email: string,
 ): string {
-  const receiptNo  = paymentIntentId.slice(-8).toUpperCase();
-  const dateStr    = new Date().toLocaleDateString("en-CA", {
+  const receiptNo = paymentIntentId.slice(-8).toUpperCase();
+  const unsubUrl  = `https://sueheddle.ca/unsubscribe?email=${encodeURIComponent(email)}&from=newsletter`;
+  const dateStr   = new Date().toLocaleDateString("en-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
-  const safeFirst  = esc(firstName);
-  const safeLast   = esc(lastName);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -50,10 +45,9 @@ function receiptHtml(
 
         <!-- Header -->
         <tr>
-          <td style="background:#1a1a1a;padding:28px 32px;text-align:center;">
-            <img src="https://sueheddle.ca/images/icons/circle_icon.png" alt="Sue Heddle" height="52"
+          <td style="background:#1a1a1a;padding:24px 32px;text-align:center;">
+            <img src="https://sueheddle.ca/images/icons/circle_icon.png" alt="Sue Heddle" height="48"
               style="display:block;margin:0 auto;" />
-            <p style="margin:10px 0 0;color:#fff;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;">Sue Heddle &middot; Ward 5 Councillor</p>
           </td>
         </tr>
 
@@ -61,7 +55,7 @@ function receiptHtml(
         <tr>
           <td style="padding:40px 32px 24px;">
             <h1 style="margin:0 0 8px;font-size:26px;color:#e70685;font-weight:700;">
-              Thank you, ${safeFirst}!
+              Thank you, ${firstName}!
             </h1>
             <p style="margin:0 0 24px;color:#555;font-size:15px;line-height:1.6;">
               Your donation to the Sue Heddle — Ward 5 campaign has been received.
@@ -74,7 +68,7 @@ function receiptHtml(
               <tr>
                 <td style="padding:16px 20px;border-bottom:1px solid #e5e5e5;">
                   <span style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:.05em;">Donor</span><br />
-                  <span style="font-size:15px;color:#1a1a1a;font-weight:600;">${safeFirst} ${safeLast}</span>
+                  <span style="font-size:15px;color:#1a1a1a;font-weight:600;">${firstName} ${lastName}</span>
                 </td>
               </tr>
               <tr>
@@ -112,20 +106,17 @@ function receiptHtml(
             </table>
 
             <p style="margin:0;font-size:14px;color:#888;line-height:1.6;">
-              Questions? Reply to this email or contact us at
-              <a href="mailto:sueheddle@gmail.com" style="color:#e70685;">sueheddle@gmail.com</a>.
+              For more details, reach us at <a href="mailto:sueheddle@gmail.com" style="color:#e70685;">sueheddle@gmail.com</a>.
             </p>
           </td>
         </tr>
 
         <!-- Footer -->
         <tr>
-          <td style="padding:20px 32px;background:#f9f9f9;border-top:1px solid #e5e5e5;text-align:center;">
-            <p style="margin:0;font-size:12px;color:#aaa;line-height:1.6;">
-              Sue Heddle for Ward 5 Councillor &middot; Oakville, ON<br />
-              <a href="https://sueheddle.ca" style="color:#e70685;text-decoration:none;">sueheddle.ca</a>
-              &nbsp;&middot;&nbsp;
-              <a href="mailto:info@sueheddle.ca" style="color:#aaa;text-decoration:none;">info@sueheddle.ca</a>
+          <td style="padding:20px 32px;background:#e70685;text-align:center;">
+            <p style="margin:0 0 8px;font-size:12px;color:#fff;font-weight:700;">Sue Heddle for Ward 5 — Oakville</p>
+            <p style="margin:0;font-size:12px;color:#fff;">
+              You received this email because you are part of our campaign community.&nbsp;&nbsp;<a href="${unsubUrl}" style="color:#fff;text-decoration:underline;">Unsubscribe</a>
             </p>
           </td>
         </tr>
@@ -155,8 +146,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const { firstName, lastName, email, amount, paymentIntentId, oakvilleResident,
-    address, unit, city, province, postal } =
+  const { firstName, lastName, email, amount, paymentIntentId } =
     body as Record<string, unknown>;
 
   if (
@@ -176,82 +166,36 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid payment reference." }, { status: 400 });
   }
 
-  // Verify the payment actually succeeded with Stripe before recording anything
-  if (!process.env.STRIPE_SECRET_KEY) {
-    return NextResponse.json({ error: "Payment service not configured." }, { status: 503 });
-  }
-  try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-    const pi = await stripe.paymentIntents.retrieve(paymentIntentId as string);
-    if (pi.status !== "succeeded") {
-      return NextResponse.json({ error: "Payment not confirmed." }, { status: 400 });
-    }
-    // Guard against amount tampering (allow 1-cent rounding tolerance)
-    if (Math.abs(pi.amount - Math.round(numAmount * 100)) > 1) {
-      return NextResponse.json({ error: "Amount mismatch." }, { status: 400 });
-    }
-  } catch {
-    return NextResponse.json({ error: "Could not verify payment." }, { status: 502 });
-  }
-
   const timestamp = new Date().toLocaleString("en-CA", {
     timeZone: "America/Toronto",
     year: "numeric", month: "2-digit", day: "2-digit",
     hour: "2-digit", minute: "2-digit", second: "2-digit",
   });
-  const resident = oakvilleResident === true ? "YES" : "NO";
+  const fullName = `${firstName.trim()} ${lastName.trim()}`;
 
-  // Write to Donations sheet (fire-and-forget, non-blocking)
-  const safeStr = (v: unknown) => (typeof v === "string" ? v.trim() : "");
-  appendRow("Donations", [
-    timestamp,
-    (firstName as string).trim(),
-    (lastName as string).trim(),
-    email,
-    `$${numAmount.toFixed(2)}`,
-    paymentIntentId,
-    resident,
-    safeStr(address),
-    safeStr(unit),
-    safeStr(city),
-    safeStr(province) || "ON",
-    safeStr(postal),
-  ])
-    .catch((err) => console.error("Sheets error (Donations):", err));
+  // Write to Donations and Newsletter sheets (fire-and-forget, non-blocking)
+  Promise.allSettled([
+    appendRow("Donations", [timestamp, firstName.trim(), lastName.trim(), email, `$${numAmount.toFixed(2)}`, paymentIntentId]),
+    appendRow("Newsletter", [timestamp, fullName, email, ""]),
+  ]).then((results) => {
+    results.forEach((r, i) => {
+      if (r.status === "rejected") {
+        console.error(`Sheets error (${i === 0 ? "Donations" : "Newsletter"}):`, r.reason);
+      }
+    });
+  });
 
   if (!process.env.RESEND_API_KEY || !process.env.RESEND_FROM_EMAIL) {
     return NextResponse.json({ ok: true });
   }
   const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const fName = (firstName as string).trim();
-  const lName = (lastName as string).trim();
-  const receiptNo = (paymentIntentId as string).slice(-8).toUpperCase();
-
-  const plainText = `Hi ${fName},
-
-Your donation of $${numAmount.toFixed(2)} CAD to the Sue Heddle — Ward 5 team has been received.
-
-Donor: ${fName} ${lName}
-Amount: $${numAmount.toFixed(2)} CAD
-Date: ${new Date().toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" })}
-Receipt No.: ${receiptNo}
-
-If you are an Oakville resident, you may be eligible for a 50% municipal contribution rebate on donations up to $1,200. Keep this email as your receipt.
-
-Questions? Reply to this email or contact us at info@sueheddle.ca.
-
-— Sue Heddle for Ward 5 Councillor, Oakville
-sueheddle.ca`;
-
   try {
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
-      replyTo: "sueheddle@gmail.com",
       to: email,
-      subject: `Donation receipt — Sue Heddle for Ward 5`,
-      html: receiptHtml(fName, lName, numAmount, paymentIntentId as string),
-      text: plainText,
+      subject: `Thank you for your donation, ${firstName.trim()}!`,
+      html: receiptHtml(firstName.trim(), lastName.trim(), numAmount, paymentIntentId, email),
     });
   } catch (err) {
     console.error("Resend error:", err);

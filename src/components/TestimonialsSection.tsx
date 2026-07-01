@@ -10,8 +10,8 @@ export default function TestimonialsSection() {
       quoteKey: "testimonials.t1Quote",
       nameKey: "testimonials.t1Name",
       roleKey: "testimonials.t1Role",
-      image: "/images/testimonial/anita-anand.jpg",
-      imagePosition: "50% 20%",
+      image: "/images/testimonial/safetynet.png",
+      imagePosition: "center",
     },
     {
       quoteKey: "testimonials.t2Quote",
@@ -24,8 +24,8 @@ export default function TestimonialsSection() {
       quoteKey: "testimonials.t3Quote",
       nameKey: "testimonials.t3Name",
       roleKey: "testimonials.t3Role",
-      image: undefined as string | undefined,
-      imagePosition: undefined as string | undefined,
+      image: "/images/testimonial/bridget.jpg",
+      imagePosition: "center top",
     },
   ];
 

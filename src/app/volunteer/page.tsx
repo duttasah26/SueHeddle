@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState, useEffect } from "react";
+import LoadingDots from "@/components/LoadingDots";
+import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function VolunteerPage() {
+function VolunteerForm() {
   const { t } = useLanguage();
+  const params = useSearchParams();
 
   const [firstName, setFirstName] = useState("");
   const [lastName,  setLastName]  = useState("");
@@ -18,6 +21,13 @@ export default function VolunteerPage() {
   const [vote,      setVote]      = useState(false);
   const [sign,      setSign]      = useState(false);
   const [volunteer, setVolunteer] = useState(false);
+
+  useEffect(() => {
+    const check = params.get("check");
+    if (check === "sign")      setSign(true);
+    if (check === "volunteer") setVolunteer(true);
+    if (check === "vote")      setVote(true);
+  }, [params]);
 
   const [submitting,   setSubmitting]   = useState(false);
   const [submitError,  setSubmitError]  = useState("");
@@ -173,11 +183,19 @@ export default function VolunteerPage() {
           )}
 
           <button className="donate-next-btn" type="submit" disabled={submitting}>
-            {submitting ? "Saving…" : t("volunteer.saveBtn")}
+            {submitting ? <LoadingDots label="Saving" /> : t("volunteer.saveBtn")}
             {!submitting && <span className="material-symbols-outlined">arrow_forward</span>}
           </button>
         </form>
       </div>
     </div>
+  );
+}
+
+export default function VolunteerPage() {
+  return (
+    <Suspense>
+      <VolunteerForm />
+    </Suspense>
   );
 }

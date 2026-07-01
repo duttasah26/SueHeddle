@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import LoadingDots from "@/components/LoadingDots";
 
 export default function GetInvolvedSection() {
   const { t } = useLanguage();
@@ -13,7 +14,7 @@ export default function GetInvolvedSection() {
   const [newsSubmitted,  setNewsSubmitted]  = useState(false);
   const [newsError,      setNewsError]      = useState("");
 
-  async function handleNewsSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+  async function handleNewsSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!newsName.trim()) { setNewsError("Name is required."); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsEmail.trim())) {
@@ -38,7 +39,28 @@ export default function GetInvolvedSection() {
   }
   return (
     <div id="get-involved">
-      {/* Row 1: Connect with Sue */}
+      {/* Row 1: Take Action */}
+      <div className="involve-row-action">
+        <div className="involve-row-inner">
+          <p className="involve-section-label">{t("getInvolved.takeAction")}</p>
+          <div className="action-grid">
+            <a href="/volunteer" className="action-btn">
+              {t("getInvolved.volunteer")}
+            </a>
+            <a href="/volunteer?check=sign" className="action-btn">
+              {t("getInvolved.getSign")}
+            </a>
+            <a href="/volunteer?check=volunteer" className="action-btn">
+              {t("getInvolved.joinCampaign")}
+            </a>
+            <a href="/donate" className="action-btn">
+              {t("getInvolved.makeDonation")}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Row 2: Connect with Sue */}
       <div className="involve-row-connect">
         <div className="involve-row-inner">
           <p className="involve-section-label">{t("getInvolved.connectWithSue")}</p>
@@ -92,7 +114,7 @@ export default function GetInvolvedSection() {
                     <input className="signup-input" type="text" placeholder={t("getInvolved.postalPlaceholder")}
                       value={newsPostal} onChange={(e) => setNewsPostal(e.target.value.toUpperCase())} suppressHydrationWarning />
                     <button type="submit" className="signup-submit" disabled={newsSubmitting} suppressHydrationWarning>
-                      {newsSubmitting ? "Saving…" : t("getInvolved.signUpBtn")}
+                      {newsSubmitting ? <LoadingDots label="Saving" /> : t("getInvolved.signUpBtn")}
                       {!newsSubmitting && <span className="material-symbols-outlined">arrow_forward</span>}
                     </button>
                   </div>
@@ -112,6 +134,12 @@ export default function GetInvolvedSection() {
                 <a href="/donate?amount=250" className="donation-btn">$250 →</a>
                 <a href="/donate?amount=500" className="donation-btn">$500 →</a>
                 <a href="/donate" className="donation-btn">Other →</a>
+              </div>
+              <div className="donation-rebate-note">
+                <span className="material-symbols-outlined">email</span>
+                <p>Prefer e-transfer? Send to{" "}
+                  <a href="mailto:sueheddle@gmail.com" style={{ color: "#fff", fontWeight: 700 }}>sueheddle@gmail.com</a>
+                </p>
               </div>
               <div className="donation-rebate-note">
                 <span className="material-symbols-outlined">info</span>

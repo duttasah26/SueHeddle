@@ -73,14 +73,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 500;
   opacity: 0.92;
 }
 .platform-grid > .platform-card:nth-child(2) .platform-card-item .material-symbols-outlined {
   color: var(--primary);
 }
-.platform-card-item .material-symbols-outlined { font-size: 16px; }
+.platform-card-item .material-symbols-outlined { font-size: 20px; }
 
 /* ── COMMUNITY SUPPORT ─────────────────────────────────────────── */
 .community-section {
@@ -109,6 +109,9 @@
   gap: 32px;
   width: max-content;
   animation: sliderScroll 120s linear infinite;
+}
+.slider-container:hover .slider-track {
+  animation-play-state: paused;
 }
 @keyframes sliderScroll {
   0%   { transform: translateX(0); }

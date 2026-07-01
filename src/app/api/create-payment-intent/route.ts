@@ -1,6 +1,8 @@
 import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
 
+// In-memory rate limiter — best-effort on serverless (resets per cold start).
+// Limits each IP to MAX_REQUESTS per WINDOW_MS.
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 5;
 const ipLog = new Map<string, number[]>();
@@ -15,6 +17,7 @@ function isRateLimited(ip: string): boolean {
 }
 
 const MIN_AMOUNT = 1;
+// Slightly above 10k to allow fee pass-through on max donations
 const MAX_AMOUNT = 10_400;
 
 export async function POST(req: NextRequest) {

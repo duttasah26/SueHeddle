@@ -1,18 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const PHASE_EXIT = { opacity: 0, y: -56, transition: { duration: 0.28, ease: "easeIn" as const } };
-const PHASE_SPRING = { type: "spring" as const, stiffness: 72, damping: 20 };
+const TRANSITION = { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const };
+const PHOTO_TRANSITION = { duration: 1.6, ease: [0.4, 0, 0.2, 1] as const };
+
+const HERO_PHOTOS = [
+  { src: "/images/sue/hero_shot.png",       style: {} },
+  { src: "/images/sue/hero_shot_promo.jpg", style: { objectPosition: "center 20%" } },
+  { src: "/images/award/award (1).jpg",     style: { objectPosition: "center top" } },
+];
 
 export default function HeroSection() {
   const { t } = useLanguage();
   const [phase, setPhase] = useState(0);
+  const [heddleKey, setHeddleKey] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => setPhase(p => (p + 1) % 2), 4500);
+    const id = setInterval(() => {
+      setPhase(p => {
+        const next = (p + 1) % 2;
+        if (next === 1) setHeddleKey(k => k + 1);
+        return next;
+      });
+    }, 4500);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPhotoIndex(i => (i + 1) % HERO_PHOTOS.length);
+    }, 5000);
     return () => clearInterval(id);
   }, []);
 
@@ -26,63 +47,64 @@ export default function HeroSection() {
             className="hero-brand-mark"
           />
         </div>
-        <div className="hero-heading-wrap" suppressHydrationWarning>
-          {/* initial={false}: first render appears immediately, no opening gap */}
-          <AnimatePresence mode="wait" initial={false}>
-            {phase === 0 ? (
-              <motion.div
-                key="vote"
-                className="hero-phase hero-phase-vote"
-                initial={{ opacity: 0, y: 56 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={PHASE_EXIT}
-                transition={PHASE_SPRING}
-                suppressHydrationWarning
-              >
-                <h1 className="hero-heading">
-                  {t("hero.voteLineA")}<br />
-                  {t("hero.voteLineB")}
-                  <span className="hero-heading-black">{t("hero.voteLineAccent")}</span>
-                </h1>
-                <p className="hero-election-date">
-                  {t("hero.electionDay")} <span className="hero-election-date-accent">{t("hero.electionDate")}</span>
-                </p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="heddle"
-                className="hero-phase"
-                initial={{ opacity: 0, y: 56 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={PHASE_EXIT}
-                transition={PHASE_SPRING}
-                suppressHydrationWarning
-              >
-                <div className="hero-elect">{t("hero.elect")}</div>
-                <h1 className="hero-heading">
-                  Sue<br />
-                  <span className="hero-heading-rel">
-                    Heddle
-                    <span className="animated-underline" />
-                  </span>
-                </h1>
-                <span className="hero-ward">{t("hero.ward")}</span>
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div className="hero-heading-wrap">
+          <motion.div
+            className="hero-phase hero-phase-vote"
+            animate={{ y: phase === 0 ? 0 : "-100%" }}
+            transition={TRANSITION}
+            aria-hidden={phase !== 0}
+          >
+            <h1 className="hero-heading">
+              {t("hero.voteLineA")}<br />
+              {t("hero.voteLineB")}
+              <span className="hero-heading-black">{t("hero.voteLineAccent")}</span>
+            </h1>
+            <p className="hero-election-date">
+              {t("hero.electionDay")} <span className="hero-election-date-accent">{t("hero.electionDate")}</span>
+            </p>
+          </motion.div>
+          <motion.div
+            className="hero-phase"
+            initial={{ y: "100%" }}
+            animate={{ y: phase === 1 ? 0 : "100%" }}
+            transition={TRANSITION}
+            aria-hidden={phase !== 1}
+          >
+            <div className="hero-elect">{t("hero.elect")}</div>
+            <h1 className="hero-heading">
+              Sue<br />
+              <span className="hero-heading-rel">
+                Heddle
+                <span className="animated-underline" key={heddleKey} />
+              </span>
+            </h1>
+            <span className="hero-ward">{t("hero.ward")}</span>
+          </motion.div>
         </div>
         <div className="hero-ctas">
-          <a href="/volunteer" className="hero-btn hero-btn--dark">
+          <a href="/volunteer?check=volunteer" className="hero-btn hero-btn--dark">
             {t("hero.ctaJoin")}
           </a>
-          <a href="/volunteer" className="hero-btn hero-btn--white">
+          <a href="/volunteer?check=sign" className="hero-btn hero-btn--white">
             {t("hero.ctaSign")}
           </a>
         </div>
       </div>
 
       <div className="hero-photo">
-        <img src="/sue-heddle.png" alt="Sue Heddle, Ward 5 Candidate" />
+        {HERO_PHOTOS.map(({ src, style }, i) => (
+          <motion.img
+            key={src}
+            src={src}
+            alt="Sue Heddle, Ward 5 Candidate"
+            style={style}
+            animate={{
+              opacity: i === photoIndex ? 1 : 0,
+              scale:   i === photoIndex ? 1 : 1.06,
+            }}
+            transition={PHOTO_TRANSITION}
+          />
+        ))}
         <div className="hero-photo-overlay" />
         <a href="/about" className="hero-quote-box">
           <p className="hero-quote-heading">

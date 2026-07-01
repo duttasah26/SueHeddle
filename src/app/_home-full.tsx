@@ -6,7 +6,7 @@ import IntroSection from "@/components/IntroSection";
 import PlatformSection from "@/components/PlatformSection";
 import CommunitySection from "@/components/CommunitySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import CommunityBanner from "@/components/CommunityBanner";
+import BannerSection from "@/components/BannerSection";
 import GetInvolvedSection from "@/components/GetInvolvedSection";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
         <PlatformSection />
         <CommunitySection />
         <TestimonialsSection />
-        <CommunityBanner />
+        <BannerSection />
         <GetInvolvedSection />
       </main>
     </>

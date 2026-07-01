@@ -3,7 +3,7 @@
 import type { Metadata } from "next";
 import { Lexend, JetBrains_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
-import SiteFooter from "@/components/SiteFooter";
+import FooterSection from "@/components/FooterSection";
 import PageTransition from "@/components/PageTransition";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
@@ -29,7 +29,7 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sue Heddle | Vote Sue for Ward 5",
+  title: "Elect Sue Heddle for Ward 5 Councillor",
   description:
     "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election. Learn about her platform, community involvement, and how you can get involved.",
 };
@@ -50,7 +50,7 @@ export default function RootLayout({
           <PageTransition>
             {children}
           </PageTransition>
-          <SiteFooter />
+          <FooterSection />
         </LanguageProvider>
       </body>
     </html>

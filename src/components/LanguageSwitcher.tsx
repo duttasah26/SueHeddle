@@ -25,6 +25,7 @@ export default function LanguageSwitcher() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-haspopup="listbox"
+        suppressHydrationWarning
       >
         {current?.name}
         <span className="material-symbols-outlined lang-chevron">

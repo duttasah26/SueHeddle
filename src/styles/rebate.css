@@ -1,10 +1,8 @@
 /* ── REBATE PAGE ──────────────────────────────────────────────────── */
 
-
 /* Hero */
 .rebate-hero {
-  position: relative;
-  padding: 80px var(--margin-desktop) 48px;
+  padding: 140px var(--margin-desktop) 48px;
   background: var(--dark-bg);
 }
 .rebate-hero-content { max-width: var(--container-max); margin: 0 auto; }
@@ -35,7 +33,7 @@
   max-width: 560px;
 }
 
-/* Stats */
+/* Stats — small cards, same aesthetic as platform cards */
 .rebate-stats {
   background: var(--dark-bg);
   padding: 32px var(--margin-desktop) 64px;
@@ -101,7 +99,7 @@
 .rebate-section--light .rebate-section-heading { color: var(--on-surface); }
 .rebate-section-heading .accent { color: var(--primary); }
 
-/* Eligibility */
+/* Eligibility 2-col */
 .rebate-eligibility {
   display: grid;
   grid-template-columns: 1fr 1fr;

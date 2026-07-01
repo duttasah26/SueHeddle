@@ -12,13 +12,23 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
+      // Next.js needs unsafe-inline; dev mode also needs unsafe-eval for stack reconstruction
       `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} js.stripe.com`,
+      // Google Fonts + inline styles (used extensively for pink spans)
       "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
+      // Google Fonts glyphs + Material Symbols
       "font-src 'self' fonts.gstatic.com",
+      // Stripe payment iframe
       "frame-src js.stripe.com",
+      // Stripe API calls from client
       "connect-src 'self' api.stripe.com api.resend.com",
-      "img-src 'self' data: blob:",
+      // Local images + Cloudinary
+      "img-src 'self' data: blob: res.cloudinary.com",
+      // Cloudinary video streaming
+      "media-src 'self' res.cloudinary.com",
+      // Block plugins entirely
       "object-src 'none'",
+      // Prevent base tag hijacking
       "base-uri 'self'",
     ].join("; "),
   },

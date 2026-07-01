@@ -48,7 +48,6 @@
 /* ── SOCIAL ICON ROW ─────────────────────────────────────────── */
 .sp-socials {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 }
@@ -68,15 +67,12 @@
 .sp-social-btn:hover { opacity: 0.85; transform: scale(1.06); }
 .sp-social-btn--wa  { background: #25D366; }
 .sp-social-btn--fb  { background: #1877F2; }
-.sp-social-btn--x   { background: #000; }
-.sp-social-btn--tg  { background: #2AABEE; }
-.sp-social-btn--ig  {
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-}
+.sp-social-btn--ig  { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
 .sp-social-btn--wc  { background: #07C160; }
 .sp-social-btn--sms { background: #007AFF; }
 .sp-social-btn--em  { background: #555; }
 .sp-social-btn .material-symbols-outlined { font-size: 20px; }
+.sp-socials { flex-wrap: wrap; }
 
 /* ── URL ROW ─────────────────────────────────────────────────── */
 .sp-url-row {
@@ -105,8 +101,8 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: 40px;
-  height: 40px;
+  bottom: 0;
+  width: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,7 +110,7 @@
   border: none;
   cursor: pointer;
   color: rgba(255,255,255,0.5);
-  border-radius: 0 8px 0 0;
+  border-radius: 0 8px 8px 0;
   transition: color 150ms ease;
 }
 .sp-copy-btn:hover { color: #fff; }
