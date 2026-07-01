@@ -196,7 +196,7 @@ export default function CommunitySection() {
                   </div>
                 </div>
               </div>
-              <Gallery showCaption centerVideo="/videos/sue-clip.mp4" images={[
+              <Gallery showCaption centerVideo="https://res.cloudinary.com/aurx0hy5/video/upload/v1782869683/sue-clip_ys7ide.mp4" images={[
                 { src: "/images/sue/award_12.jpg", alt: "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall" },
                 { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%" },
                 { src: "/images/sue/award_3.jpg",  alt: "Sue at King Charles III medal award ceremony" },

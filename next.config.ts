@@ -22,8 +22,10 @@ const securityHeaders = [
       "frame-src js.stripe.com",
       // Stripe API calls from client
       "connect-src 'self' api.stripe.com api.resend.com",
-      // Local images only
-      "img-src 'self' data: blob:",
+      // Local images + Cloudinary
+      "img-src 'self' data: blob: res.cloudinary.com",
+      // Cloudinary video streaming
+      "media-src 'self' res.cloudinary.com",
       // Block plugins entirely
       "object-src 'none'",
       // Prevent base tag hijacking

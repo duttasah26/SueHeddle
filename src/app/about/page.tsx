@@ -28,7 +28,7 @@ function AwardVideo() {
     <div className="about-video-wrap">
       <video
         ref={videoRef}
-        src="/videos/award.mp4"
+        src="https://res.cloudinary.com/aurx0hy5/video/upload/v1782869663/award_pmhpbd.mp4"
         autoPlay
         muted
         loop
