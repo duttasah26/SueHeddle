@@ -10,16 +10,19 @@
 }
 .about-hero-heading {
   font-family: var(--font-display), "Lexend", sans-serif;
-  font-size: clamp(56px, 8vw, 112px);
+  font-size: clamp(48px, 5.5vw, 80px);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
   color: #fff;
-  margin-bottom: 24px;
+  margin: 0 0 20px;
 }
 .about-hero-heading .accent {
   color: var(--primary);
-  display: block;
+  display: inline;
+}
+.about-hero-heading .accent {
+  color: var(--primary);
 }
 .about-hero-subtitle {
   font-family: var(--font-mono), "JetBrains Mono", monospace;
@@ -178,13 +181,22 @@
 
 /* ── WHY RUNNING ─────────────────────────────────────────────────── */
 .about-why {
-  padding: 96px 0;
-  background: #fff;
-  color: var(--on-surface);
+  padding: 48px 0;
+  background: var(--dark-bg);
+  color: #fff;
   border-bottom: 4px solid var(--on-surface);
 }
-.about-why .about-section-heading { color: var(--on-surface); }
+.about-why .about-section-heading { color: #fff; }
+.about-why-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--margin-desktop);
+  display: flex;
+  gap: 56px;
+  align-items: flex-start;
+}
 .about-why-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -192,8 +204,38 @@
 .about-why-body p {
   font-size: 18px;
   line-height: 1.75;
-  color: var(--on-surface);
+  color: rgba(255, 255, 255, 0.75);
 }
+
+/* ── AWARD VIDEO ─────────────────────────────────────────────────── */
+.about-video-wrap {
+  position: relative;
+  flex: 0 0 340px;
+  height: 480px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,.5);
+}
+.about-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 65%;
+}
+.about-video-wrap .flow-gallery-video-controls {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+}
+
+.about-involve .involve-row-action {
+  background: #fff;
+  border-bottom-color: #e5e5e5;
+}
+.about-involve .involve-row-action .involve-section-label { color: var(--on-surface); }
+.about-involve .involve-row-action .social-btn { border-color: var(--on-surface); color: var(--on-surface); }
+.about-involve .involve-row-action .social-btn:hover { background: var(--on-surface); color: #fff; }
 
 /* ── BIO HIGHLIGHTS ──────────────────────────────────────────────── */
 .about-bio-highlight {

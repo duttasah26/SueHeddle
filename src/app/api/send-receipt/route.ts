@@ -23,8 +23,10 @@ function receiptHtml(
   lastName: string,
   amount: number,
   paymentIntentId: string,
+  email: string,
 ): string {
   const receiptNo = paymentIntentId.slice(-8).toUpperCase();
+  const unsubUrl  = `https://sueheddle.ca/unsubscribe?email=${encodeURIComponent(email)}&from=newsletter`;
   const dateStr   = new Date().toLocaleDateString("en-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
@@ -104,18 +106,17 @@ function receiptHtml(
             </table>
 
             <p style="margin:0;font-size:14px;color:#888;line-height:1.6;">
-              Questions? Reply to this email or contact us at
-              <a href="mailto:sue@sueheddle.ca" style="color:#e70685;">sue@sueheddle.ca</a>.
+              For more details, reach us at <a href="mailto:sueheddle@gmail.com" style="color:#e70685;">sueheddle@gmail.com</a>.
             </p>
           </td>
         </tr>
 
         <!-- Footer -->
         <tr>
-          <td style="padding:20px 32px;background:#f4f4f4;border-top:1px solid #e5e5e5;text-align:center;">
-            <p style="margin:0;font-size:12px;color:#aaa;">
-              Sue Heddle for Ward 5 Councillor &middot; Oakville, ON<br />
-              <a href="https://sueheddle.ca" style="color:#e70685;">sueheddle.ca</a>
+          <td style="padding:20px 32px;background:#e70685;text-align:center;">
+            <p style="margin:0 0 8px;font-size:12px;color:#fff;font-weight:700;">Sue Heddle for Ward 5 — Oakville</p>
+            <p style="margin:0;font-size:12px;color:#fff;">
+              You received this email because you are part of our campaign community.&nbsp;&nbsp;<a href="${unsubUrl}" style="color:#fff;text-decoration:underline;">Unsubscribe</a>
             </p>
           </td>
         </tr>
@@ -194,7 +195,7 @@ export async function POST(req: NextRequest) {
       from: process.env.RESEND_FROM_EMAIL,
       to: email,
       subject: `Thank you for your donation, ${firstName.trim()}!`,
-      html: receiptHtml(firstName.trim(), lastName.trim(), numAmount, paymentIntentId),
+      html: receiptHtml(firstName.trim(), lastName.trim(), numAmount, paymentIntentId, email),
     });
   } catch (err) {
     console.error("Resend error:", err);

@@ -13,6 +13,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useLanguage } from "@/contexts/LanguageContext";
+import LoadingDots from "@/components/LoadingDots";
 
 const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
@@ -66,21 +67,21 @@ function calcEffectiveWithFee(amount: number): number {
 
 interface PaymentFormProps {
   effectiveAmount: number;
-  displayAmount: number;
   stripeFee: number;
   coverFee: boolean;
   setCoverFee: (v: boolean) => void;
   firstName: string;
   lastName: string;
   email: string;
+  isOakvilleResident: boolean;
   onBack: () => void;
   onSuccess: () => void;
   t: (key: string) => string;
 }
 
 function PaymentForm({
-  effectiveAmount, displayAmount, stripeFee, coverFee, setCoverFee,
-  firstName, lastName, email, onBack, onSuccess, t,
+  effectiveAmount, stripeFee, coverFee, setCoverFee,
+  firstName, lastName, email, isOakvilleResident, onBack, onSuccess, t,
 }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
@@ -136,6 +137,19 @@ function PaymentForm({
         });
         const data = await res.json();
         if (data.error) { event.complete("fail"); setPaymentError(data.error); return; }
+        const piId = data.clientSecret.split("_secret_")[0];
+        await fetch("/api/set-payment-metadata", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            paymentIntentId: piId,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            email,
+            isOakvilleResident,
+            address: "", unit: "", city: "", province: "ON", postal: "",
+          }),
+        }).catch(() => {});
         const { error } = await stripe.confirmCardPayment(
           data.clientSecret,
           { payment_method: event.paymentMethod.id },
@@ -146,17 +160,6 @@ function PaymentForm({
           setPaymentError(error.message ?? "Payment failed. Please try again.");
         } else {
           event.complete("success");
-          fetch("/api/send-receipt", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              firstName: firstName.trim(),
-              lastName: lastName.trim(),
-              email,
-              amount: displayAmount,
-              paymentIntentId: data.clientSecret.split("_secret_")[0],
-            }),
-          }).catch(() => {});
           onSuccessRef.current();
         }
       } catch {
@@ -219,6 +222,24 @@ function PaymentForm({
       const data = await res.json();
       if (data.error) { setPaymentError(data.error); return; }
 
+      const piId = data.clientSecret.split("_secret_")[0];
+      await fetch("/api/set-payment-metadata", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          paymentIntentId: piId,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          email,
+          isOakvilleResident,
+          address: address.trim(),
+          unit: unit.trim(),
+          city: city.trim(),
+          province,
+          postal: postal.trim().toUpperCase(),
+        }),
+      }).catch(() => {});
+
       const cardNumberElement = elements.getElement(CardNumberElement);
       if (!cardNumberElement) return;
 
@@ -242,17 +263,6 @@ function PaymentForm({
       if (error) {
         setPaymentError(error.message ?? "Payment failed. Please try again.");
       } else if (paymentIntent?.status === "succeeded") {
-        fetch("/api/send-receipt", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            firstName: firstName.trim(),
-            lastName: lastName.trim(),
-            email,
-            amount: displayAmount,
-            paymentIntentId: paymentIntent.id,
-          }),
-        }).catch(() => {});
         onSuccess();
       }
     } catch {
@@ -396,7 +406,7 @@ function PaymentForm({
           disabled={!stripe || processing || !certified}
         >
           {processing
-            ? "Processing…"
+            ? <LoadingDots label="Processing" />
             : t("donate.donateBtnLabel").replace("${amount}", effectiveAmount.toFixed(2))}
           {!processing && <span className="material-symbols-outlined">favorite</span>}
         </button>
@@ -485,6 +495,12 @@ export default function DonatePage() {
         {step === 1 && (
           <section>
             <h1 className="donate-step-title">{t("donate.heading1")}</h1>
+            <div className="donate-etransfer-banner">
+              <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0 }}>email</span>
+              <p>Prefer e-transfer? Send to{" "}
+                <a href="mailto:sueheddle@gmail.com" className="donate-etransfer-email">sueheddle@gmail.com</a>
+              </p>
+            </div>
             <div className="rebate-intro">
               <span className="rebate-intro-badge">50% BACK</span>
               <p>Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
@@ -612,19 +628,20 @@ export default function DonatePage() {
           <Elements stripe={stripePromise} options={{ appearance: stripeAppearance }}>
             <PaymentForm
               effectiveAmount={effectiveAmount}
-              displayAmount={displayAmount}
               stripeFee={stripeFee}
               coverFee={coverFee}
               setCoverFee={setCoverFee}
               firstName={firstName}
               lastName={lastName}
               email={email}
+              isOakvilleResident={isOakvilleResident}
               onBack={() => setStep(2)}
               onSuccess={() => setDonated(true)}
               t={t}
             />
           </Elements>
         )}
+
       </div>
     </div>
   );

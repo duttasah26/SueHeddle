@@ -20,7 +20,6 @@ export default function NavBar() {
           <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
             <img src="/images/icons/brand.png" alt="Sue Heddle" className="nav-icon" />
           </Link>
-          <LanguageSwitcher />
           <nav className="nav-links">
             <Link href="/about" className="nav-link">{t("nav.about")}</Link>
             <Link href="/#vision" className="nav-link">{t("nav.strategy")}</Link>

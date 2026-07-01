@@ -5,11 +5,19 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const TRANSITION = { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const };
+const PHOTO_TRANSITION = { duration: 1.6, ease: [0.4, 0, 0.2, 1] as const };
+
+const HERO_PHOTOS = [
+  { src: "/images/sue/hero_shot.png",       style: {} },
+  { src: "/images/sue/hero_shot_promo.jpg", style: { objectPosition: "center 20%" } },
+  { src: "/images/award/award (1).jpg",     style: { objectPosition: "center top" } },
+];
 
 export default function HeroSection() {
   const { t } = useLanguage();
   const [phase, setPhase] = useState(0);
   const [heddleKey, setHeddleKey] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -19,6 +27,13 @@ export default function HeroSection() {
         return next;
       });
     }, 4500);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setPhotoIndex(i => (i + 1) % HERO_PHOTOS.length);
+    }, 5000);
     return () => clearInterval(id);
   }, []);
 
@@ -67,17 +82,29 @@ export default function HeroSection() {
           </motion.div>
         </div>
         <div className="hero-ctas">
-          <a href="/volunteer" className="hero-btn hero-btn--dark">
+          <a href="/volunteer?check=volunteer" className="hero-btn hero-btn--dark">
             {t("hero.ctaJoin")}
           </a>
-          <a href="/volunteer" className="hero-btn hero-btn--white">
+          <a href="/volunteer?check=sign" className="hero-btn hero-btn--white">
             {t("hero.ctaSign")}
           </a>
         </div>
       </div>
 
       <div className="hero-photo">
-        <img src="/images/sue/hero_shot.png" alt="Sue Heddle, Ward 5 Candidate" />
+        {HERO_PHOTOS.map(({ src, style }, i) => (
+          <motion.img
+            key={src}
+            src={src}
+            alt="Sue Heddle, Ward 5 Candidate"
+            style={style}
+            animate={{
+              opacity: i === photoIndex ? 1 : 0,
+              scale:   i === photoIndex ? 1 : 1.06,
+            }}
+            transition={PHOTO_TRANSITION}
+          />
+        ))}
         <div className="hero-photo-overlay" />
         <a href="/about" className="hero-quote-box">
           <p className="hero-quote-heading">

@@ -1,6 +1,6 @@
 {
   "nav": {
-    "about": "About Sue",
+    "about": "Why I'm Running",
     "strategy": "Strategy",
     "experience": "Experience",
     "joinUs": "Testimonials",
@@ -141,8 +141,8 @@
     "shareAriaLabel": "Share"
   },
   "about": {
-    "heroHeading": "About",
-    "heroHeadingAccent": "Sue Heddle.",
+    "heroHeading": "Why I'm",
+    "heroHeadingAccent": "Running.",
     "heroSubtitle": "Building Ward 5's Future Together",
     "introP1": "Ward 5 is entering an important new chapter, and I believe we have an opportunity to shape that future in a way that protects what residents value most while preparing our community for the years ahead.",
     "introP2": "That's why I am running for Ward 5 Councillor.",

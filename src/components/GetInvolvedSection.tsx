@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import LoadingDots from "@/components/LoadingDots";
 
 export default function GetInvolvedSection() {
   const { t } = useLanguage();
@@ -46,10 +47,10 @@ export default function GetInvolvedSection() {
             <a href="/volunteer" className="action-btn">
               {t("getInvolved.volunteer")}
             </a>
-            <a href="mailto:sue@sueheddle.ca?subject=Lawn%20Sign%20Request" className="action-btn">
+            <a href="/volunteer?check=sign" className="action-btn">
               {t("getInvolved.getSign")}
             </a>
-            <a href="/volunteer" className="action-btn">
+            <a href="/volunteer?check=volunteer" className="action-btn">
               {t("getInvolved.joinCampaign")}
             </a>
             <a href="/donate" className="action-btn">
@@ -64,7 +65,7 @@ export default function GetInvolvedSection() {
         <div className="involve-row-inner">
           <p className="involve-section-label">{t("getInvolved.connectWithSue")}</p>
           <div className="social-grid">
-            <a href="mailto:sue@sueheddle.ca" className="social-btn social-btn--email">
+            <a href="mailto:sueheddle@gmail.com" className="social-btn social-btn--email">
               <span className="material-symbols-outlined">mail</span>
               {t("getInvolved.emailLabel")}
             </a>
@@ -113,7 +114,7 @@ export default function GetInvolvedSection() {
                     <input className="signup-input" type="text" placeholder={t("getInvolved.postalPlaceholder")}
                       value={newsPostal} onChange={(e) => setNewsPostal(e.target.value.toUpperCase())} suppressHydrationWarning />
                     <button type="submit" className="signup-submit" disabled={newsSubmitting} suppressHydrationWarning>
-                      {newsSubmitting ? "Saving…" : t("getInvolved.signUpBtn")}
+                      {newsSubmitting ? <LoadingDots label="Saving" /> : t("getInvolved.signUpBtn")}
                       {!newsSubmitting && <span className="material-symbols-outlined">arrow_forward</span>}
                     </button>
                   </div>
@@ -133,6 +134,12 @@ export default function GetInvolvedSection() {
                 <a href="/donate?amount=250" className="donation-btn">$250 →</a>
                 <a href="/donate?amount=500" className="donation-btn">$500 →</a>
                 <a href="/donate" className="donation-btn">Other →</a>
+              </div>
+              <div className="donation-rebate-note">
+                <span className="material-symbols-outlined">email</span>
+                <p>Prefer e-transfer? Send to{" "}
+                  <a href="mailto:sueheddle@gmail.com" style={{ color: "#fff", fontWeight: 700 }}>sueheddle@gmail.com</a>
+                </p>
               </div>
               <div className="donation-rebate-note">
                 <span className="material-symbols-outlined">info</span>

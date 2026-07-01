@@ -22,13 +22,15 @@ function sanitize(v: unknown, maxLen = 100): string {
   return v.trim().slice(0, maxLen);
 }
 
-function volunteerHtml(firstName: string): string {
+function volunteerHtml(firstName: string, email: string): string {
+  const unsubUrl = `https://sueheddle.ca/unsubscribe?email=${encodeURIComponent(email)}&from=volunteer`;
+  const shareUrl = `https://twitter.com/intent/tweet?url=https%3A%2F%2Fsueheddle.ca&text=Elect+Sue+Heddle+for+Ward+5+Councillor+%E2%80%94+Oakville+2026!`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You for Volunteering — Sue Heddle</title>
+  <title>Thank You — Sue Heddle</title>
 </head>
 <body style="margin:0;padding:0;background:#f4f4f4;font-family:system-ui,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f4;padding:32px 16px;">
@@ -39,6 +41,9 @@ function volunteerHtml(firstName: string): string {
           <td style="background:#1a1a1a;padding:24px 32px;text-align:center;">
             <img src="https://sueheddle.ca/images/icons/circle_icon.png" alt="Sue Heddle" height="48"
               style="display:block;margin:0 auto;" />
+            <p style="margin:10px 0 0;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#e70685;">
+              Vote Sue. Vote New.
+            </p>
           </td>
         </tr>
 
@@ -48,24 +53,31 @@ function volunteerHtml(firstName: string): string {
               Thank you, ${firstName}!
             </h1>
             <p style="margin:0 0 16px;color:#333;font-size:15px;line-height:1.6;">
-              We've received your volunteer sign-up for the <strong>Sue Heddle — Ward 5</strong> campaign.
+              We've received your sign-up for the <strong>Sue Heddle — Ward 5</strong> campaign.
               Someone from our team will be in touch soon with next steps.
             </p>
             <p style="margin:0 0 32px;color:#555;font-size:15px;line-height:1.6;">
               Together, we're building a stronger, more connected Ward 5. We couldn't do it without you.
             </p>
-            <a href="https://sueheddle.ca" style="display:inline-block;background:#e70685;color:#fff;
-              padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;">
-              Visit sueheddle.ca
+            <a href="https://sueheddle.ca/donate" style="display:inline-block;background:#e70685;color:#fff;
+              padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;margin-right:12px;">
+              Donate
             </a>
+            <a href="${shareUrl}" style="display:inline-block;background:#e70685;color:#fff;
+              padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;">
+              Share
+            </a>
+            <p style="margin:24px 0 0;font-size:14px;color:#888;line-height:1.6;">
+              For more details, reach us at <a href="mailto:sueheddle@gmail.com" style="color:#e70685;">sueheddle@gmail.com</a>.
+            </p>
           </td>
         </tr>
 
         <tr>
-          <td style="padding:20px 32px;background:#f4f4f4;border-top:1px solid #e5e5e5;text-align:center;">
-            <p style="margin:0;font-size:12px;color:#aaa;">
-              Sue Heddle for Ward 5 Councillor &middot; Oakville, ON<br />
-              <a href="https://sueheddle.ca" style="color:#e70685;">sueheddle.ca</a>
+          <td style="padding:20px 32px;background:#e70685;text-align:center;">
+            <p style="margin:0 0 8px;font-size:12px;color:#fff;font-weight:700;">Sue Heddle for Ward 5 — Oakville</p>
+            <p style="margin:0;font-size:12px;color:#fff;">
+              You received this email because you are part of our campaign community.&nbsp;&nbsp;<a href="${unsubUrl}" style="color:#fff;text-decoration:underline;">Unsubscribe</a>
             </p>
           </td>
         </tr>
@@ -117,20 +129,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "A valid email address is required." }, { status: 400 });
   }
 
+  if (vote === "FALSE" && sign === "FALSE" && volunteer === "FALSE") {
+    return NextResponse.json({ error: "Please select at least one option." }, { status: 400 });
+  }
+
   const timestamp = new Date().toLocaleString("en-CA", {
     timeZone: "America/Toronto",
     year: "numeric", month: "2-digit", day: "2-digit",
     hour: "2-digit", minute: "2-digit", second: "2-digit",
   });
 
-  try {
-    await appendRow("Volunteers", [
-      timestamp, firstName, lastName, email, phone,
-      address, unit, city, province, postal,
-      vote, sign, volunteer,
-    ]);
-  } catch (err) {
-    console.error("Sheets error (volunteer):", err);
+  const row = [firstName, lastName, email, phone, address, unit, city, province, postal];
+
+  const writes: Promise<void>[] = [];
+  if (vote      === "TRUE") writes.push(appendRow("Vote",        row));
+  if (sign      === "TRUE") writes.push(appendRow("Lawn Signs",  row));
+  if (volunteer === "TRUE") writes.push(appendRow("Volunteers",  row));
+
+  const results = await Promise.allSettled(writes);
+  const failed = results.filter((r) => r.status === "rejected");
+  if (failed.length > 0) {
+    failed.forEach((r, i) => console.error(`Sheets write ${i} failed:`, (r as PromiseRejectedResult).reason));
     return NextResponse.json(
       { error: "Submission could not be saved. Please try again." },
       { status: 502 }
@@ -143,7 +162,7 @@ export async function POST(req: NextRequest) {
       from: process.env.RESEND_FROM_EMAIL,
       to: email,
       subject: `Thank you for volunteering, ${firstName}!`,
-      html: volunteerHtml(firstName),
+      html: volunteerHtml(firstName, email),
     }).catch((err) => console.error("Resend error (volunteer):", err));
   }
 

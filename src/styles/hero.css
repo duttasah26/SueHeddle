@@ -172,9 +172,8 @@
   position: absolute;
   left: 0;
   width: 100%;
-  /* crop 10% top + 20% bottom: render at 100/70 = 143%, shift up by 10/70 = 14.3% */
-  height: 143%;
-  top: -14.3%;
+  height: 100%;
+  top: 0;
   object-fit: cover;
   display: block;
 }

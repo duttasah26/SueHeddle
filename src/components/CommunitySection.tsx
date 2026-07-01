@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const sliderPhotos = [
@@ -16,6 +17,7 @@ const sliderPhotos = [
   { src: "/images/sue/comm_spirit_10.jpg",    alt: "Sue at community gathering" },
   { src: "/images/sue/comm_spirit_13.jpg",    alt: "Sue with residents" },
   { src: "/images/sue/comm_spirit_15.jpg",    alt: "Community event" },
+  { src: "/images/sue/comm_spirit_x.jpg",     alt: "Sue at community event" },
   { src: "/images/sue/culture_1.jpg",         alt: "Sue with Ward 5 residents" },
   { src: "/images/sue/culture_2.jpg",         alt: "Sue at local event" },
   { src: "/images/sue/culture_3.jpg",         alt: "Cultural exchange" },
@@ -48,15 +50,57 @@ const sliderPhotos = [
   { src: "/images/award/award (13).jpg",       alt: "Community recognition" },
 ];
 
-function Gallery({ images, showCaption }: { images: { src: string; alt: string; objectPosition?: string }[]; showCaption?: boolean }) {
+function Gallery({ images, showCaption, centerVideo }: { images: { src: string; alt: string; objectPosition?: string; caption?: string }[]; showCaption?: boolean; centerVideo?: string }) {
+  const [muted, setMuted] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  function togglePlay() {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPaused(false); }
+    else { v.pause(); setPaused(true); }
+  }
+
+  function toggleMute() {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  }
+
   return (
-    <div className={`flow-gallery${showCaption ? " flow-gallery--captioned" : ""}`}>
-      {images.map(({ src, alt, objectPosition }, i) => (
-        <div key={i} className="flow-gallery-cell">
-          <img src={src} alt={alt} className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
-          {showCaption && <span className="flow-gallery-caption">{alt}</span>}
+    <div className={`flow-gallery${showCaption ? " flow-gallery--captioned" : ""}${centerVideo ? " flow-gallery--has-video" : ""}`}>
+      {images.map(({ src, alt, objectPosition, caption }, i) => {
+        const hasCaption = showCaption || !!caption;
+        return (
+          <div key={i} className={`flow-gallery-cell${hasCaption ? " flow-gallery-cell--captioned" : ""}`}>
+            <img src={src} alt={alt} className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
+            {hasCaption && <span className="flow-gallery-caption">{caption ?? alt}</span>}
+          </div>
+        );
+      })}
+      {centerVideo && (
+        <div className="flow-gallery-video-wrap">
+          <video
+            ref={videoRef}
+            src={centerVideo}
+            autoPlay
+            muted={muted}
+            loop
+            playsInline
+            className="flow-gallery-video"
+          />
+          <div className="flow-gallery-video-controls">
+            <button suppressHydrationWarning onClick={togglePlay} aria-label={paused ? "Play" : "Pause"} className="flow-gallery-video-btn">
+              <span className="material-symbols-outlined">{paused ? "play_arrow" : "pause"}</span>
+            </button>
+            <button suppressHydrationWarning onClick={toggleMute} aria-label={muted ? "Unmute" : "Mute"} className="flow-gallery-video-btn">
+              <span className="material-symbols-outlined">{muted ? "volume_off" : "volume_up"}</span>
+            </button>
+          </div>
         </div>
-      ))}
+      )}
     </div>
   );
 }
@@ -152,7 +196,7 @@ export default function CommunitySection() {
                   </div>
                 </div>
               </div>
-              <Gallery showCaption images={[
+              <Gallery showCaption centerVideo="/videos/sue-clip.mp4" images={[
                 { src: "/images/sue/award_12.jpg", alt: "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall" },
                 { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%" },
                 { src: "/images/sue/award_3.jpg",  alt: "Sue at King Charles III medal award ceremony" },
@@ -165,11 +209,11 @@ export default function CommunitySection() {
         <section aria-label="Professional Roots in Oakville" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#fcf9f8", color: "#1c1b1b" }}>
             <div className="flow-text-image-row">
-              <Gallery images={[
-                { src: "/images/sue/comm_spirit_3.jpg", alt: "Sue in the Oakville community", objectPosition: "50% 40%" },
-                { src: "/images/sue/comm_spirit_5.jpg", alt: "Sue connecting with residents", objectPosition: "50% 20%" },
-                { src: "/images/sue/fireman_2.jpg",     alt: "Sue supporting essential workers" },
-                { src: "/images/sue/culture_2.jpg",     alt: "Sue at a local event" },
+              <Gallery showCaption images={[
+                { src: "/images/sue/comm_spirit_3.jpg", alt: "Working with indigenous women to create awareness about missing and murdered women", objectPosition: "50% 40%" },
+                { src: "/images/sue/comm_spirit.jpg",   alt: "Sue serving breakfast with RCMP in Kuaaruk, Nunavut", objectPosition: "50% 20%" },
+                { src: "/images/sue/fireman_2.jpg",     alt: "Sue presenting a plaque to the Oakville fire department" },
+                { src: "/images/sue/culture_2.jpg",     alt: "Sue attending Chinese Lunar New Year celebration" },
               ]} />
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
@@ -199,8 +243,8 @@ export default function CommunitySection() {
               <Gallery images={[
                 { src: "/images/award/award (6).jpg",  alt: "Sue Heddle at award ceremony" },
                 { src: "/images/award/award (1).jpg",  alt: "Award recognition event" },
-                { src: "/images/award/award (8).jpg",  alt: "Community award presentation" },
-                { src: "/images/award/award (2).jpg", alt: "Sue receiving award" },
+                { src: "/images/award/award (8).jpg",  alt: "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip", caption: "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip" },
+                { src: "/images/award/award (2).jpg",  alt: "Sue receiving award" },
               ]} />
             </div>
           </div>

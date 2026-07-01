@@ -17,7 +17,9 @@ function isRateLimited(ip: string): boolean {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function newsletterHtml(name: string): string {
+function newsletterHtml(name: string, email: string): string {
+  const unsubUrl = `https://sueheddle.ca/unsubscribe?email=${encodeURIComponent(email)}&from=newsletter`;
+  const shareUrl = `https://twitter.com/intent/tweet?url=https%3A%2F%2Fsueheddle.ca&text=Elect+Sue+Heddle+for+Ward+5+Councillor+%E2%80%94+Oakville+2026!`;
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,6 +36,9 @@ function newsletterHtml(name: string): string {
           <td style="background:#1a1a1a;padding:24px 32px;text-align:center;">
             <img src="https://sueheddle.ca/images/icons/circle_icon.png" alt="Sue Heddle" height="48"
               style="display:block;margin:0 auto;" />
+            <p style="margin:10px 0 0;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#e70685;">
+              Vote Sue. Vote New.
+            </p>
           </td>
         </tr>
 
@@ -53,18 +58,25 @@ function newsletterHtml(name: string): string {
               padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;margin-right:12px;">
               Volunteer
             </a>
-            <a href="https://sueheddle.ca/donate" style="display:inline-block;background:#1a1a1a;color:#fff;
-              padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;">
+            <a href="https://sueheddle.ca/donate" style="display:inline-block;background:#e70685;color:#fff;
+              padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;margin-right:12px;">
               Donate
             </a>
+            <a href="${shareUrl}" style="display:inline-block;background:#e70685;color:#fff;
+              padding:14px 28px;font-weight:700;font-size:15px;text-decoration:none;border-radius:2px;">
+              Share
+            </a>
+            <p style="margin:24px 0 0;font-size:14px;color:#888;line-height:1.6;">
+              For more details, reach us at <a href="mailto:sueheddle@gmail.com" style="color:#e70685;">sueheddle@gmail.com</a>.
+            </p>
           </td>
         </tr>
 
         <tr>
-          <td style="padding:20px 32px;background:#f4f4f4;border-top:1px solid #e5e5e5;text-align:center;">
-            <p style="margin:0;font-size:12px;color:#aaa;">
-              Sue Heddle for Ward 5 Councillor &middot; Oakville, ON<br />
-              <a href="https://sueheddle.ca" style="color:#e70685;">sueheddle.ca</a>
+          <td style="padding:20px 32px;background:#e70685;text-align:center;">
+            <p style="margin:0 0 8px;font-size:12px;color:#fff;font-weight:700;">Sue Heddle for Ward 5 — Oakville</p>
+            <p style="margin:0;font-size:12px;color:#fff;">
+              You received this email because you are part of our campaign community.&nbsp;&nbsp;<a href="${unsubUrl}" style="color:#fff;text-decoration:underline;">Unsubscribe</a>
             </p>
           </td>
         </tr>
@@ -136,7 +148,7 @@ export async function POST(req: NextRequest) {
       from: process.env.RESEND_FROM_EMAIL,
       to: email,
       subject: "You're on the list — Sue Heddle for Ward 5",
-      html: newsletterHtml(name),
+      html: newsletterHtml(name, email),
     }).catch((err) => console.error("Resend error (newsletter):", err));
   }
 

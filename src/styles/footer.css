@@ -30,3 +30,25 @@
 }
 .footer-icon-btn:hover { opacity: 0.6; }
 .footer-icon-btn .material-symbols-outlined { font-size: 28px; }
+.footer-etransfer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.footer-etransfer .material-symbols-outlined { color: rgba(255,255,255,0.4); }
+.footer-etransfer-email {
+  color: var(--primary);
+  font-weight: 700;
+}
+.footer-copyright {
+  font-family: var(--font-mono), "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  margin-top: 8px;
+}
