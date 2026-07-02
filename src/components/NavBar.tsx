@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function NavBar() {
@@ -49,7 +48,6 @@ export default function NavBar() {
             <Link href="/volunteer" className="mobile-menu-link" onClick={close}>Join The Campaign</Link>
           </nav>
           <div className="mobile-menu-footer">
-            <LanguageSwitcher />
             <Link href="/donate" className="mobile-menu-donate" onClick={close}>{t("nav.donate")}</Link>
           </div>
         </div>

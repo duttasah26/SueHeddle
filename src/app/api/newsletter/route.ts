@@ -144,12 +144,16 @@ export async function POST(req: NextRequest) {
 
   if (process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL) {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL,
-      to: email,
-      subject: "You're on the list — Sue Heddle for Ward 5",
-      html: newsletterHtml(name, email),
-    }).catch((err) => console.error("Resend error (newsletter):", err));
+    try {
+      await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL,
+        to: email,
+        subject: "You're on the list — Sue Heddle for Ward 5",
+        html: newsletterHtml(name, email),
+      });
+    } catch (err) {
+      console.error("Resend error (newsletter):", err);
+    }
   }
 
   return NextResponse.json({ ok: true });

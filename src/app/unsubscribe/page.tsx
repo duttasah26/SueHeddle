@@ -47,7 +47,8 @@ function UnsubscribeForm() {
 
   return (
     <main style={{ minHeight: "100vh", background: "#f4f4f4", display: "flex", alignItems: "center", justifyContent: "center", padding: "32px 16px" }}>
-      <div style={{ background: "#fff", borderRadius: "4px", overflow: "hidden", width: "100%", maxWidth: "480px" }}>
+      <div style={{ background: "#fff", borderRadius: "4px", overflow: "hidden", width: "100%", maxWidth: "480px", position: "relative" }}>
+        <a href="/" className="form-home-btn"><span className="material-symbols-outlined">home</span></a>
 
         <div style={{ background: "#1a1a1a", padding: "24px 32px", textAlign: "center" }}>
           <img src="/images/icons/circle_icon.png" alt="Sue Heddle" height={48} style={{ display: "block", margin: "0 auto" }} />
@@ -79,6 +80,7 @@ function UnsubscribeForm() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
+                  suppressHydrationWarning
                   style={{ width: "100%", padding: "10px 12px", border: "1px solid #ddd", borderRadius: "2px", fontSize: "14px", boxSizing: "border-box" }}
                 />
               </div>

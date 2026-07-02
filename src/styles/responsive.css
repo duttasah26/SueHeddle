@@ -67,8 +67,8 @@
   /* Ensure nav CTA meets 44px touch target */
   .nav-cta    {
     padding: 6px 10px;
-    font-size: 12px;
-    box-shadow: 2px 2px 0 var(--primary);
+    font-size: 14px;
+    box-shadow: 2px 2px 0 #000;
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -98,9 +98,11 @@
   .testimonials-heading { margin-bottom: 40px; }
 
   /* Get Involved: tighter font + padding */
-  .involve-section-label  { font-size: clamp(22px, 6vw, 28px); margin-bottom: 20px; }
-  .action-btn             { font-size: 16px; padding: 20px 12px; }
-  .social-btn             { font-size: 15px; padding: 20px 12px; }
+  .involve-section-label  { font-size: clamp(30px, 8vw, 40px); margin-bottom: 20px; }
+  .signup-form-title      { font-size: clamp(28px, 7.5vw, 36px); }
+  .donation-form-title    { font-size: clamp(28px, 7.5vw, 36px); }
+  .action-btn             { font-size: 22px; padding: 20px 12px; }
+  .social-btn             { font-size: 22px; padding: 20px 12px; }
   .action-grid            { grid-template-columns: 1fr; }
   .social-grid            { grid-template-columns: repeat(2, 1fr); }
   .signup-fields-row      { grid-template-columns: 1fr; }
@@ -146,7 +148,7 @@
   .donate-page           { padding: 24px 12px; }
   .donate-card           { padding: 20px 16px; }
   .donate-logo-wrap      { margin-bottom: 16px; }
-  .donate-logo-img       { height: 64px; }
+  .donate-logo-img       { height: 96px; }
   .donate-steps          { margin-bottom: 24px; }
   .donate-step-dot       { width: 32px; height: 32px; font-size: 12px; }
   .donate-step-title     { font-size: 22px; margin-bottom: 16px; }

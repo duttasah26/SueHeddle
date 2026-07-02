@@ -11,6 +11,32 @@
   50%       { opacity: 1; }
 }
 
+/* ── MOBILE HOME BUTTON ─────────────────────────────────────────── */
+.form-home-btn {
+  display: none;
+}
+@media (max-width: 959.98px) {
+  .form-home-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: #fff;
+    border: 2px solid #1a1a1a;
+    box-shadow: 2px 2px 0 #000;
+    text-decoration: none;
+  }
+  .form-home-btn .material-symbols-outlined {
+    font-size: 22px;
+  }
+}
+
 /* ── WALLET (Apple Pay / Google Pay) ───────────────────────────── */
 .donate-wallet-section {
   margin-bottom: 24px;
@@ -98,7 +124,7 @@
   transition: background-position 900ms ease;
 }
 .donate-logo-img {
-  height: 96px;
+  height: 140px;
   width: auto;
   object-fit: contain;
   display: block;

@@ -211,7 +211,7 @@ export default function CommunitySection() {
             <div className="flow-text-image-row">
               <Gallery showCaption images={[
                 { src: "/images/sue/comm_spirit_3.jpg", alt: "Working with indigenous women to create awareness about missing and murdered women", objectPosition: "50% 40%" },
-                { src: "/images/sue/comm_spirit.jpg",   alt: "Sue serving breakfast with RCMP in Kuaaruk, Nunavut", objectPosition: "50% 20%" },
+                { src: "/images/sue/comm_spirit.jpg",   alt: "Sue serving breakfast with RCMP in Kugaaruk, Nunavut", objectPosition: "50% 20%" },
                 { src: "/images/sue/fireman_2.jpg",     alt: "Sue presenting a plaque to the Oakville fire department" },
                 { src: "/images/sue/culture_2.jpg",     alt: "Sue attending Chinese Lunar New Year celebration" },
               ]} />

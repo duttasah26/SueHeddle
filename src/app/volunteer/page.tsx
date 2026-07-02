@@ -69,6 +69,7 @@ function VolunteerForm() {
     return (
       <div className="donate-page">
         <div className="donate-card" suppressHydrationWarning>
+          <a href="/" className="form-home-btn"><span className="material-symbols-outlined">home</span></a>
           <div className="donate-card-corner-tl" />
           <div className="donate-card-corner-br" />
           <div className="donate-logo-wrap">
@@ -90,6 +91,7 @@ function VolunteerForm() {
   return (
     <div className="donate-page">
       <div className="donate-card">
+        <a href="/" className="form-home-btn"><span className="material-symbols-outlined">home</span></a>
         <div className="donate-card-corner-tl" />
         <div className="donate-card-corner-br" />
 
@@ -106,12 +108,12 @@ function VolunteerForm() {
           <div className="form-fields-row">
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelFirstName")}</label>
-              <input className="form-field-input" type="text" autoComplete="given-name"
+              <input className="form-field-input" type="text" autoComplete="given-name" suppressHydrationWarning
                 maxLength={50} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
             </div>
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelLastName")}</label>
-              <input className="form-field-input" type="text" autoComplete="family-name"
+              <input className="form-field-input" type="text" autoComplete="family-name" suppressHydrationWarning
                 maxLength={50} value={lastName} onChange={(e) => setLastName(e.target.value)} />
             </div>
           </div>
@@ -119,12 +121,12 @@ function VolunteerForm() {
           <div className="form-fields-row">
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelEmail")}</label>
-              <input className="form-field-input" type="email" autoComplete="email"
+              <input className="form-field-input" type="email" autoComplete="email" suppressHydrationWarning
                 maxLength={100} value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelPhone")}</label>
-              <input className="form-field-input" type="tel" autoComplete="tel"
+              <input className="form-field-input" type="tel" autoComplete="tel" suppressHydrationWarning
                 maxLength={30} value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
           </div>
@@ -132,12 +134,12 @@ function VolunteerForm() {
           <div className="form-fields-addr">
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelAddress")}</label>
-              <input className="form-field-input" type="text" autoComplete="street-address"
+              <input className="form-field-input" type="text" autoComplete="street-address" suppressHydrationWarning
                 maxLength={150} value={address} onChange={(e) => setAddress(e.target.value)} />
             </div>
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelUnit")}</label>
-              <input className="form-field-input" type="text" autoComplete="address-line2"
+              <input className="form-field-input" type="text" autoComplete="address-line2" suppressHydrationWarning
                 maxLength={20} value={unit} onChange={(e) => setUnit(e.target.value)} />
             </div>
           </div>
@@ -145,17 +147,17 @@ function VolunteerForm() {
           <div className="form-fields-3">
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelCity")}</label>
-              <input className="form-field-input" type="text" autoComplete="address-level2"
+              <input className="form-field-input" type="text" autoComplete="address-level2" suppressHydrationWarning
                 maxLength={80} value={city} onChange={(e) => setCity(e.target.value)} />
             </div>
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelProvince")}</label>
-              <input className="form-field-input" type="text" autoComplete="address-level1"
+              <input className="form-field-input" type="text" autoComplete="address-level1" suppressHydrationWarning
                 maxLength={50} value={province} onChange={(e) => setProvince(e.target.value)} />
             </div>
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelPostal")}</label>
-              <input className="form-field-input" type="text" autoComplete="postal-code"
+              <input className="form-field-input" type="text" autoComplete="postal-code" suppressHydrationWarning
                 maxLength={10} value={postal} onChange={(e) => setPostal(e.target.value.toUpperCase())} />
             </div>
           </div>
@@ -182,7 +184,7 @@ function VolunteerForm() {
             <p className="donate-payment-error" style={{ marginTop: 12 }}>{submitError}</p>
           )}
 
-          <button className="donate-next-btn" type="submit" disabled={submitting}>
+          <button className="donate-next-btn" type="submit" disabled={submitting} suppressHydrationWarning>
             {submitting ? <LoadingDots label="Saving" /> : t("volunteer.saveBtn")}
             {!submitting && <span className="material-symbols-outlined">arrow_forward</span>}
           </button>

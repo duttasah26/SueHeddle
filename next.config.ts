@@ -18,10 +18,10 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
       // Google Fonts glyphs + Material Symbols
       "font-src 'self' fonts.gstatic.com",
-      // Stripe payment iframe
+      // Stripe payment iframe + fraud detection
       "frame-src js.stripe.com",
-      // Stripe API calls from client
-      "connect-src 'self' api.stripe.com api.resend.com",
+      // Stripe API calls from client (including Stripe network telemetry)
+      "connect-src 'self' api.stripe.com api.resend.com *.stripe.com *.stripe.network",
       // Local images + Cloudinary
       "img-src 'self' data: blob: res.cloudinary.com",
       // Cloudinary video streaming

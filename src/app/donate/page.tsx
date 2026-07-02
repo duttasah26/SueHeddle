@@ -108,6 +108,7 @@ function PaymentForm({
   // Create payment request once when Stripe loads
   useEffect(() => {
     if (!stripe) return;
+    let cancelled = false;
     const pr = stripe.paymentRequest({
       country: "CA",
       currency: "cad",
@@ -119,9 +120,10 @@ function PaymentForm({
       requestPayerEmail: false,
     });
     pr.canMakePayment().then((result) => {
-      if (result) setPaymentRequest(pr);
+      if (!cancelled && result) setPaymentRequest(pr);
     });
     pr.on("paymentmethod", async (event) => {
+      if (cancelled) { event.complete("fail"); return; }
       if (!certifiedRef.current) {
         event.complete("fail");
         setPaymentError("Please confirm the certification checkbox before donating.");
@@ -169,6 +171,7 @@ function PaymentForm({
         setProcessing(false);
       }
     });
+    return () => { cancelled = true; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stripe]);
 
@@ -336,29 +339,29 @@ function PaymentForm({
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 8 }}>
           <div className="form-field">
             <label className="form-field-label">{t("donate.labelAddress")} *</label>
-            <input className="form-field-input" type="text" autoComplete="street-address"
+            <input className="form-field-input" type="text" autoComplete="street-address" suppressHydrationWarning
               maxLength={100} value={address} onChange={(e) => setAddress(e.target.value)} />
           </div>
           <div className="form-field">
             <label className="form-field-label">Unit</label>
-            <input className="form-field-input" type="text" autoComplete="address-line2"
+            <input className="form-field-input" type="text" autoComplete="address-line2" suppressHydrationWarning
               maxLength={20} value={unit} onChange={(e) => setUnit(e.target.value)} />
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1.5fr", gap: 8 }}>
           <div className="form-field">
             <label className="form-field-label">{t("donate.labelCity")} *</label>
-            <input className="form-field-input" type="text" autoComplete="address-level2"
+            <input className="form-field-input" type="text" autoComplete="address-level2" suppressHydrationWarning
               maxLength={50} value={city} onChange={(e) => setCity(e.target.value)} />
           </div>
           <div className="form-field">
             <label className="form-field-label">Province</label>
-            <input className="form-field-input" type="text" value={province} readOnly
+            <input className="form-field-input" type="text" value={province} readOnly suppressHydrationWarning
               style={{ color: "var(--on-surface-variant)", cursor: "default" }} />
           </div>
           <div className="form-field">
             <label className="form-field-label">{t("donate.labelPostal")} *</label>
-            <input className="form-field-input" type="text" autoComplete="postal-code"
+            <input className="form-field-input" type="text" autoComplete="postal-code" suppressHydrationWarning
               maxLength={7} value={postal}
               onChange={(e) => setPostal(e.target.value.toUpperCase())} />
           </div>
@@ -404,6 +407,7 @@ function PaymentForm({
           style={{ width: "auto", flex: "none" }}
           onClick={handleDonate}
           disabled={!stripe || processing || !certified}
+          suppressHydrationWarning
         >
           {processing
             ? <LoadingDots label="Processing" />
@@ -419,6 +423,7 @@ export default function DonatePage() {
   const { t } = useLanguage();
   const [step, setStep] = useState(1);
   const [donated, setDonated] = useState(false);
+
   const [selectedAmount, setSelectedAmount] = useState(250);
   const [customAmount, setCustomAmount] = useState("");
   const [isOakvilleResident, setIsOakvilleResident] = useState(false);
@@ -445,204 +450,205 @@ export default function DonatePage() {
   const stripeFee              = Math.round((effectiveAmountWithFee - displayAmount) * 100) / 100;
   const effectiveAmount        = coverFee ? effectiveAmountWithFee : displayAmount;
 
-  if (donated) {
-    return (
-      <div className="donate-page">
-        <div className="donate-card" suppressHydrationWarning>
-          <div className="donate-card-corner-tl" />
-          <div className="donate-card-corner-br" />
-          <div className="donate-logo-wrap">
-            <a href="/"><img src="/images/icons/brand.png" alt="Sue Heddle" className="donate-logo-img" /></a>
-          </div>
-          <div style={{ textAlign: "center", padding: "32px 0" }}>
-            <span className="material-symbols-outlined" style={{ fontSize: 64, color: "var(--primary)" }}>favorite</span>
-            <h1 className="donate-step-title" style={{ textAlign: "center", marginTop: 16 }}>{t("donate.thankYou")}</h1>
-            <p style={{ color: "var(--on-surface-variant)", marginTop: 8 }}>
-              Your donation of ${displayAmount.toFixed(2)} has been processed.
-            </p>
-            <a href="/" style={{ display: "inline-block", marginTop: 32 }} className="donate-next-btn">Return Home</a>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="donate-page">
-      <div className="donate-card" suppressHydrationWarning>
-        <div className="donate-card-corner-tl" />
-        <div className="donate-card-corner-br" />
-
-        <div className="donate-logo-wrap">
-          <a href="/"><img src="/images/icons/brand.png" alt="Sue Heddle" className="donate-logo-img" /></a>
-        </div>
-
-        {/* Step indicator */}
-        <div className="donate-steps">
-          {[1, 2, 3].map((n, i) => (
-            <div key={`step-group-${n}`} style={{ display: "contents" }}>
-              <div className={`donate-step-dot ${step > n ? "done" : step === n ? "active" : "inactive"}`}>
-                {step > n
-                  ? <span className="material-symbols-outlined" style={{ fontSize: 20 }}>check</span>
-                  : n}
-              </div>
-              {i < 2 && <div className="donate-step-line" />}
+        {donated ? (
+          <div className="donate-card" suppressHydrationWarning>
+            <a href="/" className="form-home-btn"><span className="material-symbols-outlined">home</span></a>
+            <div className="donate-card-corner-tl" />
+            <div className="donate-card-corner-br" />
+            <div className="donate-logo-wrap">
+              <a href="/"><img src="/images/icons/brand.png" alt="Sue Heddle" className="donate-logo-img" /></a>
             </div>
-          ))}
-        </div>
-
-        {/* Step 1 — Amount */}
-        {step === 1 && (
-          <section>
-            <h1 className="donate-step-title">{t("donate.heading1")}</h1>
-            <div className="donate-etransfer-banner">
-              <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0 }}>email</span>
-              <p>Prefer e-transfer? Send to{" "}
-                <a href="mailto:sueheddle@gmail.com" className="donate-etransfer-email">sueheddle@gmail.com</a>
+            <div style={{ textAlign: "center", padding: "32px 0" }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 64, color: "var(--primary)" }}>favorite</span>
+              <h1 className="donate-step-title" style={{ textAlign: "center", marginTop: 16 }}>{t("donate.thankYou")}</h1>
+              <p style={{ color: "var(--on-surface-variant)", marginTop: 8 }}>
+                Your donation of ${displayAmount.toFixed(2)} has been processed.
               </p>
+              <a href="/" style={{ display: "inline-block", marginTop: 32 }} className="donate-next-btn">Return Home</a>
             </div>
-            <div className="rebate-intro">
-              <span className="rebate-intro-badge">50% BACK</span>
-              <p>Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
-                <a href="/rebate" className="rebate-intro-link">Learn more →</a>
-              </p>
+          </div>
+        ) : (
+          <div className="donate-card" suppressHydrationWarning>
+            <a href="/" className="form-home-btn"><span className="material-symbols-outlined">home</span></a>
+            <div className="donate-card-corner-tl" />
+            <div className="donate-card-corner-br" />
+
+            <div className="donate-logo-wrap">
+              <a href="/"><img src="/images/icons/brand.png" alt="Sue Heddle" className="donate-logo-img" /></a>
             </div>
-            <p className="donate-section-label">{t("donate.labelAmount")}</p>
-            <div className="amount-grid">
-              {PRESET_AMOUNTS.map((amt) => (
-                <button
-                  key={amt}
-                  className={`amount-btn${selectedAmount === amt && !customAmount ? " selected" : ""}`}
-                  onClick={() => { setSelectedAmount(amt); setCustomAmount(""); }}
-                >
-                  ${amt}
-                </button>
+
+            {/* Step indicator */}
+            <div className="donate-steps">
+              {[1, 2, 3].map((n, i) => (
+                <div key={`step-group-${n}`} style={{ display: "contents" }}>
+                  <div className={`donate-step-dot ${step > n ? "done" : step === n ? "active" : "inactive"}`}>
+                    {step > n
+                      ? <span className="material-symbols-outlined" style={{ fontSize: 20 }}>check</span>
+                      : n}
+                  </div>
+                  {i < 2 && <div className="donate-step-line" />}
+                </div>
               ))}
-              <input
-                className="amount-input"
-                type="text"
-                inputMode="decimal"
-                placeholder={t("donate.otherPlaceholder")}
-                value={customAmount}
-                onChange={(e) => {
-                  const v = e.target.value;
-                  if (v === "" || /^\d{0,6}(\.\d{0,2})?$/.test(v)) { setCustomAmount(v); setStep1Error(""); }
-                }}
-              />
             </div>
-            <div className="rebate-callout">
-              <span className="material-symbols-outlined">calculate</span>
-              <div>
-                <p className="rebate-your-donation">
-                  {t("donate.yourDonation").replace("${amount}", displayAmount.toFixed(2))}
-                </p>
-                {displayAmount < REBATE_MIN ? (
-                  <p className="rebate-actual-cost">Minimum <span>$100</span> required for the 50% rebate</p>
-                ) : displayAmount <= REBATE_CAP ? (
-                  <p className="rebate-actual-cost">{t("donate.actualCost").replace("${cost}", actualCost.toFixed(2))}</p>
-                ) : (
-                  <p className="rebate-actual-cost">50% off up to $1,200 — you save <span>$600.00</span></p>
-                )}
-              </div>
-            </div>
-            <label className="residency-check">
-              <input type="checkbox" checked={isOakvilleResident}
-                onChange={(e) => setIsOakvilleResident(e.target.checked)} />
-              <p className="residency-check-title">I AM A RESIDENT OF OAKVILLE</p>
-            </label>
-            {step1Error && <p className="donate-payment-error">{step1Error}</p>}
-            <button
-              className="donate-next-btn"
-              onClick={() => {
-                if (displayAmount < 1 || displayAmount > MAX_DONATION) {
-                  setStep1Error(`Please enter an amount between $1 and $${MAX_DONATION.toLocaleString()}.`);
-                  return;
-                }
-                setStep1Error("");
-                setStep(2);
-              }}
-            >
-              {t("donate.nextStep")}
-              <span className="material-symbols-outlined">arrow_forward</span>
-            </button>
-          </section>
-        )}
 
-        {/* Step 2 — Information */}
-        {step === 2 && (
-          <section>
-            <h1 className="donate-step-title">{t("donate.heading2")}</h1>
-            <div className="form-fields-row">
-              <div className="form-field">
-                <label className="form-field-label">{t("donate.labelFirstName")}</label>
-                <input className="form-field-input" type="text" autoComplete="given-name"
-                  maxLength={50} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-              </div>
-              <div className="form-field">
-                <label className="form-field-label">{t("donate.labelLastName")}</label>
-                <input className="form-field-input" type="text" autoComplete="family-name"
-                  maxLength={50} value={lastName} onChange={(e) => setLastName(e.target.value)} />
-              </div>
-            </div>
-            <div className="form-fields-col">
-              <div className="form-field">
-                <label className="form-field-label">{t("donate.labelEmail")}</label>
-                <input className="form-field-input" type="email" autoComplete="email"
-                  maxLength={100} value={email} onChange={(e) => setEmail(e.target.value)} />
-              </div>
-              <div className="form-field">
-                <label className="form-field-label">{t("donate.labelPhone")}</label>
-                <input className="form-field-input" type="tel" autoComplete="tel"
-                  maxLength={20} value={phone} onChange={(e) => setPhone(e.target.value)} />
-              </div>
-            </div>
-            {step2Error && <p className="donate-payment-error">{step2Error}</p>}
-            <div className="donate-btn-row">
-              <button className="donate-back-btn" onClick={() => { setStep2Error(""); setStep(1); }}>
-                <span className="material-symbols-outlined">arrow_back</span>
-                {t("donate.back")}
-              </button>
-              <button
-                className="donate-next-btn"
-                style={{ width: "auto", flex: "none" }}
-                onClick={() => {
-                  if (!firstName.trim() || !lastName.trim()) {
-                    setStep2Error("First and last name are required."); return;
-                  }
-                  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-                    setStep2Error("Please enter a valid email address."); return;
-                  }
-                  setStep2Error("");
-                  setStep(3);
-                }}
-              >
-                {t("donate.nextStep")}
-                <span className="material-symbols-outlined">arrow_forward</span>
-              </button>
-            </div>
-          </section>
-        )}
+            {/* Step 1 — Amount */}
+            {step === 1 && (
+              <section>
+                <h1 className="donate-step-title">{t("donate.heading1")}</h1>
+                <div className="donate-etransfer-banner">
+                  <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0 }}>email</span>
+                  <p>Prefer e-transfer? Send to{" "}
+                    <a href="mailto:sueheddle@gmail.com" className="donate-etransfer-email">sueheddle@gmail.com</a>
+                  </p>
+                </div>
+                <div className="rebate-intro">
+                  <span className="rebate-intro-badge">50% BACK</span>
+                  <p>Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
+                    <a href="/rebate" className="rebate-intro-link">Learn more →</a>
+                  </p>
+                </div>
+                <p className="donate-section-label">{t("donate.labelAmount")}</p>
+                <div className="amount-grid">
+                  {PRESET_AMOUNTS.map((amt) => (
+                    <button
+                      key={amt}
+                      className={`amount-btn${selectedAmount === amt && !customAmount ? " selected" : ""}`}
+                      onClick={() => { setSelectedAmount(amt); setCustomAmount(""); }}
+                    >
+                      ${amt}
+                    </button>
+                  ))}
+                  <input
+                    className="amount-input"
+                    type="text"
+                    inputMode="decimal"
+                    suppressHydrationWarning
+                    placeholder={t("donate.otherPlaceholder")}
+                    value={customAmount}
+                    onChange={(e) => {
+                      const v = e.target.value;
+                      if (v === "" || /^\d{0,6}(\.\d{0,2})?$/.test(v)) { setCustomAmount(v); setStep1Error(""); }
+                    }}
+                  />
+                </div>
+                <div className="rebate-callout">
+                  <span className="material-symbols-outlined">calculate</span>
+                  <div>
+                    <p className="rebate-your-donation">
+                      {t("donate.yourDonation").replace("${amount}", displayAmount.toFixed(2))}
+                    </p>
+                    {displayAmount < REBATE_MIN ? (
+                      <p className="rebate-actual-cost">Minimum <span>$100</span> required for the 50% rebate</p>
+                    ) : displayAmount <= REBATE_CAP ? (
+                      <p className="rebate-actual-cost">{t("donate.actualCost").replace("${cost}", actualCost.toFixed(2))}</p>
+                    ) : (
+                      <p className="rebate-actual-cost">50% off up to $1,200 — you save <span>$600.00</span></p>
+                    )}
+                  </div>
+                </div>
+                <label className="residency-check">
+                  <input type="checkbox" checked={isOakvilleResident}
+                    onChange={(e) => setIsOakvilleResident(e.target.checked)} />
+                  <p className="residency-check-title">I AM A RESIDENT OF OAKVILLE</p>
+                </label>
+                {step1Error && <p className="donate-payment-error">{step1Error}</p>}
+                <button
+                  className="donate-next-btn"
+                  suppressHydrationWarning
+                  onClick={() => {
+                    if (displayAmount < 1 || displayAmount > MAX_DONATION) {
+                      setStep1Error(`Please enter an amount between $1 and $${MAX_DONATION.toLocaleString()}.`);
+                      return;
+                    }
+                    setStep1Error("");
+                    setStep(2);
+                  }}
+                >
+                  {t("donate.nextStep")}
+                  <span className="material-symbols-outlined">arrow_forward</span>
+                </button>
+              </section>
+            )}
 
-        {/* Step 3 — Payment */}
-        {step === 3 && (
-          <Elements stripe={stripePromise} options={{ appearance: stripeAppearance }}>
-            <PaymentForm
-              effectiveAmount={effectiveAmount}
-              stripeFee={stripeFee}
-              coverFee={coverFee}
-              setCoverFee={setCoverFee}
-              firstName={firstName}
-              lastName={lastName}
-              email={email}
-              isOakvilleResident={isOakvilleResident}
-              onBack={() => setStep(2)}
-              onSuccess={() => setDonated(true)}
-              t={t}
-            />
-          </Elements>
-        )}
+            {/* Step 2 — Information */}
+            {step === 2 && (
+              <section>
+                <h1 className="donate-step-title">{t("donate.heading2")}</h1>
+                <div className="form-fields-row">
+                  <div className="form-field">
+                    <label className="form-field-label">{t("donate.labelFirstName")}</label>
+                    <input className="form-field-input" type="text" autoComplete="given-name" suppressHydrationWarning
+                      maxLength={50} value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+                  </div>
+                  <div className="form-field">
+                    <label className="form-field-label">{t("donate.labelLastName")}</label>
+                    <input className="form-field-input" type="text" autoComplete="family-name" suppressHydrationWarning
+                      maxLength={50} value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                  </div>
+                </div>
+                <div className="form-fields-col">
+                  <div className="form-field">
+                    <label className="form-field-label">{t("donate.labelEmail")}</label>
+                    <input className="form-field-input" type="email" autoComplete="email" suppressHydrationWarning
+                      maxLength={100} value={email} onChange={(e) => setEmail(e.target.value)} />
+                  </div>
+                  <div className="form-field">
+                    <label className="form-field-label">{t("donate.labelPhone")}</label>
+                    <input className="form-field-input" type="tel" autoComplete="tel" suppressHydrationWarning
+                      maxLength={20} value={phone} onChange={(e) => setPhone(e.target.value)} />
+                  </div>
+                </div>
+                {step2Error && <p className="donate-payment-error">{step2Error}</p>}
+                <div className="donate-btn-row">
+                  <button className="donate-back-btn" onClick={() => { setStep2Error(""); setStep(1); }}>
+                    <span className="material-symbols-outlined">arrow_back</span>
+                    {t("donate.back")}
+                  </button>
+                  <button
+                    className="donate-next-btn"
+                    style={{ width: "auto", flex: "none" }}
+                    suppressHydrationWarning
+                    onClick={() => {
+                      if (!firstName.trim() || !lastName.trim()) {
+                        setStep2Error("First and last name are required."); return;
+                      }
+                      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+                        setStep2Error("Please enter a valid email address."); return;
+                      }
+                      setStep2Error("");
+                      setStep(3);
+                    }}
+                  >
+                    {t("donate.nextStep")}
+                    <span className="material-symbols-outlined">arrow_forward</span>
+                  </button>
+                </div>
+              </section>
+            )}
 
+            {/* Step 3 — Payment */}
+            {step === 3 && (
+              <Elements stripe={stripePromise} options={{ appearance: stripeAppearance }}>
+                <PaymentForm
+                  effectiveAmount={effectiveAmount}
+                  stripeFee={stripeFee}
+                  coverFee={coverFee}
+                  setCoverFee={setCoverFee}
+                  firstName={firstName}
+                  lastName={lastName}
+                  email={email}
+                  isOakvilleResident={isOakvilleResident}
+                  onBack={() => setStep(2)}
+                  onSuccess={() => setDonated(true)}
+                  t={t}
+                />
+              </Elements>
+            )}
+
+          </div>
+        )}
       </div>
-    </div>
   );
 }
