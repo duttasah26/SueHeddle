@@ -170,7 +170,7 @@ export async function POST(req: NextRequest) {
   const lastName  = m.lastName  || "";
   const email     = m.email     || "";
 
-  Promise.allSettled([
+  const sheetsWrites = Promise.allSettled([
     appendRow("Donations", [
       timestamp,
       firstName,
@@ -189,22 +189,22 @@ export async function POST(req: NextRequest) {
       ? [appendRow("Newsletter", [timestamp, `${firstName} ${lastName}`.trim(), email, m.postal || ""])]
       : []
     ),
-  ]).then((results) => {
-    results.forEach((r, i) => {
-      if (r.status === "rejected")
-        console.error(`Sheets error (${i === 0 ? "Donations" : "Newsletter"}):`, r.reason);
-    });
-  });
+  ]);
 
-  if (process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL && email) {
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL,
-      to: email,
-      subject: `Thank you for your donation, ${firstName}!`,
-      html: receiptHtml(firstName, lastName, amount, pi.id),
-    }).catch((err) => console.error("Resend error:", err));
-  }
+  const emailSend = (process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL && email)
+    ? new Resend(process.env.RESEND_API_KEY).emails.send({
+        from: process.env.RESEND_FROM_EMAIL,
+        to: email,
+        subject: `Thank you for your donation, ${firstName}!`,
+        html: receiptHtml(firstName, lastName, amount, pi.id),
+      }).catch((err) => console.error("Resend error:", err))
+    : Promise.resolve();
+
+  const [sheetsResults] = await Promise.all([sheetsWrites, emailSend]);
+  sheetsResults.forEach((r, i) => {
+    if (r.status === "rejected")
+      console.error(`Sheets error (${i === 0 ? "Donations" : "Newsletter"}):`, r.reason);
+  });
 
   return NextResponse.json({ ok: true });
 }
