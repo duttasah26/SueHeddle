@@ -436,6 +436,26 @@ export default function DonatePage() {
   const [step1Error, setStep1Error] = useState("");
   const [step2Error, setStep2Error] = useState("");
 
+  const [wantsUpdates, setWantsUpdates]   = useState(false);
+  const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+
+  async function handleWantsUpdatesChange(checked: boolean) {
+    setWantsUpdates(checked);
+    if (!checked || subscribeStatus === "loading" || subscribeStatus === "done") return;
+    setSubscribeStatus("loading");
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: `${firstName} ${lastName}`.trim(), email }),
+      });
+      const data = await res.json();
+      setSubscribeStatus(data.error ? "error" : "done");
+    } catch {
+      setSubscribeStatus("error");
+    }
+  }
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const amt = parseFloat(params.get("amount") ?? "");
@@ -466,6 +486,26 @@ export default function DonatePage() {
               <p style={{ color: "var(--on-surface-variant)", marginTop: 8 }}>
                 Your donation of ${displayAmount.toFixed(2)} has been processed.
               </p>
+              <label className="residency-check" style={{ marginTop: 24, textAlign: "left" }}>
+                <input
+                  type="checkbox"
+                  checked={wantsUpdates}
+                  disabled={subscribeStatus === "done"}
+                  onChange={(e) => handleWantsUpdatesChange(e.target.checked)}
+                />
+                <div className="residency-check-body">
+                  <p className="residency-check-title">STAY IN THE LOOP</p>
+                  <p className="residency-check-desc">
+                    {subscribeStatus === "done"
+                      ? "You're subscribed — thanks for staying in touch!"
+                      : subscribeStatus === "loading"
+                      ? "Subscribing…"
+                      : subscribeStatus === "error"
+                      ? "Something went wrong — please try again."
+                      : "Get occasional updates about Sue's campaign for Ward 5."}
+                  </p>
+                </div>
+              </label>
               <a href="/" style={{ display: "inline-block", marginTop: 32 }} className="donate-next-btn">Return Home</a>
             </div>
           </div>

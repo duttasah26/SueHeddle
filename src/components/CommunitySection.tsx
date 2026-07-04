@@ -9,6 +9,7 @@ const sliderPhotos = [
   { src: "/images/sue/award_3.jpg",           alt: "National recognition event" },
   { src: "/images/sue/award_10.jpg",          alt: "Award event" },
   { src: "/images/sue/award_12.jpg",          alt: "Sue receiving the REALTORS Care Award" },
+  { src: "/images/sue/comm_spirit.jpg",       alt: "Sue with community" },
   { src: "/images/sue/comm_spirit_3.jpg",     alt: "Sue with community" },
   { src: "/images/sue/comm_spirit_4.jpg",     alt: "Sue at community event" },
   { src: "/images/sue/comm_spirit_5.jpg",     alt: "Sue with supporters" },
@@ -33,13 +34,9 @@ const sliderPhotos = [
   { src: "/images/sue/hockey_5.jpg",          alt: "Hockey event" },
   { src: "/images/sue/hockey_6.jpg",           alt: "Hockey Cares gathering" },
   { src: "/images/sue/fireman_1.jpg",          alt: "Sue with essential workers" },
-  { src: "/images/award/award (1).jpg",        alt: "Sue at award event" },
   { src: "/images/award/award (2).jpg",        alt: "Award ceremony" },
-  { src: "/images/award/award (3).jpg",        alt: "Award event" },
-  { src: "/images/award/award (6).jpg",        alt: "Recognition event" },
   { src: "/images/award/award (8).jpg",        alt: "Community award" },
   { src: "/images/award/award (10).jpg",       alt: "Award event" },
-  { src: "/images/award/award (12).jpg",       alt: "Award recognition" },
   { src: "/images/award/award (13).jpg",       alt: "Community recognition" },
 ];
 

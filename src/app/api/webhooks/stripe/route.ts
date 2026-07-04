@@ -11,9 +11,7 @@ function receiptHtml(
   firstName: string,
   lastName: string,
   amount: number,
-  paymentIntentId: string,
 ): string {
-  const receiptNo = paymentIntentId.slice(-8).toUpperCase();
   const dateStr = new Date().toLocaleDateString("en-CA", {
     year: "numeric", month: "long", day: "numeric",
   });
@@ -67,15 +65,9 @@ function receiptHtml(
                 </td>
               </tr>
               <tr>
-                <td style="padding:16px 20px;border-bottom:1px solid #e5e5e5;">
+                <td style="padding:16px 20px;">
                   <span style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:.05em;">Date</span><br />
                   <span style="font-size:15px;color:#1a1a1a;">${dateStr}</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding:16px 20px;">
-                  <span style="font-size:12px;color:#999;text-transform:uppercase;letter-spacing:.05em;">Receipt No.</span><br />
-                  <span style="font-size:13px;color:#555;font-family:monospace;">${receiptNo}</span>
                 </td>
               </tr>
             </table>
@@ -170,41 +162,31 @@ export async function POST(req: NextRequest) {
   const lastName  = m.lastName  || "";
   const email     = m.email     || "";
 
-  const sheetsWrites = Promise.allSettled([
-    appendRow("Donations", [
-      timestamp,
-      firstName,
-      lastName,
-      email,
-      `$${amount.toFixed(2)}`,
-      pi.id,
-      m.oakvilleResident || "NO",
-      m.address  || "",
-      m.unit     || "",
-      m.city     || "",
-      m.province || "ON",
-      m.postal   || "",
-    ]),
-    ...(email
-      ? [appendRow("Newsletter", [timestamp, `${firstName} ${lastName}`.trim(), email, m.postal || ""])]
-      : []
-    ),
-  ]);
+  const donationWrite = appendRow("Donations", [
+    timestamp,
+    firstName,
+    lastName,
+    email,
+    `$${amount.toFixed(2)}`,
+    pi.id,
+    m.oakvilleResident || "NO",
+    m.address  || "",
+    m.unit     || "",
+    m.city     || "",
+    m.province || "ON",
+    m.postal   || "",
+  ]).catch((err) => console.error("Sheets error (Donations):", err));
 
   const emailSend = (process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL && email)
     ? new Resend(process.env.RESEND_API_KEY).emails.send({
         from: process.env.RESEND_FROM_EMAIL,
         to: email,
         subject: `Thank you for your donation, ${firstName}!`,
-        html: receiptHtml(firstName, lastName, amount, pi.id),
+        html: receiptHtml(firstName, lastName, amount),
       }).catch((err) => console.error("Resend error:", err))
     : Promise.resolve();
 
-  const [sheetsResults] = await Promise.all([sheetsWrites, emailSend]);
-  sheetsResults.forEach((r, i) => {
-    if (r.status === "rejected")
-      console.error(`Sheets error (${i === 0 ? "Donations" : "Newsletter"}):`, r.reason);
-  });
+  await Promise.all([donationWrite, emailSend]);
 
   return NextResponse.json({ ok: true });
 }
