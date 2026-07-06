@@ -135,10 +135,10 @@
   flex-wrap: wrap;
 }
 .hero-btn {
-  padding: 20px 40px;
+  padding: 24px 48px;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 22px;
   margin-left: 6px;
   text-transform: uppercase;
   letter-spacing: 0.1em;

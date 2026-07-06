@@ -108,7 +108,7 @@ export default function HeroSection() {
         <div className="hero-photo-overlay" />
         <a href="/about" className="hero-quote-box">
           <p className="hero-quote-heading">
-            Meet <mark className="hero-quote-mark">{t("hero.quote")}</mark>
+            Why <mark className="hero-quote-mark">{t("hero.quote")}</mark>?
           </p>
         </a>
       </div>

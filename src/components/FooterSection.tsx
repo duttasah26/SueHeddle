@@ -80,7 +80,9 @@ export default function FooterSection() {
 
   return (
     <footer className="footer">
-      <img src="/images/icons/brand.png" alt="Sue Heddle" className="footer-brand-icon" />
+      <a href="/">
+        <img src="/images/icons/brand.png" alt="Sue Heddle" className="footer-brand-icon" />
+      </a>
       <div className="footer-icons">
         <a href="mailto:sueheddle@gmail.com" className="footer-icon-btn" aria-label={t("footer.emailAriaLabel")}>
           <span className="material-symbols-outlined">mail</span>

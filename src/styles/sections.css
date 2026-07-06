@@ -351,7 +351,8 @@
 .social-btn--linkedin  { background: #0A66C2; }
 .social-btn--instagram { background: #e1306c; }
 .social-btn--facebook  { background: #1877F2; }
-.social-btn .material-symbols-outlined { font-size: 26px; }
+.social-btn .material-symbols-outlined,
+.social-btn svg { width: 1em; height: 1em; font-size: 1em; flex-shrink: 0; }
 .involve-signup-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -364,6 +365,7 @@
   font-weight: 900;
   color: #fff;
   margin-bottom: 32px;
+  text-align: center;
 }
 .signup-fields-row {
   display: grid;
@@ -406,6 +408,7 @@
   font-weight: 900;
   color: #fff;
   margin-bottom: 32px;
+  text-align: center;
 }
 .donation-grid {
   display: grid;

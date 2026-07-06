@@ -78,7 +78,7 @@
   .hero-heading { font-size: clamp(56px, 16vw, 80px); }
   .hero-ward  { font-size: 15px; letter-spacing: 0.06em; }
   .hero-ctas  { gap: 16px; }
-  .hero-btn   { padding: 16px 24px; font-size: 16px; }
+  .hero-btn   { padding: 20px 30px; font-size: 19px; }
   /* Cap the animated underline so it doesn't overflow narrow viewports */
   .animated-underline { max-width: 85vw; }
 
@@ -171,7 +171,7 @@
 /* ── SMALL PHONE  (≤ 374px) ────────────────────────────────────── */
 @media (max-width: 374.98px) {
   .hero-heading { font-size: clamp(48px, 15vw, 64px); }
-  .hero-btn          { padding: 14px 16px; font-size: 15px; }
+  .hero-btn          { padding: 17px 20px; font-size: 17px; }
   .hero-ward         { font-size: 13px; letter-spacing: 0.04em; }
   .hero-election-date { font-size: 14px; }
   .platform-card     { padding: 20px; }
