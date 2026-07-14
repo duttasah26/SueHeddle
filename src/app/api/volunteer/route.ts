@@ -151,7 +151,7 @@ export async function POST(req: NextRequest) {
     hour: "2-digit", minute: "2-digit", second: "2-digit",
   });
 
-  const row = [firstName, lastName, email, phone, address, unit, city, province, postal];
+  const row = [timestamp, firstName, lastName, email, phone, address, unit, city, province, postal];
 
   const writes: Promise<void>[] = [];
   if (vote      === "TRUE") writes.push(appendRow("Vote",        row));
