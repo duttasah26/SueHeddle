@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useState, useEffect } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import LoadingDots from "@/components/LoadingDots";
 
@@ -51,7 +52,7 @@ function UnsubscribeForm() {
         <a href="/" className="form-home-btn"><span className="material-symbols-outlined">home</span></a>
 
         <div style={{ background: "#1a1a1a", padding: "24px 32px", textAlign: "center" }}>
-          <img src="/images/icons/circle_icon.png" alt="Sue Heddle" height={48} style={{ display: "block", margin: "0 auto" }} />
+          <Image src="/images/icons/circle_icon.png" alt="Sue Heddle" width={48} height={48} style={{ display: "block", margin: "0 auto" }} />
           <p style={{ margin: "10px 0 0", fontSize: "11px", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#e70685" }}>
             Vote Sue. Vote New.
           </p>

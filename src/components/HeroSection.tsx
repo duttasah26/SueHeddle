@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+const MotionImage = motion.create(Image);
 
 const TRANSITION = { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const };
 const PHOTO_TRANSITION = { duration: 1.6, ease: [0.4, 0, 0.2, 1] as const };
@@ -41,10 +44,13 @@ export default function HeroSection() {
     <section id="home" className="hero-section">
       <div className="hero-content">
         <div className="hero-brand-mark-wrap">
-          <img
+          <Image
             src="/images/icons/circle_icon.png"
             alt=""
+            width={128}
+            height={128}
             className="hero-brand-mark"
+            priority
           />
         </div>
         <div className="hero-heading-wrap">
@@ -93,10 +99,13 @@ export default function HeroSection() {
 
       <div className="hero-photo">
         {HERO_PHOTOS.map(({ src, style }, i) => (
-          <motion.img
+          <MotionImage
             key={src}
             src={src}
             alt="Sue Heddle, Ward 5 Candidate"
+            fill
+            sizes="(max-width: 959px) 100vw, 50vw"
+            priority
             style={style}
             animate={{
               opacity: i === photoIndex ? 1 : 0,

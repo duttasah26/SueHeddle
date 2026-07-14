@@ -116,7 +116,7 @@
 
   /* Story-scroll / Flow sections */
   .flow-text-image-row { grid-template-columns: 1fr; }
-  .flow-side-img       { height: clamp(200px, 55vw, 320px); }
+  .flow-side-img-wrap  { height: clamp(200px, 55vw, 320px); }
   .flow-section        { min-height: auto; }
   .flow-art-container  { min-height: auto; padding: 48px var(--margin-mobile); }
   /* Gallery: simplified 2×2 grid, slightly taller rows */

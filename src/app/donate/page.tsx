@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import type { PaymentRequest as StripePaymentRequest } from "@stripe/stripe-js";
 import {
@@ -478,7 +479,7 @@ export default function DonatePage() {
             <div className="donate-card-corner-tl" />
             <div className="donate-card-corner-br" />
             <div className="donate-logo-wrap">
-              <a href="/"><img src="/images/icons/brand.png" alt="Sue Heddle" className="donate-logo-img" /></a>
+              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={1080} height={1080} className="donate-logo-img" priority /></a>
             </div>
             <div style={{ textAlign: "center", padding: "32px 0" }}>
               <span className="material-symbols-outlined" style={{ fontSize: 64, color: "var(--primary)" }}>favorite</span>
@@ -516,7 +517,7 @@ export default function DonatePage() {
             <div className="donate-card-corner-br" />
 
             <div className="donate-logo-wrap">
-              <a href="/"><img src="/images/icons/brand.png" alt="Sue Heddle" className="donate-logo-img" /></a>
+              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={1080} height={1080} className="donate-logo-img" priority /></a>
             </div>
 
             {/* Step indicator */}

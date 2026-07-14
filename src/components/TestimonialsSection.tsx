@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function TestimonialsSection() {
@@ -38,9 +39,11 @@ export default function TestimonialsSection() {
             <div className="testimonial-card" key={nameKey}>
               {image ? (
                 <div className="testimonial-avatar-wrap">
-                  <img
+                  <Image
                     src={image}
                     alt={t(nameKey)}
+                    fill
+                    sizes="120px"
                     className="testimonial-avatar"
                     style={imagePosition ? { objectPosition: imagePosition } : undefined}
                   />

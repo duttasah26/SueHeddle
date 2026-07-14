@@ -82,6 +82,8 @@
 }
 /* Side image zoom wrapper */
 .flow-side-img-wrap {
+  position: relative;
+  height: clamp(300px, 40vw, 500px);
   overflow: hidden;
   border-radius: 10px;
 }
@@ -102,8 +104,6 @@
   flex-direction: column;
 }
 .flow-side-img {
-  width: 100%;
-  height: clamp(300px, 40vw, 500px);
   object-fit: cover;
   border-radius: 0;
   transition: transform 350ms ease;

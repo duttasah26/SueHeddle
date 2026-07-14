@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import '@/styles/landing.css';
 import ScrollArrow from '@/components/ui/scroll-arrow';
 
@@ -57,9 +58,11 @@ export default function LandingContent() {
 
           <div className="landing-bio-img-col">
             <div className="landing-bio-img-wrap">
-              <img
+              <Image
                 src="/images/sue/hero_shot.png"
                 alt="Sue Heddle"
+                fill
+                sizes="(max-width: 959px) 100vw, 50vw"
                 className="landing-bio-img"
               />
             </div>

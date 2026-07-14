@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const sliderPhotos = [
@@ -65,7 +66,7 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
         const hasCaption = showCaption || !!caption;
         return (
           <div key={i} className={`flow-gallery-cell${hasCaption ? " flow-gallery-cell--captioned" : ""}`}>
-            <img src={src} alt={alt} className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
+            <Image src={src} alt={alt} fill quality={92} sizes="(max-width: 743px) 50vw, 400px" className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
             {hasCaption && <span className="flow-gallery-caption">{caption ?? alt}</span>}
           </div>
         );
@@ -109,7 +110,7 @@ export default function CommunitySection() {
           <div className="slider-track">
             {[...sliderPhotos, ...sliderPhotos].map(({ src, alt }, i) => (
               <div key={i} className="slider-item">
-                <img src={src} alt={alt} className="slider-image" />
+                <Image src={src} alt={alt} fill quality={92} sizes="350px" className="slider-image" />
               </div>
             ))}
           </div>
@@ -130,9 +131,12 @@ export default function CommunitySection() {
                 <p className="flow-body">{t("community.s1Body")}</p>
               </div>
               <div className="flow-side-img-wrap">
-                <img
+                <Image
                   src="/images/sue/comm_spirit_4.jpg"
                   alt="Sue with community members"
+                  fill
+                  quality={92}
+                  sizes="(max-width: 959px) 100vw, 50vw"
                   className="flow-side-img"
                 />
               </div>

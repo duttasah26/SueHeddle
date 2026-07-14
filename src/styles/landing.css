@@ -95,15 +95,14 @@
   top: 80px;
 }
 .landing-bio-img-wrap {
+  position: relative;
+  height: clamp(380px, 55vw, 620px);
   overflow: hidden;
   border-radius: 10px;
 }
 .landing-bio-img {
-  width: 100%;
-  height: clamp(380px, 55vw, 620px);
   object-fit: cover;
   object-position: 50% 50%;
-  display: block;
   transition: transform 400ms ease;
 }
 .landing-bio-img-wrap:hover .landing-bio-img {
@@ -219,7 +218,7 @@
     top: 0;
     order: -1;
   }
-  .landing-bio-img {
+  .landing-bio-img-wrap {
     height: clamp(260px, 70vw, 380px);
   }
   .landing-bio-section,

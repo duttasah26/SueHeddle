@@ -118,6 +118,7 @@
   100% { transform: translateX(-50%); }
 }
 .slider-item {
+  position: relative;
   width: 350px;
   height: 450px;
   flex-shrink: 0;
@@ -200,6 +201,7 @@
   box-shadow: 0 20px 44px rgba(0,0,0,0.38);
 }
 .testimonial-avatar-wrap {
+  position: relative;
   width: 120px;
   height: 120px;
   border-radius: 50%;
