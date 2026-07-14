@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { appendRow } from "@/lib/googleSheets";
+import { looksLikeName, isHoneypotTripped } from "@/lib/antiSpam";
+import { isValidProvinceCode } from "@/lib/provinces";
 
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 5;
@@ -109,6 +111,10 @@ export async function POST(req: NextRequest) {
 
   const b = body as Record<string, unknown>;
 
+  if (isHoneypotTripped(b.company)) {
+    return NextResponse.json({ ok: true });
+  }
+
   const firstName = sanitize(b.firstName, 50);
   const lastName  = sanitize(b.lastName,  50);
   const email     = sanitize(b.email,    100);
@@ -124,6 +130,12 @@ export async function POST(req: NextRequest) {
 
   if (!firstName || !lastName) {
     return NextResponse.json({ error: "First and last name are required." }, { status: 400 });
+  }
+  if (!looksLikeName(firstName) || !looksLikeName(lastName)) {
+    return NextResponse.json({ error: "Please enter a valid name." }, { status: 400 });
+  }
+  if (province && !isValidProvinceCode(province)) {
+    return NextResponse.json({ error: "Please select a valid province." }, { status: 400 });
   }
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "A valid email address is required." }, { status: 400 });

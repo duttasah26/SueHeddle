@@ -5,6 +5,7 @@ import Image from "next/image";
 import LoadingDots from "@/components/LoadingDots";
 import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { PROVINCES } from "@/lib/provinces";
 
 function VolunteerForm() {
   const { t } = useLanguage();
@@ -17,11 +18,12 @@ function VolunteerForm() {
   const [address,   setAddress]   = useState("");
   const [unit,      setUnit]      = useState("");
   const [city,      setCity]      = useState("");
-  const [province,  setProvince]  = useState("");
+  const [province,  setProvince]  = useState("ON");
   const [postal,    setPostal]    = useState("");
   const [vote,      setVote]      = useState(false);
   const [sign,      setSign]      = useState(false);
   const [volunteer, setVolunteer] = useState(false);
+  const [company,   setCompany]   = useState("");
 
   useEffect(() => {
     const check = params.get("check");
@@ -53,7 +55,7 @@ function VolunteerForm() {
         body: JSON.stringify({
           firstName, lastName, email, phone,
           address, unit, city, province, postal,
-          vote, sign, volunteer,
+          vote, sign, volunteer, company,
         }),
       });
       const data = await res.json();
@@ -106,6 +108,16 @@ function VolunteerForm() {
         <p className="volunteer-subtitle">{t("volunteer.subtitle")}</p>
 
         <form onSubmit={handleSubmit} suppressHydrationWarning>
+          <input
+            type="text"
+            name="company"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
+          />
           <div className="form-fields-row">
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelFirstName")}</label>
@@ -153,8 +165,13 @@ function VolunteerForm() {
             </div>
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelProvince")}</label>
-              <input className="form-field-input" type="text" autoComplete="address-level1" suppressHydrationWarning
-                maxLength={50} value={province} onChange={(e) => setProvince(e.target.value)} />
+              <select className="form-field-input" autoComplete="address-level1" suppressHydrationWarning
+                value={province} onChange={(e) => setProvince(e.target.value)}>
+                <option value="">Select province</option>
+                {PROVINCES.map(({ code, name }) => (
+                  <option key={code} value={code}>{name}</option>
+                ))}
+              </select>
             </div>
             <div className="form-field">
               <label className="form-field-label">{t("volunteer.labelPostal")}</label>

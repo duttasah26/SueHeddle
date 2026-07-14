@@ -13,6 +13,7 @@ export default function GetInvolvedSection() {
   const [newsSubmitting, setNewsSubmitting] = useState(false);
   const [newsSubmitted,  setNewsSubmitted]  = useState(false);
   const [newsError,      setNewsError]      = useState("");
+  const [newsCompany,    setNewsCompany]    = useState("");
 
   async function handleNewsSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,7 +27,7 @@ export default function GetInvolvedSection() {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newsName, email: newsEmail, postal: newsPostal }),
+        body: JSON.stringify({ name: newsName, email: newsEmail, postal: newsPostal, company: newsCompany }),
       });
       const data = await res.json();
       if (data.error) { setNewsError(data.error); return; }
@@ -104,6 +105,16 @@ export default function GetInvolvedSection() {
                 </p>
               ) : (
                 <form onSubmit={handleNewsSubmit}>
+                  <input
+                    type="text"
+                    name="company"
+                    value={newsCompany}
+                    onChange={(e) => setNewsCompany(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0, pointerEvents: "none" }}
+                  />
                   <div className="signup-fields-row">
                     <input className="signup-input" type="text" placeholder={t("getInvolved.namePlaceholder")}
                       value={newsName} onChange={(e) => setNewsName(e.target.value)} suppressHydrationWarning />

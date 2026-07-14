@@ -23,6 +23,19 @@
   transition: border-color 150ms;
 }
 .form-field-input:focus { border-color: var(--primary); outline: none; }
+select.form-field-input {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%235a3f48' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 8px;
+  padding-right: 40px;
+}
+select.form-field-input option {
+  font-size: 14px;
+  padding: 4px;
+}
 .form-fields-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

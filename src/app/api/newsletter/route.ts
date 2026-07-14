@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { appendRow, emailExistsInSheet } from "@/lib/googleSheets";
+import { looksLikeName, isHoneypotTripped } from "@/lib/antiSpam";
 
 const WINDOW_MS = 60_000;
 const MAX_REQUESTS = 5;
@@ -107,12 +108,20 @@ export async function POST(req: NextRequest) {
   }
 
   const b = body as Record<string, unknown>;
+
+  if (isHoneypotTripped(b.company)) {
+    return NextResponse.json({ ok: true });
+  }
+
   const name   = typeof b.name   === "string" ? b.name.trim().slice(0, 100)  : "";
   const email  = typeof b.email  === "string" ? b.email.trim().slice(0, 100) : "";
   const postal = typeof b.postal === "string" ? b.postal.trim().slice(0, 10) : "";
 
   if (!name) {
     return NextResponse.json({ error: "Name is required." }, { status: 400 });
+  }
+  if (!looksLikeName(name)) {
+    return NextResponse.json({ error: "Please enter a valid name." }, { status: 400 });
   }
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "A valid email address is required." }, { status: 400 });
