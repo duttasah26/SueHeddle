@@ -6,14 +6,22 @@ import en from "@/i18n/en.json";
 import fr from "@/i18n/fr.json";
 import zh from "@/i18n/zh.json";
 import pa from "@/i18n/pa.json";
-import la from "@/i18n/la.json";
-import fa from "@/i18n/fa.json";
+import es from "@/i18n/es.json";
 import ar from "@/i18n/ar.json";
+import ur from "@/i18n/ur.json";
+import tl from "@/i18n/tl.json";
+import pt from "@/i18n/pt.json";
+import ru from "@/i18n/ru.json";
+import uk from "@/i18n/uk.json";
+import ko from "@/i18n/ko.json";
+import hi from "@/i18n/hi.json";
 
 type Dict = Record<string, unknown>;
 const bundles: Record<LangCode, Dict> = {
   en: en as Dict, fr: fr as Dict, zh: zh as Dict,
-  pa: pa as Dict, la: la as Dict, fa: fa as Dict, ar: ar as Dict,
+  pa: pa as Dict, es: es as Dict, ar: ar as Dict,
+  ur: ur as Dict, tl: tl as Dict, pt: pt as Dict,
+  ru: ru as Dict, uk: uk as Dict, ko: ko as Dict, hi: hi as Dict,
 };
 
 function lookup(dict: Dict, key: string): string {
@@ -43,8 +51,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const lang = LANGUAGES.find((l) => l.code === locale);
-    document.documentElement.dir = lang?.dir ?? "ltr";
+    // Deliberately never flips document.documentElement.dir to "rtl": this site's
+    // flex/grid layouts assume LTR almost everywhere, and only a handful of
+    // components (nav-links, hero-ctas, etc.) have RTL counter-overrides — a
+    // real dir="rtl" would mirror those few correctly while silently flipping
+    // everything else. Arabic/Urdu text still renders right-to-left on its own
+    // via the Unicode bidi algorithm regardless of the container's dir.
     document.documentElement.lang = locale;
   }, [locale]);
 

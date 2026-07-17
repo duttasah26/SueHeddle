@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export default function NavBar() {
   const { t } = useLanguage();
@@ -26,7 +27,8 @@ export default function NavBar() {
             <Link href="/#community-support" className="nav-link">{t("nav.experience")}</Link>
             <Link href="/#experience" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
-          <Link href="/volunteer" className="nav-cta nav-cta--join">Join The Campaign</Link>
+          <LanguageSwitcher />
+          <Link href="/volunteer" className="nav-cta nav-cta--join">{t("getInvolved.joinCampaign")}</Link>
           <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
         </div>
       </header>
@@ -46,9 +48,10 @@ export default function NavBar() {
             <Link href="/#vision" className="mobile-menu-link" onClick={close}>{t("nav.strategy")}</Link>
             <Link href="/#community-support" className="mobile-menu-link" onClick={close}>{t("nav.experience")}</Link>
             <Link href="/#get-involved" className="mobile-menu-link" onClick={close}>{t("nav.joinUs")}</Link>
-            <Link href="/volunteer" className="mobile-menu-link" onClick={close}>Join The Campaign</Link>
+            <Link href="/volunteer" className="mobile-menu-link" onClick={close}>{t("getInvolved.joinCampaign")}</Link>
           </nav>
           <div className="mobile-menu-footer">
+            <LanguageSwitcher />
             <Link href="/donate" className="mobile-menu-donate" onClick={close}>{t("nav.donate")}</Link>
           </div>
         </div>

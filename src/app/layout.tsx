@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Lexend, JetBrains_Mono, Noto_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import FooterSection from "@/components/FooterSection";
 import PageTransition from "@/components/PageTransition";
@@ -50,6 +51,7 @@ export default function RootLayout({
           </PageTransition>
           <FooterSection />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );

@@ -2,29 +2,33 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
+import en from "@/i18n/en.json";
 
+// Testimonials are direct quotes attributed to real, named people — always
+// shown in English (the language they were actually given in), regardless
+// of the site's active locale, so we never put words in their mouths.
 export default function TestimonialsSection() {
   const { t } = useLanguage();
 
   const testimonials = [
     {
-      quoteKey: "testimonials.t1Quote",
-      nameKey: "testimonials.t1Name",
-      roleKey: "testimonials.t1Role",
+      quote: en.testimonials.t1Quote,
+      name: en.testimonials.t1Name,
+      role: en.testimonials.t1Role,
       image: "/images/testimonial/safetynet.png",
       imagePosition: "center",
     },
     {
-      quoteKey: "testimonials.t2Quote",
-      nameKey: "testimonials.t2Name",
-      roleKey: "testimonials.t2Role",
+      quote: en.testimonials.t2Quote,
+      name: en.testimonials.t2Name,
+      role: en.testimonials.t2Role,
       image: "/images/testimonial/hailey_chum.png",
       imagePosition: "center top",
     },
     {
-      quoteKey: "testimonials.t3Quote",
-      nameKey: "testimonials.t3Name",
-      roleKey: "testimonials.t3Role",
+      quote: en.testimonials.t3Quote,
+      name: en.testimonials.t3Name,
+      role: en.testimonials.t3Role,
       image: "/images/testimonial/bridget.jpg",
       imagePosition: "center top",
     },
@@ -35,13 +39,13 @@ export default function TestimonialsSection() {
       <div className="testimonials-inner">
         <h2 className="testimonials-heading">{t("testimonials.heading")}</h2>
         <div className="testimonials-grid">
-          {testimonials.map(({ quoteKey, nameKey, roleKey, image, imagePosition }) => (
-            <div className="testimonial-card" key={nameKey}>
+          {testimonials.map(({ quote, name, role, image, imagePosition }) => (
+            <div className="testimonial-card" key={name}>
               {image ? (
                 <div className="testimonial-avatar-wrap">
                   <Image
                     src={image}
-                    alt={t(nameKey)}
+                    alt={name}
                     fill
                     sizes="120px"
                     className="testimonial-avatar"
@@ -53,9 +57,9 @@ export default function TestimonialsSection() {
                   <span className="material-symbols-outlined">person</span>
                 </div>
               )}
-              <p className="testimonial-name">{t(nameKey)}</p>
-              <p className="testimonial-role">{t(roleKey)}</p>
-              <p className="testimonial-text">&ldquo;{t(quoteKey)}&rdquo;</p>
+              <p className="testimonial-name">{name}</p>
+              <p className="testimonial-role">{role}</p>
+              <p className="testimonial-text">&ldquo;{quote}&rdquo;</p>
             </div>
           ))}
         </div>

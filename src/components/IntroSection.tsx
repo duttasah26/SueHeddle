@@ -14,23 +14,23 @@ export default function IntroSection() {
           <ul className="intro-points-list">
             <li className="intro-point-item">
               <span>
-                That inspired me to found{" "}
-                <a href="https://truenorthaid.ca/project/hockey-cares/" target="_blank" rel="noopener noreferrer" className="intro-link">Hockey Cares</a>, an organization dedicated to helping youth and families through sport and community support. For this, I won the{" "}
-                <a href="https://www.canada.ca/en/department-national-defence/services/medals/medals-chart-index/king-charles-iiis-coronation-medal.html" target="_blank" rel="noopener noreferrer" className="intro-link">King Charles III Coronation Medal</a>{" "}
-                in 2025, and the{" "}
-                <a href="https://www.realtorscare.ca/canadian-realtors-care-award/" target="_blank" rel="noopener noreferrer" className="intro-link">Care Award</a> in 2026.
+                {t("intro.hockeyCaresPre")}
+                <a href="https://truenorthaid.ca/project/hockey-cares/" target="_blank" rel="noopener noreferrer" className="intro-link">Hockey Cares</a>{t("intro.hockeyCaresMid1")}
+                <a href="https://www.canada.ca/en/department-national-defence/services/medals/medals-chart-index/king-charles-iiis-coronation-medal.html" target="_blank" rel="noopener noreferrer" className="intro-link">{t("intro.medalLinkText")}</a>
+                {t("intro.hockeyCaresMid2")}
+                <a href="https://www.realtorscare.ca/canadian-realtors-care-award/" target="_blank" rel="noopener noreferrer" className="intro-link">{t("intro.awardLinkText")}</a>{t("intro.hockeyCaresPost")}
               </span>
             </li>
             <li className="intro-point-item">
               <span>
-                This commitment guided my work as{" "}
-                <a href="https://www.safetynetservices.ca/" target="_blank" rel="noopener noreferrer" className="intro-link">Chair of SafetyNet</a>, where I helped bring together community partners to address important local issues like food insecurity and precarity.
+                {t("intro.safetyNetPre")}
+                <a href="https://www.safetynetservices.ca/" target="_blank" rel="noopener noreferrer" className="intro-link">{t("intro.safetyNetLinkText")}</a>{t("intro.safetyNetPost")}
               </span>
             </li>
             <li className="intro-point-item">
               <span>
-                It also led me to volunteer with{" "}
-                <a href="https://www.savisofhalton.org/" target="_blank" rel="noopener noreferrer" className="intro-link">SAVIS</a>, supporting individuals and families during some of life&apos;s most difficult moments.
+                {t("intro.savisPre")}
+                <a href="https://www.savisofhalton.org/" target="_blank" rel="noopener noreferrer" className="intro-link">SAVIS</a>{t("intro.savisPost")}
               </span>
             </li>
           </ul>

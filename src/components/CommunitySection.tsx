@@ -158,9 +158,7 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {"Connecting\n"}
-                  <span style={{ color: "var(--primary)" }}>{"Oakville"}</span>
-                  {"\nThrough\nSport"}
+                  {t("community.s2Heading")}
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s2Body")}</p>
@@ -175,8 +173,8 @@ export default function CommunitySection() {
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading">
-                  Sue Winning<br /><span style={{ color: "var(--primary)" }}>National</span><br />Awards
+                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
+                  {t("community.s3Heading")}
                 </h2>
                 <hr className="flow-divider" />
                 <div className="flow-cols">
@@ -213,9 +211,7 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {"Cultures.\n"}
-                  <span style={{ color: "var(--primary)" }}>{"Communities."}</span>
-                  {"\nConnections."}
+                  {t("community.s4Heading")}
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s4Body")}</p>
