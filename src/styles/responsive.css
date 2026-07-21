@@ -1,8 +1,11 @@
 /* ── RESPONSIVE ────────────────────────────────────────────────── */
 
-/* ── TABLET + PHONE  (≤ 959px) ────────────────────────────────── */
-@media (max-width: 959.98px) {
-  /* Nav: switch to burger */
+/* ── NAV: switch to burger earlier than other sections (≤ 1279px) ──
+   The full desktop nav (logo + 4 links + language switcher + 2 CTAs)
+   needs real breathing room; below this it overlaps, so it only shows
+   on genuinely wide/PC screens. Everything else keeps its own ≤959px
+   breakpoint below. ─────────────────────────────────────────────── */
+@media (max-width: 1279.98px) {
   .nav-links            { display: none; }
   .nav-burger           { display: flex; }
   .nav-icon             { height: 76px; width: auto; }
@@ -10,7 +13,12 @@
   .nav-cta--join        { display: none !important; }
   /* Donate takes over the auto-margin push to the right */
   .nav-cta:not(.nav-cta--join) { margin-left: auto; }
+  /* Language switcher moves into the burger menu only */
+  .nav-inner > .lang-switcher { display: none; }
+}
 
+/* ── TABLET + PHONE  (≤ 959px) ────────────────────────────────── */
+@media (max-width: 959.98px) {
   /* Hero: stack photo over content */
   .hero-section         { grid-template-columns: 1fr; min-height: auto; }
   .hero-photo           { order: -1; min-height: 400px; }
