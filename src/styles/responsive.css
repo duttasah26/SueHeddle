@@ -1,11 +1,11 @@
 /* ── RESPONSIVE ────────────────────────────────────────────────── */
 
-/* ── NAV: switch to burger earlier than other sections (≤ 1279px) ──
+/* ── NAV: switch to burger earlier than other sections (≤ 1439px) ──
    The full desktop nav (logo + 4 links + language switcher + 2 CTAs)
-   needs real breathing room; below this it overlaps, so it only shows
-   on genuinely wide/PC screens. Everything else keeps its own ≤959px
-   breakpoint below. ─────────────────────────────────────────────── */
-@media (max-width: 1279.98px) {
+   needs real breathing room — it was still overlapping at 1280px
+   (e.g. Nest Hub), so the cutoff is raised well clear of that.
+   Everything else keeps its own ≤959px breakpoint below. ────────── */
+@media (max-width: 1439.98px) {
   .nav-links            { display: none; }
   .nav-burger           { display: flex; }
   .nav-icon             { height: 76px; width: auto; }
@@ -63,20 +63,27 @@
   .about-priorities-inner { padding: 0 var(--margin-mobile); }
   .about-priority-block   { grid-template-columns: 1fr; gap: 32px; }
   .about-priority-name    { position: static; }
+
+  /* Story-scroll / Flow sections: stack + drop forced 100vh across the
+     whole tablet+phone range — previously this only kicked in at ≤744px,
+     leaving a gap (~745–959px) where the two-column grid stayed active
+     inside a full-viewport-height section, producing huge empty space
+     around short content. */
+  .flow-text-image-row { grid-template-columns: 1fr; }
+  .flow-section         { min-height: auto; }
+  .flow-art-container   { min-height: auto; padding: 48px var(--margin-mobile); }
+  /* Sections where text is DOM-first should still show photo, then text */
+  .flow-row--text-first .flow-gallery,
+  .flow-row--text-first .flow-side-img-wrap { order: -1; }
 }
 
 /* ── PHONE  (≤ 744px) ──────────────────────────────────────────── */
 @media (max-width: 744.98px) {
   /* Nav */
   .nav-inner  { padding: 0 8px 0 0; }
-  .nav-burger { padding: 8px 2px 8px 8px; }
   .nav-brand  { padding: 0 4px 0 0; }
-  .nav-icon   { height: 68px; width: auto; }
-  /* Ensure nav CTA meets 44px touch target */
+  /* Ensure nav CTA meets 44px touch target — size itself stays fixed, not scaled down */
   .nav-cta    {
-    padding: 6px 10px;
-    font-size: 14px;
-    box-shadow: 2px 2px 0 #000;
     min-height: 44px;
     display: flex;
     align-items: center;
@@ -123,10 +130,7 @@
   .form-fields-3    { grid-template-columns: 1fr; }
 
   /* Story-scroll / Flow sections */
-  .flow-text-image-row { grid-template-columns: 1fr; }
   .flow-side-img-wrap  { height: clamp(200px, 55vw, 320px); }
-  .flow-section        { min-height: auto; }
-  .flow-art-container  { min-height: auto; padding: 48px var(--margin-mobile); }
   /* Gallery: simplified 2×2 grid, slightly taller rows */
   .flow-gallery {
     grid-template-columns: 1fr 1fr;

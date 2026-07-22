@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
+import ImageLightbox from "@/components/ImageLightbox";
 
 const sliderPhotos = [
   { src: "/images/sue/award.jpg",             alt: "Sue receiving award" },
@@ -44,6 +45,7 @@ const sliderPhotos = [
 function Gallery({ images, showCaption, centerVideo }: { images: { src: string; alt: string; objectPosition?: string; caption?: string }[]; showCaption?: boolean; centerVideo?: string }) {
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   function togglePlay() {
@@ -65,14 +67,31 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
       {images.map(({ src, alt, objectPosition, caption }, i) => {
         const hasCaption = showCaption || !!caption;
         return (
-          <div key={i} className={`flow-gallery-cell${hasCaption ? " flow-gallery-cell--captioned" : ""}`}>
+          <div
+            key={i}
+            className={`flow-gallery-cell${hasCaption ? " flow-gallery-cell--captioned" : ""}`}
+            onClick={() => setLightboxIndex(i)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLightboxIndex(i); } }}
+            role="button"
+            tabIndex={0}
+            aria-label={`View ${alt}`}
+            suppressHydrationWarning
+          >
             <Image src={src} alt={alt} fill quality={92} sizes="(max-width: 743px) 50vw, 400px" className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
             {hasCaption && <span className="flow-gallery-caption">{caption ?? alt}</span>}
           </div>
         );
       })}
       {centerVideo && (
-        <div className="flow-gallery-video-wrap">
+        <div
+          className="flow-gallery-video-wrap"
+          onClick={() => setLightboxIndex(images.length)}
+          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLightboxIndex(images.length); } }}
+          role="button"
+          tabIndex={0}
+          aria-label="View campaign video"
+          suppressHydrationWarning
+        >
           <video
             ref={videoRef}
             src={centerVideo}
@@ -82,7 +101,7 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
             playsInline
             className="flow-gallery-video"
           />
-          <div className="flow-gallery-video-controls">
+          <div className="flow-gallery-video-controls" onClick={(e) => e.stopPropagation()}>
             <button suppressHydrationWarning onClick={togglePlay} aria-label={paused ? "Play" : "Pause"} className="flow-gallery-video-btn">
               <span className="material-symbols-outlined">{paused ? "play_arrow" : "pause"}</span>
             </button>
@@ -92,6 +111,20 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
           </div>
         </div>
       )}
+      <ImageLightbox
+        images={[
+          ...images.map(({ src, alt, objectPosition, caption }) => ({
+            src,
+            alt,
+            objectPosition,
+            caption: (showCaption || !!caption) ? (caption ?? alt) : undefined,
+          })),
+          ...(centerVideo ? [{ src: centerVideo, alt: "Campaign video", type: "video" as const }] : []),
+        ]}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </div>
   );
 }
@@ -122,7 +155,7 @@ export default function CommunitySection() {
 
         <section aria-label="Community Leadership" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#e70685", color: "#fff" }}>
-            <div className="flow-text-image-row">
+            <div className="flow-text-image-row flow-row--text-first">
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s1Eyebrow")}</p>
                 <hr className="flow-divider" />
@@ -158,7 +191,9 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {t("community.s2Heading")}
+                  {"Connecting\n"}
+                  <span style={{ color: "var(--primary)" }}>{"Oakville"}</span>
+                  {"\nThrough\nSport"}
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s2Body")}</p>
@@ -173,8 +208,8 @@ export default function CommunitySection() {
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
-                <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {t("community.s3Heading")}
+                <h2 className="flow-heading">
+                  Sue Winning<br /><span style={{ color: "var(--primary)" }}>National</span><br />Awards
                 </h2>
                 <hr className="flow-divider" />
                 <div className="flow-cols">
@@ -211,7 +246,9 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {t("community.s4Heading")}
+                  {"Cultures.\n"}
+                  <span style={{ color: "var(--primary)" }}>{"Communities."}</span>
+                  {"\nConnections."}
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s4Body")}</p>

@@ -11,9 +11,9 @@ const TRANSITION = { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const };
 const PHOTO_TRANSITION = { duration: 1.6, ease: [0.4, 0, 0.2, 1] as const };
 
 const HERO_PHOTOS = [
+  { src: "/images/award/award (1).jpg",     style: { objectPosition: "center top" } },
   { src: "/images/sue/hero_shot.png",       style: {} },
   { src: "/images/sue/hero_shot_promo.jpg", style: { objectPosition: "center 20%" } },
-  { src: "/images/award/award (1).jpg",     style: { objectPosition: "center top" } },
 ];
 
 export default function HeroSection() {
@@ -105,8 +105,10 @@ export default function HeroSection() {
             alt="Sue Heddle, Ward 5 Candidate"
             fill
             sizes="(max-width: 959px) 100vw, 50vw"
-            priority
+            priority={i === 0}
+            loading={i === 0 ? undefined : "eager"}
             style={style}
+            initial={false}
             animate={{
               opacity: i === photoIndex ? 1 : 0,
               scale:   i === photoIndex ? 1 : 1.06,
