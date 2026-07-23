@@ -4,7 +4,8 @@
     "strategy": "Stratégie",
     "experience": "Expérience",
     "joinUs": "Témoignages",
-    "donate": "Faire un don"
+    "donate": "Faire un don",
+    "joinCta": "Équipe Sue"
   },
   "hero": {
     "elect": "Élisez",
@@ -16,7 +17,8 @@
     "ward": "Conseillère du Ward 5, Oakville",
     "ctaJoin": "Joignez-vous à l’équipe Sue.",
     "ctaSign": "Obtenez une pancarte",
-    "quote": "Sue"
+    "quote": "Sue",
+    "quoteWhy": "Pourquoi"
   },
   "platform": {
     "heading": "Priorités du ",
@@ -43,21 +45,36 @@
     "s1Heading": "Soutenir\nles\ntravailleurs\nessentiels.",
     "s1Body": "Tout au long de sa vie, Sue a cru que les collectivités fortes se construisent lorsque les gens se rassemblent. Cette conviction l’a amenée à fonder Hockey Cares, à présider SafetyNet et à faire du bénévolat auprès de SAVIS — au service des résidents par le sport, la sécurité communautaire et le soutien.",
     "s2Eyebrow": "01 — Hockey Cares",
-    "s2Heading": "Rapprocher\nles collectivités\npar le\nsport",
+    "s2HeadingPre": "Rapprocher",
+    "s2HeadingAccent": "Oakville",
+    "s2HeadingPost": "Par le\nSport",
     "s2Body": "Sue a fondé Hockey Cares en 2017 comme initiative de réconciliation qui unit des jeunes autochtones et non autochtones par le hockey et les échanges culturels. Ce qui a commencé comme un projet local est devenu un programme reconnu à l’échelle nationale.",
     "s3Eyebrow": "02 — Reconnaissance nationale",
-    "s3Heading": "Prix CARE\nde l’Association\ncanadienne\nde l’immobilier",
+    "s3HeadingPre": "Sue Remporte des Prix",
+    "s3HeadingAccent": "Nationaux",
+    "s3HeadingPost": "",
     "s3Col1Title": "2026",
     "s3Col1Desc": "Reçoit le prix CARE de l’Association canadienne de l’immobilier — un honneur national soulignant la contribution de Sue au mieux-être communautaire.",
     "s3Col2Title": "2025",
     "s3Col2Desc": "Sue reçoit la Médaille du roi Charles III pour avoir fondé Hockey Cares.",
     "s3Closing": "Le sport peut être un puissant pont entre les collectivités.",
     "s4Eyebrow": "03 — Une voix pour tous.",
-    "s4Heading": "Cultures.\nCollectivités.\nConnexions.",
+    "s4HeadingPre": "Cultures.",
+    "s4HeadingAccent": "Collectivités.",
+    "s4HeadingPost": "Connexions.",
     "s4Body": "En tant qu’agente immobilière reconnue à Oakville, Sue a passé des années à aider des familles à trouver un chez-soi. Chaque jour, elle entend ce que les résidents aiment d’Oakville et ce qu’ils veulent protéger pour les générations futures — des quartiers forts, d’excellentes écoles, des parcs et l’esprit communautaire.",
     "s5Eyebrow": "04 — En première ligne.",
     "s5Heading": "Votez pour\nune championne.",
-    "s5Body": "Sue se présente parce que le Ward 5 mérite une conseillère qui écoute, agit et met toujours les résidents en premier. Forte d’un parcours marqué par la création de programmes, une reconnaissance nationale et un engagement quotidien envers la communauté, elle continuera de diriger."
+    "s5Body": "Sue se présente parce que le Ward 5 mérite une conseillère qui écoute, agit et met toujours les résidents en premier. Forte d’un parcours marqué par la création de programmes, une reconnaissance nationale et un engagement quotidien envers la communauté, elle continuera de diriger.",
+    "capFlagRaising": "Sue au lever du drapeau de la Première Nation d’Attawapiskat, à l’hôtel de ville d’Oakville",
+    "capPaulHenderson": "Sue avec la légende canadienne du hockey, Paul Henderson",
+    "capKingCharlesMedal": "Sue à la cérémonie de remise de la Médaille du roi Charles III",
+    "capMayorBurton": "Sue avec le maire actuel d’Oakville, Rob Burton",
+    "capIndigenousWomen": "Collaboration avec des femmes autochtones pour sensibiliser aux femmes disparues et assassinées",
+    "capRcmpBreakfast": "Sue sert le déjeuner avec la GRC à Kugaaruk, au Nunavut",
+    "capFireDept": "Sue remet une plaque au service des incendies d’Oakville",
+    "capLunarNewYear": "Sue à la célébration du Nouvel An lunaire chinois",
+    "capMikeDownie": "Sue avec le réalisateur de documentaires Mike Downie, frère de Gord Downie du groupe Tragically Hip"
   },
   "testimonials": {
     "heading": "Ce que disent les résidents",
@@ -96,6 +113,12 @@
   },
   "donate": {
     "heading1": "Faire un don",
+    "etransferPre": "Vous préférez le virement Interac? Envoyez-le à",
+    "rebateInfoPre": "Les résidents d’Oakville reçoivent un",
+    "rebateInfoBold": "remboursement de 50 %",
+    "rebateInfoPost": "sur les contributions jusqu’à 1 200 $.",
+    "rebateLearnMore": "En savoir plus →",
+    "residencyLabel": "Je suis résident(e) d’Oakville",
     "labelAmount": "Montant",
     "otherPlaceholder": "Autre",
     "yourDonation": "Votre don : ${amount}",

@@ -4,7 +4,8 @@
     "strategy": "ਰਣਨੀਤੀ",
     "experience": "ਤਜਰਬਾ",
     "joinUs": "ਗਵਾਹੀਆਂ",
-    "donate": "ਦਾਨ ਕਰੋ"
+    "donate": "ਦਾਨ ਕਰੋ",
+    "joinCta": "ਟੀਮ ਸੂ"
   },
   "hero": {
     "elect": "ਚੁਣੋ",
@@ -16,7 +17,8 @@
     "ward": "Ward 5 ਕੌਂਸਲਰ, Oakville",
     "ctaJoin": "ਟੀਮ ਸੂ ਨਾਲ ਜੁੜੋ ਜੀ।",
     "ctaSign": "ਸਾਈਨ ਲਵੋ",
-    "quote": "ਸੂ"
+    "quote": "ਸੂ",
+    "quoteWhy": "ਕਿਉਂ"
   },
   "platform": {
     "heading": "Ward 5 ",
@@ -43,21 +45,36 @@
     "s1Heading": "ਜ਼ਰੂਰੀ\nਕਰਮਚਾਰੀਆਂ\nਦੀ ਸਹਾਇਤਾ।",
     "s1Body": "ਆਪਣੀ ਜ਼ਿੰਦਗੀ ਭਰ, ਸੂ ਨੇ ਇਹ ਵਿਸ਼ਵਾਸ ਰੱਖਿਆ ਹੈ ਕਿ ਮਜ਼ਬੂਤ ਕਮਿਊਨਿਟੀਆਂ ਲੋਕਾਂ ਦੇ ਇਕੱਠੇ ਹੋਣ ਨਾਲ ਬਣਦੀਆਂ ਹਨ। ਉਸ ਵਿਸ਼ਵਾਸ ਨੇ ਉਸ ਨੂੰ Hockey Cares ਦੀ ਸਥਾਪਨਾ ਕਰਨ, SafetyNet ਦੀ ਅਗਵਾਈ ਕਰਨ, ਅਤੇ SAVIS ਨਾਲ ਵਲੰਟੀਅਰ ਕਰਨ ਲਈ ਪ੍ਰੇਰਿਤ ਕੀਤਾ — ਖੇਡ, ਕਮਿਊਨਿਟੀ ਸੁਰੱਖਿਆ ਅਤੇ ਸਹਾਇਤਾ ਰਾਹੀਂ ਨਿਵਾਸੀਆਂ ਦੀ ਸੇਵਾ ਕਰਦਿਆਂ।",
     "s2Eyebrow": "01 — Hockey Cares",
-    "s2Heading": "ਖੇਡ ਰਾਹੀਂ\nਕਮਿਊਨਿਟੀਆਂ\nਨੂੰ ਜੋੜਨਾ",
+    "s2HeadingPre": "ਖੇਡਾਂ ਰਾਹੀਂ",
+    "s2HeadingAccent": "Oakville",
+    "s2HeadingPost": "ਨੂੰ\nਜੋੜਨਾ",
     "s2Body": "ਸੂ ਨੇ 2017 ਵਿੱਚ Hockey Cares ਦੀ ਸਥਾਪਨਾ ਇੱਕ reconciliation ਪਹਲ ਵਜੋਂ ਕੀਤੀ, ਜੋ Indigenous ਅਤੇ non-Indigenous ਨੌਜਵਾਨਾਂ ਨੂੰ hockey ਅਤੇ ਸਾਂਸਕ੍ਰਿਤਿਕ ਅਦਾਨ-ਪ੍ਰਦਾਨ ਰਾਹੀਂ ਜੋੜਦੀ ਹੈ। ਜੋ ਇੱਕ ਸਥਾਨਕ ਪ੍ਰੋਜੈਕਟ ਸੀ, ਉਹ ਹੁਣ ਦੇਸ਼ ਪੱਧਰ 'ਤੇ ਮੰਨਿਆ ਹੋਇਆ ਪ੍ਰੋਗਰਾਮ ਬਣ ਚੁੱਕਾ ਹੈ।",
     "s3Eyebrow": "02 — ਰਾਸ਼ਟਰੀ ਮਾਨਤਾ",
-    "s3Heading": "Canadian\nREALTORS\nCare\nAward",
+    "s3HeadingPre": "ਸੂ ਜਿੱਤ ਰਹੀ ਹੈ",
+    "s3HeadingAccent": "ਰਾਸ਼ਟਰੀ",
+    "s3HeadingPost": "ਪੁਰਸਕਾਰ",
     "s3Col1Title": "2026",
     "s3Col1Desc": "Canadian Real Estate Association CARE Award ਪ੍ਰਾਪਤ ਕਰਦੀ ਹੈ — ਇੱਕ ਰਾਸ਼ਟਰੀ ਸਨਮਾਨ ਜੋ ਕਮਿਊਨਿਟੀ ਭਲਾਈ ਲਈ ਸੂ ਦੇ ਯੋਗਦਾਨਾਂ ਨੂੰ ਮਾਨਤਾ ਦਿੰਦਾ ਹੈ।",
     "s3Col2Title": "2025",
     "s3Col2Desc": "ਸੂ ਨੂੰ Hockey Cares ਦੀ ਸਥਾਪਨਾ ਲਈ King Charles III Medal ਮਿਲਦੀ ਹੈ।",
     "s3Closing": "ਖੇਡ ਕਮਿਊਨਿਟੀਆਂ ਵਿਚਕਾਰ ਇੱਕ ਸ਼ਕਤੀਸ਼ਾਲੀ ਪੁਲ ਹੋ ਸਕਦੀ ਹੈ।",
     "s4Eyebrow": "03 — ਸਭ ਲਈ ਇੱਕ ਆਵਾਜ਼।",
-    "s4Heading": "ਸਭਿਆਚਾਰ।\nਕਮਿਊਨਿਟੀਆਂ।\nਸੰਬੰਧ।",
+    "s4HeadingPre": "ਸਭਿਆਚਾਰ।",
+    "s4HeadingAccent": "ਕਮਿਊਨਿਟੀਆਂ।",
+    "s4HeadingPost": "ਸੰਬੰਧ।",
     "s4Body": "ਇੱਕ ਸਫਲ Oakville ਰੀਅਲਟਰ ਵਜੋਂ, ਸੂ ਨੇ ਸਾਲਾਂ ਤੱਕ ਪਰਿਵਾਰਾਂ ਨੂੰ ਘਰ ਕਹਿਣ ਲਈ ਥਾਂ ਲੱਭਣ ਵਿੱਚ ਮਦਦ ਕੀਤੀ ਹੈ। ਹਰ ਰੋਜ਼ ਉਹ ਸੁਣਦੀ ਹੈ ਕਿ ਨਿਵਾਸੀ Oakville ਵਿੱਚ ਕੀ ਪਸੰਦ ਕਰਦੇ ਹਨ ਅਤੇ ਉਹ ਭਵਿੱਖ ਦੀਆਂ ਪੀੜ੍ਹੀਆਂ ਲਈ ਕੀ ਸੰਭਾਲ ਕੇ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹਨ — ਮਜ਼ਬੂਤ ਮੁਹੱਲੇ, ਸ਼ਾਨਦਾਰ ਸਕੂਲ, ਪਾਰਕ, ਅਤੇ ਕਮਿਊਨਿਟੀ ਦੀ ਰੂਹ।",
     "s5Eyebrow": "04 — ਸਭ ਤੋਂ ਅੱਗੇ।",
     "s5Heading": "ਇੱਕ\nਚੈਂਪੀਅਨ ਲਈ ਵੋਟ ਦਿਓ।",
-    "s5Body": "ਸੂ ਇਸ ਲਈ ਚੋਣ ਲੜ ਰਹੀ ਹੈ ਕਿਉਂਕਿ Ward 5 ਨੂੰ ਇੱਕ ਅਜਿਹਾ ਕੌਂਸਲਰ ਚਾਹੀਦਾ ਹੈ ਜੋ ਸੁਣੇ, ਕਦਮ ਚੁੱਕੇ, ਅਤੇ ਹਮੇਸ਼ਾਂ ਨਿਵਾਸੀਆਂ ਨੂੰ ਪਹਿਲ ਦੇਵੇ। ਪ੍ਰੋਗਰਾਮ ਬਣਾਉਣ, ਰਾਸ਼ਟਰੀ ਮਾਨਤਾ ਪ੍ਰਾਪਤ ਕਰਨ ਅਤੇ ਹਰ ਰੋਜ਼ ਕਮਿਊਨਿਟੀ ਦੀ ਸੇਵਾ ਕਰਨ ਦੇ ਰਿਕਾਰਡ ਨਾਲ, ਉਹ ਅਗਵਾਈ ਜਾਰੀ ਰੱਖੇਗੀ।"
+    "s5Body": "ਸੂ ਇਸ ਲਈ ਚੋਣ ਲੜ ਰਹੀ ਹੈ ਕਿਉਂਕਿ Ward 5 ਨੂੰ ਇੱਕ ਅਜਿਹਾ ਕੌਂਸਲਰ ਚਾਹੀਦਾ ਹੈ ਜੋ ਸੁਣੇ, ਕਦਮ ਚੁੱਕੇ, ਅਤੇ ਹਮੇਸ਼ਾਂ ਨਿਵਾਸੀਆਂ ਨੂੰ ਪਹਿਲ ਦੇਵੇ। ਪ੍ਰੋਗਰਾਮ ਬਣਾਉਣ, ਰਾਸ਼ਟਰੀ ਮਾਨਤਾ ਪ੍ਰਾਪਤ ਕਰਨ ਅਤੇ ਹਰ ਰੋਜ਼ ਕਮਿਊਨਿਟੀ ਦੀ ਸੇਵਾ ਕਰਨ ਦੇ ਰਿਕਾਰਡ ਨਾਲ, ਉਹ ਅਗਵਾਈ ਜਾਰੀ ਰੱਖੇਗੀ।",
+    "capFlagRaising": "ਸੂ, Attawapiskat First Nation ਦੇ ਝੰਡਾ ਲਹਿਰਾਉਣ ਸਮਾਰੋਹ ਵਿੱਚ, Oakville ਟਾਊਨ ਹਾਲ",
+    "capPaulHenderson": "ਸੂ ਕੈਨੇਡੀਅਨ ਹਾਕੀ ਲੀਜੈਂਡ Paul Henderson ਨਾਲ",
+    "capKingCharlesMedal": "ਸੂ, King Charles III ਮੈਡਲ ਅਵਾਰਡ ਸਮਾਰੋਹ ਵਿੱਚ",
+    "capMayorBurton": "ਸੂ, Oakville ਦੇ ਮੌਜੂਦਾ ਮੇਅਰ Rob Burton ਨਾਲ",
+    "capIndigenousWomen": "ਲਾਪਤਾ ਅਤੇ ਕਤਲ ਹੋਈਆਂ ਔਰਤਾਂ ਬਾਰੇ ਜਾਗਰੂਕਤਾ ਫੈਲਾਉਣ ਲਈ ਆਦਿਵਾਸੀ ਔਰਤਾਂ ਨਾਲ ਕੰਮ ਕਰਦੇ ਹੋਏ",
+    "capRcmpBreakfast": "ਸੂ, Kugaaruk, Nunavut ਵਿੱਚ RCMP ਨਾਲ ਨਾਸ਼ਤਾ ਪਰੋਸਦੇ ਹੋਏ",
+    "capFireDept": "ਸੂ, Oakville ਫਾਇਰ ਡਿਪਾਰਟਮੈਂਟ ਨੂੰ ਯਾਦਗਾਰੀ ਤਖ਼ਤੀ ਭੇਟ ਕਰਦੇ ਹੋਏ",
+    "capLunarNewYear": "ਸੂ ਚੀਨੀ ਨਵੇਂ ਸਾਲ ਦੇ ਜਸ਼ਨ ਵਿੱਚ ਸ਼ਾਮਲ ਹੁੰਦੇ ਹੋਏ",
+    "capMikeDownie": "ਸੂ ਡਾਕੂਮੈਂਟਰੀ ਡਾਇਰੈਕਟਰ Mike Downie ਨਾਲ, ਜੋ Tragically Hip ਦੇ Gord Downie ਦੇ ਭਰਾ ਹਨ"
   },
   "testimonials": {
     "heading": "ਨਿਵਾਸੀ ਕੀ ਕਹਿ ਰਹੇ ਹਨ",
@@ -96,6 +113,12 @@
   },
   "donate": {
     "heading1": "ਦਾਨ ਕਰੋ",
+    "etransferPre": "e-transfer ਪਸੰਦ ਕਰਦੇ ਹੋ? ਇੱਥੇ ਭੇਜੋ",
+    "rebateInfoPre": "Oakville ਦੇ ਨਿਵਾਸੀਆਂ ਨੂੰ ਮਿਲਦੀ ਹੈ",
+    "rebateInfoBold": "50% ਛੋਟ",
+    "rebateInfoPost": "$1,200 ਤੱਕ ਦੇ ਯੋਗਦਾਨ 'ਤੇ।",
+    "rebateLearnMore": "ਹੋਰ ਜਾਣੋ →",
+    "residencyLabel": "ਮੈਂ Oakville ਦਾ ਨਿਵਾਸੀ ਹਾਂ",
     "labelAmount": "ਰਕਮ",
     "otherPlaceholder": "ਹੋਰ",
     "yourDonation": "ਤੁਹਾਡਾ ਦਾਨ: ${amount}",

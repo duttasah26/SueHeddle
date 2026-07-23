@@ -4,7 +4,8 @@
     "strategy": "حکمتِ عملی",
     "experience": "تجربہ",
     "joinUs": "رائے",
-    "donate": "عطیہ دیں"
+    "donate": "عطیہ دیں",
+    "joinCta": "ٹیم سُو"
   },
   "hero": {
     "elect": "منتخب کریں",
@@ -16,7 +17,8 @@
     "ward": "Ward 5 کی کونسلر، Oakville",
     "ctaJoin": "ٹیم سُو میں شامل ہوں۔",
     "ctaSign": "سائن حاصل کریں",
-    "quote": "سُو"
+    "quote": "سُو",
+    "quoteWhy": "کیوں"
   },
   "platform": {
     "heading": "Ward 5 ",
@@ -43,21 +45,36 @@
     "s1Heading": "ضروری\nکارکنوں\nکی حمایت۔",
     "s1Body": "اپنی زندگی بھر، سُو کا یقین رہا ہے کہ مضبوط کمیونٹیاں تب بنتی ہیں جب لوگ اکٹھے ہوتے ہیں۔ اسی یقین نے انہیں Hockey Cares قائم کرنے، SafetyNet کی سربراہی کرنے، اور SAVIS کے ساتھ رضاکارانہ کام کرنے کی ترغیب دی — کھیل، کمیونٹی سیفٹی، اور معاونت کے ذریعے رہائشیوں کی خدمت کرتے ہوئے۔",
     "s2Eyebrow": "01 — Hockey Cares",
-    "s2Heading": "کھیل کے\nذریعے\nکمیونٹیز\nکو جوڑنا",
+    "s2HeadingPre": "کھیلوں کے ذریعے",
+    "s2HeadingAccent": "Oakville",
+    "s2HeadingPost": "کو\nجوڑنا",
     "s2Body": "سُو نے 2017 میں Hockey Cares کو ایک reconciliation initiative کے طور پر قائم کیا، جو Indigenous اور non-Indigenous نوجوانوں کو hockey اور ثقافتی تبادلے کے ذریعے ایک ساتھ لاتا ہے۔ جو ایک مقامی منصوبہ تھا، وہ اب ایک قومی سطح پر تسلیم شدہ پروگرام بن چکا ہے۔",
     "s3Eyebrow": "02 — قومی پذیرائی",
-    "s3Heading": "کینیڈین\nREALTORS\nCARE\nایوارڈ",
+    "s3HeadingPre": "سُو جیت رہی ہیں",
+    "s3HeadingAccent": "قومی",
+    "s3HeadingPost": "ایوارڈز",
     "s3Col1Title": "2026",
     "s3Col1Desc": "Canadian Real Estate Association کا CARE Award ملتا ہے — ایک قومی اعزاز جو کمیونٹی کی فلاح و بہبود کے لیے سُو کی خدمات کو تسلیم کرتا ہے۔",
     "s3Col2Title": "2025",
     "s3Col2Desc": "سُو کو Hockey Cares کی بنیاد رکھنے پر King Charles III Medal ملتی ہے۔",
     "s3Closing": "کھیل کمیونٹیز کے درمیان ایک مضبوط پل بن سکتا ہے۔",
     "s4Eyebrow": "03 — سب کے لیے ایک آواز۔",
-    "s4Heading": "ثقافتیں۔\nکمیونٹیاں۔\nتعلقات۔",
+    "s4HeadingPre": "ثقافتیں۔",
+    "s4HeadingAccent": "کمیونٹیاں۔",
+    "s4HeadingPost": "تعلقات۔",
     "s4Body": "ایک کامیاب Oakville ریئلٹر کے طور پر، سُو نے برسوں تک خاندانوں کو ایسا مقام تلاش کرنے میں مدد دی ہے جسے وہ اپنا گھر کہہ سکیں۔ ہر روز وہ سنتی ہیں کہ رہائشی Oakville کی کن باتوں سے محبت کرتے ہیں اور وہ آنے والی نسلوں کے لیے کیا محفوظ رکھنا چاہتے ہیں — مضبوط محلّے، بہترین اسکول، پارکس، اور کمیونٹی کا جذبہ۔",
     "s5Eyebrow": "04 — سب سے آگے۔",
     "s5Heading": "ایک\nچیمپئن کے لیے\nووٹ دیں۔",
-    "s5Body": "سُو اس لیے انتخاب لڑ رہی ہیں کہ Ward 5 کو ایک ایسے کونسلر کی ضرورت ہے جو سنتا ہو، عمل کرتا ہو، اور ہمیشہ رہائشیوں کو پہلے رکھے۔ پروگرامز قائم کرنے، قومی سطح پر پہچان حاصل کرنے، اور ہر روز کمیونٹی کی خدمت کرنے کے ریکارڈ کے ساتھ، وہ قیادت جاری رکھیں گی۔"
+    "s5Body": "سُو اس لیے انتخاب لڑ رہی ہیں کہ Ward 5 کو ایک ایسے کونسلر کی ضرورت ہے جو سنتا ہو، عمل کرتا ہو، اور ہمیشہ رہائشیوں کو پہلے رکھے۔ پروگرامز قائم کرنے، قومی سطح پر پہچان حاصل کرنے، اور ہر روز کمیونٹی کی خدمت کرنے کے ریکارڈ کے ساتھ، وہ قیادت جاری رکھیں گی۔",
+    "capFlagRaising": "سُو، Attawapiskat First Nation کی پرچم کشائی کی تقریب میں، Oakville ٹاؤن ہال",
+    "capPaulHenderson": "سُو کینیڈین ہاکی لیجنڈ Paul Henderson کے ساتھ",
+    "capKingCharlesMedal": "سُو، King Charles III میڈل ایوارڈ تقریب میں",
+    "capMayorBurton": "سُو، Oakville کے موجودہ میئر Rob Burton کے ساتھ",
+    "capIndigenousWomen": "لاپتہ اور قتل ہونے والی خواتین کے بارے میں آگاہی پیدا کرنے کے لیے مقامی خواتین کے ساتھ کام کرتے ہوئے",
+    "capRcmpBreakfast": "سُو، Kugaaruk، Nunavut میں RCMP کے ساتھ ناشتہ پیش کرتے ہوئے",
+    "capFireDept": "سُو، Oakville فائر ڈیپارٹمنٹ کو یادگاری تختی پیش کرتے ہوئے",
+    "capLunarNewYear": "سُو چینی نئے سال کی تقریب میں شریک ہوتے ہوئے",
+    "capMikeDownie": "سُو دستاویزی فلم ساز Mike Downie کے ساتھ، جو Tragically Hip کے Gord Downie کے بھائی ہیں"
   },
   "testimonials": {
     "heading": "رہائشی کیا کہہ رہے ہیں",
@@ -96,6 +113,12 @@
   },
   "donate": {
     "heading1": "عطیہ دیں",
+    "etransferPre": "ای ٹرانسفر (e-transfer) کو ترجیح دیتے ہیں؟ یہاں بھیجیں",
+    "rebateInfoPre": "Oakville کے رہائشیوں کو ملتی ہے",
+    "rebateInfoBold": "50% رعایت",
+    "rebateInfoPost": "$1,200 تک کے عطیات پر۔",
+    "rebateLearnMore": "مزید جانیں ←",
+    "residencyLabel": "میں Oakville کا رہائشی ہوں",
     "labelAmount": "رقم",
     "otherPlaceholder": "دیگر",
     "yourDonation": "آپ کا عطیہ: ${amount}",

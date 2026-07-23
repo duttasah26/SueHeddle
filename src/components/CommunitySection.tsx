@@ -185,15 +185,15 @@ export default function CommunitySection() {
                 { src: "/images/sue/hockey_2.jpg",  alt: "Hockey Cares community" },
                 { src: "/images/sue/hockey_5.jpg", alt: "Cultural exchange" },
                 { src: "/images/sue/hockey_6.jpg", alt: "Cultural exchange" },
-                
+
               ]} />
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {"Connecting\n"}
-                  <span style={{ color: "var(--primary)" }}>{"Oakville"}</span>
-                  {"\nThrough\nSport"}
+                  {t("community.s2HeadingPre")}{"\n"}
+                  <span style={{ color: "var(--primary)" }}>{t("community.s2HeadingAccent")}</span>
+                  {"\n"}{t("community.s2HeadingPost")}
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s2Body")}</p>
@@ -209,7 +209,7 @@ export default function CommunitySection() {
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading">
-                  Sue Winning<br /><span style={{ color: "var(--primary)" }}>National</span><br />Awards
+                  {t("community.s3HeadingPre")}<br /><span style={{ color: "var(--primary)" }}>{t("community.s3HeadingAccent")}</span><br />{t("community.s3HeadingPost")}
                 </h2>
                 <hr className="flow-divider" />
                 <div className="flow-cols">
@@ -224,10 +224,10 @@ export default function CommunitySection() {
                 </div>
               </div>
               <Gallery showCaption centerVideo="https://res.cloudinary.com/aurx0hy5/video/upload/v1782869683/sue-clip_ys7ide.mp4" images={[
-                { src: "/images/sue/award_12.jpg", alt: "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall" },
-                { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%" },
-                { src: "/images/sue/award_3.jpg",  alt: "Sue at King Charles III medal award ceremony" },
-                { src: "/images/sue/award_2.jpg",  alt: "Sue with current Oakville mayor, Rob Burton", objectPosition: "50% 20%" },
+                { src: "/images/sue/award_12.jpg", alt: "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall", caption: t("community.capFlagRaising") },
+                { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%", caption: t("community.capPaulHenderson") },
+                { src: "/images/sue/award_3.jpg",  alt: "Sue at King Charles III medal award ceremony", caption: t("community.capKingCharlesMedal") },
+                { src: "/images/sue/award_2.jpg",  alt: "Sue with current Oakville mayor, Rob Burton", objectPosition: "50% 20%", caption: t("community.capMayorBurton") },
               ]} />
             </div>
           </div>
@@ -237,18 +237,18 @@ export default function CommunitySection() {
           <div className="flow-art-container" style={{ backgroundColor: "#fcf9f8", color: "#1c1b1b" }}>
             <div className="flow-text-image-row">
               <Gallery showCaption images={[
-                { src: "/images/sue/comm_spirit_3.jpg", alt: "Working with indigenous women to create awareness about missing and murdered women", objectPosition: "50% 40%" },
-                { src: "/images/sue/comm_spirit.jpg",   alt: "Sue serving breakfast with RCMP in Kugaaruk, Nunavut", objectPosition: "50% 20%" },
-                { src: "/images/sue/fireman_2.jpg",     alt: "Sue presenting a plaque to the Oakville fire department" },
-                { src: "/images/sue/culture_2.jpg",     alt: "Sue attending Chinese Lunar New Year celebration" },
+                { src: "/images/sue/comm_spirit_3.jpg", alt: "Working with indigenous women to create awareness about missing and murdered women", objectPosition: "50% 40%", caption: t("community.capIndigenousWomen") },
+                { src: "/images/sue/comm_spirit.jpg",   alt: "Sue serving breakfast with RCMP in Kugaaruk, Nunavut", objectPosition: "50% 20%", caption: t("community.capRcmpBreakfast") },
+                { src: "/images/sue/fireman_2.jpg",     alt: "Sue presenting a plaque to the Oakville fire department", caption: t("community.capFireDept") },
+                { src: "/images/sue/culture_2.jpg",     alt: "Sue attending Chinese Lunar New Year celebration", caption: t("community.capLunarNewYear") },
               ]} />
               <div className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
-                  {"Cultures.\n"}
-                  <span style={{ color: "var(--primary)" }}>{"Communities."}</span>
-                  {"\nConnections."}
+                  {t("community.s4HeadingPre")}{"\n"}
+                  <span style={{ color: "var(--primary)" }}>{t("community.s4HeadingAccent")}</span>
+                  {"\n"}{t("community.s4HeadingPost")}
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s4Body")}</p>
@@ -270,7 +270,7 @@ export default function CommunitySection() {
               <Gallery images={[
                 { src: "/images/award/award (6).jpg",  alt: "Sue Heddle at award ceremony" },
                 { src: "/images/award/award (1).jpg",  alt: "Award recognition event" },
-                { src: "/images/award/award (8).jpg",  alt: "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip", caption: "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip" },
+                { src: "/images/award/award (8).jpg",  alt: "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip", caption: t("community.capMikeDownie") },
                 { src: "/images/award/award (2).jpg",  alt: "Sue receiving award" },
               ]} />
             </div>

@@ -354,6 +354,7 @@
   font-weight: 800;
   color: var(--on-surface);
   letter-spacing: 0.04em;
+  text-transform: uppercase;
   margin-bottom: 4px;
 }
 .residency-check-desc {

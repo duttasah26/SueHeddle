@@ -148,16 +148,16 @@ export default function GetInvolvedSection() {
               </div>
               <div className="donation-rebate-note">
                 <span className="material-symbols-outlined">email</span>
-                <p>Prefer e-transfer? Send to{" "}
+                <p>{t("donate.etransferPre")}{" "}
                   <a href="mailto:sueheddle@gmail.com" style={{ color: "#fff", fontWeight: 700 }}>sueheddle@gmail.com</a>
                 </p>
               </div>
               <div className="donation-rebate-note">
                 <span className="material-symbols-outlined">info</span>
                 <p>
-                  Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
+                  {t("donate.rebateInfoPre")} <strong>{t("donate.rebateInfoBold")}</strong> {t("donate.rebateInfoPost")}{" "}
                   <a href="/rebate" className="donation-rebate-link">
-                    Learn more →
+                    {t("donate.rebateLearnMore")}
                   </a>
                 </p>
               </div>

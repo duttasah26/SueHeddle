@@ -4,7 +4,8 @@
     "strategy": "Strategy",
     "experience": "Experience",
     "joinUs": "Testimonials",
-    "donate": "Donate"
+    "donate": "Donate",
+    "joinCta": "Join The Campaign"
   },
   "hero": {
     "elect": "Elect",
@@ -16,7 +17,8 @@
     "ward": "Ward 5 Councillor Oakville",
     "ctaJoin": "Join Team Sue.",
     "ctaSign": "Get a Sign",
-    "quote": "Sue"
+    "quote": "Sue",
+    "quoteWhy": "Why"
   },
   "platform": {
     "heading": "Ward 5 ",
@@ -43,21 +45,36 @@
     "s1Heading": "Supporting\nEssential\nWorkers.",
     "s1Body": "Throughout her life, Sue has believed that strong communities are built when people come together. That belief inspired her to found Hockey Cares, chair SafetyNet, and volunteer with SAVIS — serving residents through sport, community safety, and support.",
     "s2Eyebrow": "01 — Hockey Cares",
-    "s2Heading": "Connecting\nOakville\nThrough\nSport",
+    "s2HeadingPre": "Connecting",
+    "s2HeadingAccent": "Oakville",
+    "s2HeadingPost": "Through\nSport",
     "s2Body": "Sue founded Hockey Cares in 2017 as a reconciliation initiative that unites Indigenous and non-Indigenous youth through hockey and cultural exchange. What began as a local project has grown into a nationally recognized program.",
     "s3Eyebrow": "02 — National Recognition",
-    "s3Heading": "Sue Winning\nNational\nAwards",
+    "s3HeadingPre": "Sue Winning",
+    "s3HeadingAccent": "National",
+    "s3HeadingPost": "Awards",
     "s3Col1Title": "2026",
     "s3Col1Desc": "Receives the Canadian Real Estate Association CARE Award - a national honour recognizing Sue’s contributions to community well-being.",
     "s3Col2Title": "2025",
     "s3Col2Desc": "Sue receives the King Charles III Medal for founding Hockey Cares.",
     "s3Closing": "Sport can be a powerful bridge between communities.",
     "s4Eyebrow": "03 — A Voice for Everyone.",
-    "s4Heading": "Cultures.\nCommunities.\nConnections.",
+    "s4HeadingPre": "Cultures.",
+    "s4HeadingAccent": "Communities.",
+    "s4HeadingPost": "Connections.",
     "s4Body": "As a successful Oakville realtor, Sue has spent years helping families find a place to call home. Every day, she hears what residents love about Oakville and what they want protected for future generations — strong neighbourhoods, excellent schools, parks, and community spirit.",
     "s5Eyebrow": "04 — Out in front.",
     "s5Heading": "Vote For A\nChampion.",
-    "s5Body": "Sue is running because Ward 5 deserves a councillor who listens, acts, and always puts residents first. With a track record of founding programs, earning national recognition, and serving the community every day, she will continue to lead."
+    "s5Body": "Sue is running because Ward 5 deserves a councillor who listens, acts, and always puts residents first. With a track record of founding programs, earning national recognition, and serving the community every day, she will continue to lead.",
+    "capFlagRaising": "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall",
+    "capPaulHenderson": "Sue with Canadian Hockey Legend, Paul Henderson",
+    "capKingCharlesMedal": "Sue at King Charles III medal award ceremony",
+    "capMayorBurton": "Sue with current Oakville mayor, Rob Burton",
+    "capIndigenousWomen": "Working with indigenous women to create awareness about missing and murdered women",
+    "capRcmpBreakfast": "Sue serving breakfast with RCMP in Kugaaruk, Nunavut",
+    "capFireDept": "Sue presenting a plaque to the Oakville fire department",
+    "capLunarNewYear": "Sue attending Chinese Lunar New Year celebration",
+    "capMikeDownie": "Sue with Documentary Director, Mike Downie, brother of Gord Downie of Tragically Hip"
   },
   "testimonials": {
     "heading": "What Residents Are Saying",
@@ -96,6 +113,12 @@
   },
   "donate": {
     "heading1": "Make a Donation",
+    "etransferPre": "Prefer e-transfer? Send to",
+    "rebateInfoPre": "Oakville residents receive a",
+    "rebateInfoBold": "50% rebate",
+    "rebateInfoPost": "on contributions up to $1,200.",
+    "rebateLearnMore": "Learn more →",
+    "residencyLabel": "I am a resident of Oakville",
     "labelAmount": "Amount",
     "otherPlaceholder": "Other",
     "yourDonation": "Your donation: ${amount}",

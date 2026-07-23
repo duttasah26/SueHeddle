@@ -28,7 +28,7 @@ export default function NavBar() {
             <Link href="/#experience" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
           <LanguageSwitcher />
-          <Link href="/volunteer" className="nav-cta nav-cta--join">{t("getInvolved.joinCampaign")}</Link>
+          <Link href="/volunteer" className="nav-cta nav-cta--join">{t("nav.joinCta")}</Link>
           <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
         </div>
       </header>

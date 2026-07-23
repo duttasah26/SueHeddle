@@ -61,7 +61,7 @@ export default function AboutPage() {
               <span className="accent">{t("about.heroHeadingAccent")}</span>
             </h1>
             <p className="about-hero-subtitle">
-              Building Ward 5's <span style={{ color: "var(--primary)" }}>Future</span> Together
+              {t("about.heroSubtitle")}
             </p>
           </div>
         </section>

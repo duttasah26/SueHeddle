@@ -540,14 +540,14 @@ export default function DonatePage() {
                 <h1 className="donate-step-title">{t("donate.heading1")}</h1>
                 <div className="donate-etransfer-banner">
                   <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0 }}>email</span>
-                  <p>Prefer e-transfer? Send to{" "}
+                  <p>{t("donate.etransferPre")}{" "}
                     <a href="mailto:sueheddle@gmail.com" className="donate-etransfer-email">sueheddle@gmail.com</a>
                   </p>
                 </div>
                 <div className="rebate-intro">
                   <span className="rebate-intro-badge">50% BACK</span>
-                  <p>Oakville residents receive a <strong>50% rebate</strong> on contributions up to $1,200.{" "}
-                    <a href="/rebate" className="rebate-intro-link">Learn more →</a>
+                  <p>{t("donate.rebateInfoPre")} <strong>{t("donate.rebateInfoBold")}</strong> {t("donate.rebateInfoPost")}{" "}
+                    <a href="/rebate" className="rebate-intro-link">{t("donate.rebateLearnMore")}</a>
                   </p>
                 </div>
                 <p className="donate-section-label">{t("donate.labelAmount")}</p>
@@ -592,7 +592,7 @@ export default function DonatePage() {
                 <label className="residency-check">
                   <input type="checkbox" checked={isOakvilleResident}
                     onChange={(e) => setIsOakvilleResident(e.target.checked)} />
-                  <p className="residency-check-title">I AM A RESIDENT OF OAKVILLE</p>
+                  <p className="residency-check-title">{t("donate.residencyLabel")}</p>
                 </label>
                 {step1Error && <p className="donate-payment-error">{step1Error}</p>}
                 <button

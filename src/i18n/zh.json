@@ -4,7 +4,8 @@
     "strategy": "策略",
     "experience": "经历",
     "joinUs": "居民心声",
-    "donate": "捐款"
+    "donate": "捐款",
+    "joinCta": "加入 Sue 团队"
   },
   "hero": {
     "elect": "选出",
@@ -16,7 +17,8 @@
     "ward": "Oakville Ward 5 议员",
     "ctaJoin": "加入 Sue 团队。",
     "ctaSign": "领取标牌",
-    "quote": "Sue"
+    "quote": "Sue",
+    "quoteWhy": "为什么"
   },
   "platform": {
     "heading": "Ward 5 ",
@@ -43,21 +45,36 @@
     "s1Heading": "支持\n一线\n工作者。",
     "s1Body": "在她的一生中，Sue 始终相信，强大的社区是在人们携手合作时建立起来的。这一信念促使她创办 Hockey Cares，担任 SafetyNet 主席，并志愿服务于 SAVIS——通过体育、社区安全和支持来服务居民。",
     "s2Eyebrow": "01 — Hockey Cares",
-    "s2Heading": "通过\n体育\n连接\n社区",
+    "s2HeadingPre": "以运动凝聚",
+    "s2HeadingAccent": "Oakville",
+    "s2HeadingPost": "社区",
     "s2Body": "Sue 于 2017 年创办 Hockey Cares，作为一项和解倡议，通过冰球和文化交流，将原住民和非原住民青年联系在一起。这个最初的本地项目，如今已发展为全国认可的项目。",
     "s3Eyebrow": "02 — 全国认可",
-    "s3Heading": "加拿大\n房地产经纪人\n关怀\n奖",
+    "s3HeadingPre": "Sue 荣获",
+    "s3HeadingAccent": "全国性",
+    "s3HeadingPost": "奖项",
     "s3Col1Title": "2026",
     "s3Col1Desc": "获得加拿大房地产协会 CARE 奖——这一全国性荣誉表彰 Sue 对社区福祉的贡献。",
     "s3Col2Title": "2025",
     "s3Col2Desc": "Sue 因创办 Hockey Cares 而获得查尔斯三世国王勋章。",
     "s3Closing": "体育可以成为连接社区的强大桥梁。",
     "s4Eyebrow": "03 — 为所有人发声。",
-    "s4Heading": "文化。\n社区。\n联结。",
+    "s4HeadingPre": "文化。",
+    "s4HeadingAccent": "社区。",
+    "s4HeadingPost": "联结。",
     "s4Body": "作为一名成功的 Oakville 房地产经纪人，Sue 多年来一直帮助家庭找到可以称之为家的地方。她每天都能听到居民对 Oakville 的喜爱，以及他们希望为后代保留的东西——强大的社区、优秀的学校、公园和社区精神。",
     "s5Eyebrow": "04 — 走在前列。",
     "s5Heading": "投票给\n一位冠军。",
-    "s5Body": "Sue 参选，是因为 Ward 5 值得一位会倾听、会行动，并始终把居民放在首位的议员。凭借创办项目、获得全国认可以及每天服务社区的经历，她将继续带领大家前进。"
+    "s5Body": "Sue 参选，是因为 Ward 5 值得一位会倾听、会行动，并始终把居民放在首位的议员。凭借创办项目、获得全国认可以及每天服务社区的经历，她将继续带领大家前进。",
+    "capFlagRaising": "Sue 在 Oakville 市政厅参加 Attawapiskat 原住民部落升旗仪式",
+    "capPaulHenderson": "Sue 与加拿大冰球传奇人物 Paul Henderson 合影",
+    "capKingCharlesMedal": "Sue 出席查尔斯三世国王勋章颁授仪式",
+    "capMayorBurton": "Sue 与现任 Oakville 市长 Rob Burton 合影",
+    "capIndigenousWomen": "与原住民妇女合作，提高对失踪和被害妇女问题的关注",
+    "capRcmpBreakfast": "Sue 在 Nunavut 的 Kugaaruk 与 RCMP 一起供应早餐",
+    "capFireDept": "Sue 向 Oakville 消防局赠送纪念牌匾",
+    "capLunarNewYear": "Sue 出席中国农历新年庆祝活动",
+    "capMikeDownie": "Sue 与纪录片导演 Mike Downie 合影，他是 Tragically Hip 乐队 Gord Downie 的兄弟"
   },
   "testimonials": {
     "heading": "居民怎么说",
@@ -96,6 +113,12 @@
   },
   "donate": {
     "heading1": "捐款",
+    "etransferPre": "更喜欢电子转账（e-transfer）？请发送至",
+    "rebateInfoPre": "Oakville 居民",
+    "rebateInfoBold": "最高可获 50% 返还",
+    "rebateInfoPost": "（捐款上限 $1,200）。",
+    "rebateLearnMore": "了解更多 →",
+    "residencyLabel": "我是 Oakville 居民",
     "labelAmount": "金额",
     "otherPlaceholder": "其他",
     "yourDonation": "您的捐款：${amount}",

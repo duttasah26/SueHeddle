@@ -4,7 +4,8 @@
     "strategy": "Estratehiya",
     "experience": "Karanasan",
     "joinUs": "Mga Patotoo",
-    "donate": "Magbigay"
+    "donate": "Magbigay",
+    "joinCta": "Team Sue"
   },
   "hero": {
     "elect": "Ihalal",
@@ -16,7 +17,8 @@
     "ward": "Konsehal ng Ward 5, Oakville",
     "ctaJoin": "Sumali sa Team Sue.",
     "ctaSign": "Kumuha ng Karatula",
-    "quote": "Sue"
+    "quote": "Sue",
+    "quoteWhy": "Bakit"
   },
   "platform": {
     "heading": "Ward 5 ",
@@ -43,21 +45,36 @@
     "s1Heading": "Pagsuporta sa\nMahahalagang\nManggagawa.",
     "s1Body": "Sa buong buhay niya, naniniwala si Sue na nabubuo ang matitibay na komunidad kapag nagkakaisa ang mga tao. Dahil sa paniniwalang iyon, itinatag niya ang Hockey Cares, pinamunuan ang SafetyNet, at nagboluntaryo sa SAVIS — naglilingkod sa mga residente sa pamamagitan ng sports, kaligtasan ng komunidad, at suporta.",
     "s2Eyebrow": "01 — Hockey Cares",
-    "s2Heading": "Pag-uugnay ng\nmga Komunidad\nsa Pamamagitan\nng Sports",
+    "s2HeadingPre": "Pinag-uugnay ang",
+    "s2HeadingAccent": "Oakville",
+    "s2HeadingPost": "Sa Pamamagitan ng\nSports",
     "s2Body": "Itinatag ni Sue ang Hockey Cares noong 2017 bilang isang reconciliation initiative na nagbubuklod sa mga kabataang Indigenous at non-Indigenous sa pamamagitan ng hockey at cultural exchange. Ang nagsimula bilang isang lokal na proyekto ay naging isang programang kinikilala sa buong bansa.",
     "s3Eyebrow": "02 — Pambansang Pagkilala",
-    "s3Heading": "Canadian\nREALTORS\nCare\nAward",
+    "s3HeadingPre": "Nananalo si Sue ng",
+    "s3HeadingAccent": "Pambansang",
+    "s3HeadingPost": "Parangal",
     "s3Col1Title": "2026",
     "s3Col1Desc": "Tumatanggap ng Canadian Real Estate Association CARE Award — isang pambansang parangal na kumikilala sa mga ambag ni Sue sa kapakanan ng komunidad.",
     "s3Col2Title": "2025",
     "s3Col2Desc": "Tinanggap ni Sue ang King Charles III Medal para sa pagtatatag ng Hockey Cares.",
     "s3Closing": "Maaaring maging isang makapangyarihang tulay ang sports sa pagitan ng mga komunidad.",
     "s4Eyebrow": "03 — Isang Boses para sa Lahat.",
-    "s4Heading": "Mga Kultura.\nMga Komunidad.\nMga Ugnayan.",
+    "s4HeadingPre": "Mga Kultura.",
+    "s4HeadingAccent": "Mga Komunidad.",
+    "s4HeadingPost": "Mga Ugnayan.",
     "s4Body": "Bilang isang matagumpay na realtor sa Oakville, matagal nang tinutulungan ni Sue ang mga pamilya na makahanap ng lugar na matatawag nilang tahanan. Araw-araw, naririnig niya kung ano ang mahal ng mga residente sa Oakville at kung ano ang nais nilang mapanatili para sa mga susunod na henerasyon — matitibay na kapitbahayan, mahuhusay na paaralan, mga parke, at diwa ng komunidad.",
     "s5Eyebrow": "04 — Nangunguna.",
     "s5Heading": "Iboto ang\nIsang Kampeon.",
-    "s5Body": "Tumatakbo si Sue dahil nararapat sa Ward 5 ang isang konsehal na nakikinig, kumikilos, at laging inuuna ang mga residente. Sa kanyang rekord ng pagbuo ng mga programa, pagkamit ng pambansang pagkilala, at araw-araw na paglilingkod sa komunidad, magpapatuloy siyang mamuno."
+    "s5Body": "Tumatakbo si Sue dahil nararapat sa Ward 5 ang isang konsehal na nakikinig, kumikilos, at laging inuuna ang mga residente. Sa kanyang rekord ng pagbuo ng mga programa, pagkamit ng pambansang pagkilala, at araw-araw na paglilingkod sa komunidad, magpapatuloy siyang mamuno.",
+    "capFlagRaising": "Si Sue sa flag raising ng Attawapiskat First Nation, Oakville Town Hall",
+    "capPaulHenderson": "Si Sue kasama ang Canadian Hockey Legend na si Paul Henderson",
+    "capKingCharlesMedal": "Si Sue sa seremonya ng King Charles III Medal",
+    "capMayorBurton": "Si Sue kasama ang kasalukuyang mayor ng Oakville na si Rob Burton",
+    "capIndigenousWomen": "Pakikipagtulungan sa mga katutubong kababaihan upang itaguyod ang kamalayan tungkol sa mga nawawala at napatay na kababaihan",
+    "capRcmpBreakfast": "Si Sue habang naghahain ng almusal kasama ang RCMP sa Kugaaruk, Nunavut",
+    "capFireDept": "Si Sue habang nagbibigay ng plaka sa Oakville Fire Department",
+    "capLunarNewYear": "Si Sue sa pagdiriwang ng Chinese Lunar New Year",
+    "capMikeDownie": "Si Sue kasama ang Documentary Director na si Mike Downie, kapatid ni Gord Downie ng Tragically Hip"
   },
   "testimonials": {
     "heading": "Sinasabi ng mga Residente",
@@ -96,6 +113,12 @@
   },
   "donate": {
     "heading1": "Magbigay ng Donasyon",
+    "etransferPre": "Mas gusto ang e-transfer? Ipadala sa",
+    "rebateInfoPre": "Ang mga residente ng Oakville ay tumatanggap ng",
+    "rebateInfoBold": "50% na rebate",
+    "rebateInfoPost": "sa mga kontribusyong hanggang $1,200.",
+    "rebateLearnMore": "Alamin pa →",
+    "residencyLabel": "Ako ay residente ng Oakville",
     "labelAmount": "Halaga",
     "otherPlaceholder": "Iba pa",
     "yourDonation": "Ang iyong donasyon: ${amount}",

@@ -4,7 +4,8 @@
     "strategy": "Estratégia",
     "experience": "Experiência",
     "joinUs": "Depoimentos",
-    "donate": "Doar"
+    "donate": "Doar",
+    "joinCta": "Equipe Sue"
   },
   "hero": {
     "elect": "Eleja",
@@ -16,7 +17,8 @@
     "ward": "Vereadora do Ward 5, Oakville",
     "ctaJoin": "Junte-se à Equipe Sue.",
     "ctaSign": "Pegue um cartaz",
-    "quote": "Sue"
+    "quote": "Sue",
+    "quoteWhy": "Por quê"
   },
   "platform": {
     "heading": "Ward 5 ",
@@ -43,21 +45,36 @@
     "s1Heading": "Apoio aos\ntrabalhadores\nessenciais.",
     "s1Body": "Ao longo da vida, Sue acreditou que comunidades fortes são construídas quando as pessoas se unem. Essa crença a inspirou a fundar Hockey Cares, presidir a SafetyNet e atuar como voluntária na SAVIS — servindo os moradores por meio do esporte, da segurança comunitária e do apoio.",
     "s2Eyebrow": "01 — Hockey Cares",
-    "s2Heading": "Conectando\ncomunidades\npor meio\ndo esporte",
+    "s2HeadingPre": "Conectando",
+    "s2HeadingAccent": "Oakville",
+    "s2HeadingPost": "Através do\nEsporte",
     "s2Body": "Sue fundou o Hockey Cares em 2017 como uma iniciativa de reconciliação que une jovens indígenas e não indígenas por meio do hóquei e do intercâmbio cultural. O que começou como um projeto local tornou-se um programa reconhecido nacionalmente.",
     "s3Eyebrow": "02 — Reconhecimento nacional",
-    "s3Heading": "Prêmio\nCARE dos\nREALTORS\nCanadenses",
+    "s3HeadingPre": "Sue Vencendo Prêmios",
+    "s3HeadingAccent": "Nacionais",
+    "s3HeadingPost": "",
     "s3Col1Title": "2026",
     "s3Col1Desc": "Recebe o CARE Award da Canadian Real Estate Association — uma honra nacional que reconhece as contribuições de Sue para o bem-estar comunitário.",
     "s3Col2Title": "2025",
     "s3Col2Desc": "Sue recebe a Medalha do Rei Charles III por fundar o Hockey Cares.",
     "s3Closing": "O esporte pode ser uma ponte poderosa entre comunidades.",
     "s4Eyebrow": "03 — Uma voz para todos.",
-    "s4Heading": "Culturas.\nComunidades.\nConexões.",
+    "s4HeadingPre": "Culturas.",
+    "s4HeadingAccent": "Comunidades.",
+    "s4HeadingPost": "Conexões.",
     "s4Body": "Como uma corretora imobiliária bem-sucedida em Oakville, Sue passou anos ajudando famílias a encontrar um lugar para chamar de lar. Todos os dias, ela ouve o que os moradores amam em Oakville e o que querem preservar para as futuras gerações — bairros fortes, escolas excelentes, parques e espírito comunitário.",
     "s5Eyebrow": "04 — Na frente.",
     "s5Heading": "Vote em\numa campeã.",
-    "s5Body": "Sue está concorrendo porque o Ward 5 merece uma vereadora que escute, aja e sempre coloque os moradores em primeiro lugar. Com um histórico de criação de programas, reconhecimento nacional e serviço diário à comunidade, ela continuará liderando."
+    "s5Body": "Sue está concorrendo porque o Ward 5 merece uma vereadora que escute, aja e sempre coloque os moradores em primeiro lugar. Com um histórico de criação de programas, reconhecimento nacional e serviço diário à comunidade, ela continuará liderando.",
+    "capFlagRaising": "Sue na cerimônia de hasteamento da bandeira da Primeira Nação Attawapiskat, na Câmara Municipal de Oakville",
+    "capPaulHenderson": "Sue com a lenda do hóquei canadense, Paul Henderson",
+    "capKingCharlesMedal": "Sue na cerimônia de entrega da Medalha do Rei Charles III",
+    "capMayorBurton": "Sue com o atual prefeito de Oakville, Rob Burton",
+    "capIndigenousWomen": "Trabalhando com mulheres indígenas para criar conscientização sobre mulheres desaparecidas e assassinadas",
+    "capRcmpBreakfast": "Sue servindo café da manhã com a RCMP em Kugaaruk, Nunavut",
+    "capFireDept": "Sue entregando uma placa ao corpo de bombeiros de Oakville",
+    "capLunarNewYear": "Sue na celebração do Ano Novo Lunar Chinês",
+    "capMikeDownie": "Sue com o diretor de documentários Mike Downie, irmão de Gord Downie, do Tragically Hip"
   },
   "testimonials": {
     "heading": "O que os moradores estão dizendo",
@@ -96,6 +113,12 @@
   },
   "donate": {
     "heading1": "Faça uma doação",
+    "etransferPre": "Prefere transferência eletrônica? Envie para",
+    "rebateInfoPre": "Os residentes de Oakville recebem um",
+    "rebateInfoBold": "reembolso de 50%",
+    "rebateInfoPost": "em contribuições de até $1.200.",
+    "rebateLearnMore": "Saiba mais →",
+    "residencyLabel": "Sou residente de Oakville",
     "labelAmount": "Valor",
     "otherPlaceholder": "Outro",
     "yourDonation": "Sua doação: ${amount}",
