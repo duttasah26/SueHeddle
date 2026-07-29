@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/contexts/LanguageContext";
+import Reveal from "@/components/Reveal";
 
 export default function PlatformSection() {
   const { t } = useLanguage();
@@ -29,12 +30,12 @@ export default function PlatformSection() {
   return (
     <section id="vision" className="platform">
       <div className="platform-inner">
-        <h2 className="platform-heading">
+        <Reveal as="h2" className="platform-heading">
           {t("platform.heading")}<span className="accent">{t("platform.headingAccent")}</span>
-        </h2>
+        </Reveal>
         <div className="platform-grid">
-          {cards.map(({ icon, nameKey, descKey, items }) => (
-            <div className="platform-card" key={nameKey}>
+          {cards.map(({ icon, nameKey, descKey, items }, i) => (
+            <Reveal className="platform-card" delay={i * 0.12} slide={false} key={nameKey}>
               <span className="material-symbols-outlined platform-icon">{icon}</span>
               <h3 className="platform-card-title">{t(nameKey)}</h3>
               <p className="platform-card-desc">{t(descKey)}</p>
@@ -46,7 +47,7 @@ export default function PlatformSection() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

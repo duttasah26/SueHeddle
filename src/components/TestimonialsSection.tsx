@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 import en from "@/i18n/en.json";
+import Reveal from "@/components/Reveal";
 
 // Testimonials are direct quotes attributed to real, named people — always
 // shown in English (the language they were actually given in), regardless
@@ -37,10 +38,10 @@ export default function TestimonialsSection() {
   return (
     <section className="testimonials-section" id="experience">
       <div className="testimonials-inner">
-        <h2 className="testimonials-heading">{t("testimonials.heading")}</h2>
+        <Reveal as="h2" className="testimonials-heading">{t("testimonials.heading")}</Reveal>
         <div className="testimonials-grid">
-          {testimonials.map(({ quote, name, role, image, imagePosition }) => (
-            <div className="testimonial-card" key={name}>
+          {testimonials.map(({ quote, name, role, image, imagePosition }, i) => (
+            <Reveal className="testimonial-card" delay={i * 0.12} slide={false} key={name}>
               {image ? (
                 <div className="testimonial-avatar-wrap">
                   <Image
@@ -60,7 +61,7 @@ export default function TestimonialsSection() {
               <p className="testimonial-name">{name}</p>
               <p className="testimonial-role">{role}</p>
               <p className="testimonial-text">&ldquo;{quote}&rdquo;</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

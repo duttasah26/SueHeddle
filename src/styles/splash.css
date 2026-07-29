@@ -17,8 +17,8 @@
   transition: background 150ms var(--ease), box-shadow 150ms, transform 150ms;
   white-space: nowrap;
 }
-.splash-donate-btn:hover  { background: #fff; color: var(--primary); box-shadow: 4px 4px 0 var(--primary); }
-.splash-donate-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--primary); }
+.splash-donate-btn:hover,
+.splash-donate-btn:active { transform: translate(2px, 2px); background: #fff; color: var(--primary); box-shadow: 2px 2px 0 var(--primary); }
 
 /* ── SPLASH PAGE ─────────────────────────────────────────────── */
 .splash-root {

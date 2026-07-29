@@ -31,7 +31,10 @@
     border: 2px solid #1a1a1a;
     box-shadow: 2px 2px 0 #000;
     text-decoration: none;
+    transition: background 150ms, box-shadow 150ms, transform 150ms;
   }
+  .form-home-btn:hover,
+  .form-home-btn:active { transform: translate(1px, 1px); background: #000; box-shadow: 1px 1px 0 #000; }
   .form-home-btn .material-symbols-outlined {
     font-size: 22px;
   }
@@ -298,8 +301,8 @@
   transition: background 200ms, transform 100ms, box-shadow 100ms;
   box-shadow: 4px 4px 0 #000;
 }
-.donate-next-btn:hover  { background: #000; }
-.donate-next-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+.donate-next-btn:hover,
+.donate-next-btn:active { transform: translate(2px, 2px); background: #000; box-shadow: 2px 2px 0 #000; }
 .donate-next-btn .material-symbols-outlined { font-size: 28px; }
 .donate-back-btn {
   background: none;

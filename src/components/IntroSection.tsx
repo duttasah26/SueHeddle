@@ -2,13 +2,14 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import MarkerHighlight from "@/components/MarkerHighlight";
+import Reveal from "@/components/Reveal";
 
 export default function IntroSection() {
   const { t } = useLanguage();
   return (
     <section className="intro-section">
       <div className="intro-inner">
-        <div className="intro-body">
+        <Reveal className="intro-body">
           <p className="intro-p">{t("intro.p1")}</p>
           <p className="intro-p">{t("intro.p1b")}</p>
           <ul className="intro-points-list">
@@ -52,12 +53,12 @@ export default function IntroSection() {
             </li>
           </ul>
           <p className="intro-p">{t("intro.p3")}</p>
-        </div>
-        <h2 className="intro-heading">
+        </Reveal>
+        <Reveal as="h2" className="intro-heading" delay={0.15}>
           {t("intro.heading")}
           <span style={{ color: "var(--primary)" }}>{t("intro.headingAccent")}</span>
           {t("intro.headingPost")}
-        </h2>
+        </Reveal>
       </div>
     </section>
   );

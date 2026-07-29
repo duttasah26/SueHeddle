@@ -168,8 +168,8 @@
   box-shadow: 3px 3px 0 #000;
   transition: background 150ms, box-shadow 150ms, transform 150ms;
 }
-.flow-gallery-video-btn:hover { background: #000; }
-.flow-gallery-video-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 #000; }
+.flow-gallery-video-btn:hover,
+.flow-gallery-video-btn:active { transform: translate(2px, 2px); background: #000; box-shadow: 1px 1px 0 #000; }
 .flow-gallery-video-btn .material-symbols-outlined { font-size: 18px; }
 
 /* Mobile: video full-width on top, photos 2×2 below */
@@ -309,8 +309,7 @@
   transition: background 150ms, box-shadow 150ms, transform 150ms;
 }
 .lightbox-close:hover,
-.lightbox-arrow:hover { background: #000; }
-.lightbox-close:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+.lightbox-close:active { transform: translate(2px, 2px); background: #000; box-shadow: 2px 2px 0 #000; }
 .lightbox-close {
   top: 24px;
   right: 24px;
@@ -323,7 +322,8 @@
   width: 52px;
   height: 52px;
 }
-.lightbox-arrow:active { transform: translateY(-50%) translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+.lightbox-arrow:hover,
+.lightbox-arrow:active { transform: translateY(-50%) translate(2px, 2px); background: #000; box-shadow: 2px 2px 0 #000; }
 .lightbox-arrow--prev { left: 16px; }
 .lightbox-arrow--next { right: 16px; }
 .lightbox-close .material-symbols-outlined { font-size: 24px; }

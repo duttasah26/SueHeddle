@@ -260,7 +260,8 @@
   box-shadow: 6px 6px 0 #fff;
   transition: all 200ms;
 }
-.rebate-cta-btn:hover { background: #fff; color: #000; }
+.rebate-cta-btn:hover,
+.rebate-cta-btn:active { transform: translate(3px, 3px); background: #fff; color: #000; box-shadow: 3px 3px 0 #fff; }
 
 /* Responsive */
 @media (max-width: 959.98px) {

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LoadingDots from "@/components/LoadingDots";
+import Reveal from "@/components/Reveal";
 
 export default function GetInvolvedSection() {
   const { t } = useLanguage();
@@ -43,8 +44,8 @@ export default function GetInvolvedSection() {
       {/* Row 1: Take Action */}
       <div className="involve-row-action">
         <div className="involve-row-inner">
-          <p className="involve-section-label">{t("getInvolved.takeAction")}</p>
-          <div className="action-grid">
+          <Reveal as="p" className="involve-section-label">{t("getInvolved.takeAction")}</Reveal>
+          <Reveal className="action-grid">
             <a href="/volunteer" className="action-btn">
               {t("getInvolved.volunteer")}
             </a>
@@ -57,15 +58,15 @@ export default function GetInvolvedSection() {
             <a href="/donate" className="action-btn">
               {t("getInvolved.makeDonation")}
             </a>
-          </div>
+          </Reveal>
         </div>
       </div>
 
       {/* Row 2: Connect with Sue */}
       <div className="involve-row-connect">
         <div className="involve-row-inner">
-          <p className="involve-section-label">{t("getInvolved.connectWithSue")}</p>
-          <div className="social-grid">
+          <Reveal as="p" className="involve-section-label">{t("getInvolved.connectWithSue")}</Reveal>
+          <Reveal className="social-grid">
             <a href="mailto:sueheddle@gmail.com" className="social-btn social-btn--email">
               <span className="material-symbols-outlined">mail</span>
               {t("getInvolved.emailLabel")}
@@ -88,7 +89,7 @@ export default function GetInvolvedSection() {
               </svg>
               Facebook
             </a>
-          </div>
+          </Reveal>
         </div>
       </div>
 
@@ -96,7 +97,7 @@ export default function GetInvolvedSection() {
       <div className="involve-row-signup">
         <div className="involve-row-inner">
           <div className="involve-signup-grid">
-            <div>
+            <Reveal>
               <h3 className="signup-form-title">{t("getInvolved.signUpHeading")}</h3>
               {newsSubmitted ? (
                 <p style={{ marginTop: 16, color: "#fff", fontWeight: 700, fontSize: 18, display: "flex", alignItems: "center", gap: 8 }}>
@@ -134,9 +135,9 @@ export default function GetInvolvedSection() {
                   )}
                 </form>
               )}
-            </div>
+            </Reveal>
 
-            <div>
+            <Reveal delay={0.15}>
               <h3 className="donation-form-title">{t("getInvolved.donationHeading")}</h3>
               <div className="donation-grid">
                 <a href="/donate?amount=25" className="donation-btn">$25 →</a>
@@ -161,7 +162,7 @@ export default function GetInvolvedSection() {
                   </a>
                 </p>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </div>

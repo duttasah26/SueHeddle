@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ImageLightbox from "@/components/ImageLightbox";
+import Reveal from "@/components/Reveal";
 
 const sliderPhotos = [
   { src: "/images/sue/award.jpg",             alt: "Sue receiving award" },
@@ -67,11 +68,14 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
       {images.map(({ src, alt, objectPosition, caption }, i) => {
         const hasCaption = showCaption || !!caption;
         return (
-          <div
+          <Reveal
             key={i}
+            as="div"
             className={`flow-gallery-cell${hasCaption ? " flow-gallery-cell--captioned" : ""}`}
+            delay={i * 0.08}
+            amount={0.4}
             onClick={() => setLightboxIndex(i)}
-            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLightboxIndex(i); } }}
+            onKeyDown={(e: React.KeyboardEvent) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLightboxIndex(i); } }}
             role="button"
             tabIndex={0}
             aria-label={`View ${alt}`}
@@ -79,7 +83,7 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
           >
             <Image src={src} alt={alt} fill quality={92} sizes="(max-width: 743px) 50vw, 400px" className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
             {hasCaption && <span className="flow-gallery-caption">{caption ?? alt}</span>}
-          </div>
+          </Reveal>
         );
       })}
       {centerVideo && (
@@ -134,11 +138,11 @@ export default function CommunitySection() {
   return (
     <>
       <section className="community-section" id="community-support">
-        <h2 className="community-heading">
+        <Reveal as="h2" className="community-heading">
           {t("community.heading")}
           <span style={{ color: "var(--primary)" }}>{t("community.headingAccent")}</span>
           {t("community.headingPost")}
-        </h2>
+        </Reveal>
         <div className="slider-container">
           <div className="slider-track">
             {[...sliderPhotos, ...sliderPhotos].map(({ src, alt }, i) => (
@@ -148,7 +152,7 @@ export default function CommunitySection() {
             ))}
           </div>
         </div>
-        <p className="community-caption">{t("community.caption")}</p>
+        <Reveal as="p" className="community-caption" delay={0.15}>{t("community.caption")}</Reveal>
       </section>
 
       <div className="flow-art-root" aria-label="Community Leadership">
@@ -156,14 +160,14 @@ export default function CommunitySection() {
         <section aria-label="Community Leadership" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#e70685", color: "#fff" }}>
             <div className="flow-text-image-row flow-row--text-first">
-              <div className="flow-text-col">
+              <Reveal className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s1Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s1Heading")}</h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s1Body")}</p>
-              </div>
-              <div className="flow-side-img-wrap">
+              </Reveal>
+              <Reveal className="flow-side-img-wrap" delay={0.15}>
                 <Image
                   src="/images/sue/comm_spirit_4.jpg"
                   alt="Sue with community members"
@@ -172,7 +176,7 @@ export default function CommunitySection() {
                   sizes="(max-width: 959px) 100vw, 50vw"
                   className="flow-side-img"
                 />
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -187,7 +191,7 @@ export default function CommunitySection() {
                 { src: "/images/sue/hockey_6.jpg", alt: "Cultural exchange" },
 
               ]} />
-              <div className="flow-text-col">
+              <Reveal className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s2Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
@@ -197,7 +201,7 @@ export default function CommunitySection() {
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s2Body")}</p>
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -205,7 +209,7 @@ export default function CommunitySection() {
         <section aria-label="National Recognition" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#000", color: "#fff" }}>
             <div className="flow-text-image-row flow-row--text-first">
-              <div className="flow-text-col">
+              <Reveal className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s3Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading">
@@ -222,7 +226,7 @@ export default function CommunitySection() {
                     <p className="flow-col-desc">{t("community.s3Col2Desc")}</p>
                   </div>
                 </div>
-              </div>
+              </Reveal>
               <Gallery showCaption centerVideo="https://res.cloudinary.com/aurx0hy5/video/upload/v1782869683/sue-clip_ys7ide.mp4" images={[
                 { src: "/images/sue/award_12.jpg", alt: "Sue at Attawapiskat First Nation flag raising, Oakville Town Hall", caption: t("community.capFlagRaising") },
                 { src: "/images/sue/award_10.jpg", alt: "Sue with Canadian Hockey Legend, Paul Henderson", objectPosition: "50% 40%", caption: t("community.capPaulHenderson") },
@@ -242,7 +246,7 @@ export default function CommunitySection() {
                 { src: "/images/sue/fireman_2.jpg",     alt: "Sue presenting a plaque to the Oakville fire department", caption: t("community.capFireDept") },
                 { src: "/images/sue/culture_2.jpg",     alt: "Sue attending Chinese Lunar New Year celebration", caption: t("community.capLunarNewYear") },
               ]} />
-              <div className="flow-text-col">
+              <Reveal className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s4Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>
@@ -252,7 +256,7 @@ export default function CommunitySection() {
                 </h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s4Body")}</p>
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -260,13 +264,13 @@ export default function CommunitySection() {
         <section aria-label="A Voice for Ward 5" className="flow-section">
           <div className="flow-art-container" style={{ backgroundColor: "#e70685", color: "#fff" }}>
             <div className="flow-text-image-row flow-row--text-first">
-              <div className="flow-text-col">
+              <Reveal className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s5Eyebrow")}</p>
                 <hr className="flow-divider" />
                 <h2 className="flow-heading" style={{ whiteSpace: "pre-line" }}>{t("community.s5Heading")}</h2>
                 <hr className="flow-divider" />
                 <p className="flow-body">{t("community.s5Body")}</p>
-              </div>
+              </Reveal>
               <Gallery images={[
                 { src: "/images/award/award (6).jpg",  alt: "Sue Heddle at award ceremony" },
                 { src: "/images/award/award (1).jpg",  alt: "Award recognition event" },

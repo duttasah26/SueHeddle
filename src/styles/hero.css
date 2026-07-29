@@ -153,16 +153,16 @@
   border-color: #fff;
   box-shadow: 6px 6px 0 #fff;
 }
-.hero-btn--dark:hover  { background: #fff; color: #000; }
-.hero-btn--dark:active { transform: translate(3px, 3px); box-shadow: 3px 3px 0 #fff; }
+.hero-btn--dark:hover,
+.hero-btn--dark:active { transform: translate(3px, 3px); background: #fff; color: #000; box-shadow: 3px 3px 0 #fff; }
 .hero-btn--white {
   background: #fff;
   color: var(--primary);
   border-color: #000;
   box-shadow: 6px 6px 0 #000;
 }
-.hero-btn--white:hover  { background: #000; color: #fff; }
-.hero-btn--white:active { transform: translate(3px, 3px); box-shadow: 3px 3px 0 #000; }
+.hero-btn--white:hover,
+.hero-btn--white:active { transform: translate(3px, 3px); background: #000; color: #fff; box-shadow: 3px 3px 0 #000; }
 .hero-photo {
   position: relative;
   overflow: hidden;

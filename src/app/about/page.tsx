@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import NavBar from "@/components/NavBar";
 import GetInvolvedSection from "@/components/GetInvolvedSection";
+import Reveal from "@/components/Reveal";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 function AwardVideo() {
@@ -25,7 +26,7 @@ function AwardVideo() {
   }
 
   return (
-    <div className="about-video-wrap">
+    <Reveal className="about-video-wrap" delay={0.15}>
       <video
         ref={videoRef}
         src="https://res.cloudinary.com/aurx0hy5/video/upload/v1782869663/award_pmhpbd.mp4"
@@ -43,7 +44,7 @@ function AwardVideo() {
           <span className="material-symbols-outlined">{muted ? "volume_off" : "volume_up"}</span>
         </button>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
@@ -56,25 +57,25 @@ export default function AboutPage() {
         {/* Hero */}
         <section className="about-hero">
           <div className="about-hero-inner">
-            <h1 className="about-hero-heading">
+            <Reveal as="h1" className="about-hero-heading">
               {t("about.heroHeading")}{" "}
               <span className="accent">{t("about.heroHeadingAccent")}</span>
-            </h1>
-            <p className="about-hero-subtitle">
+            </Reveal>
+            <Reveal as="p" className="about-hero-subtitle" delay={0.15}>
               {t("about.heroSubtitle")}
-            </p>
+            </Reveal>
           </div>
         </section>
 
         {/* Why I'm Running */}
         <section className="about-why">
           <div className="about-why-inner">
-            <div className="about-why-body">
+            <Reveal className="about-why-body">
               <p>{t("about.whyP1")}</p>
               <p>{t("about.whyP2")}</p>
               <p>{t("about.whyP3")}</p>
               <p>{t("about.whyP4")}</p>
-            </div>
+            </Reveal>
             <AwardVideo />
           </div>
         </section>
