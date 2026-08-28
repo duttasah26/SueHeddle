@@ -10,8 +10,8 @@ const MotionImage = motion.create(Image);
 const TRANSITION = { duration: 0.7, ease: [0.76, 0, 0.24, 1] as const };
 const PHOTO_TRANSITION = { duration: 1.6, ease: [0.4, 0, 0.2, 1] as const };
 
-const HERO_PHOTOS: { src: string; style: MotionStyle; scale?: number }[] = [
-  { src: "/images/hero/hero_shot_3.jpg?v=2", style: { objectFit: "contain", objectPosition: "center" }, scale: 1.8 },
+const HERO_PHOTOS: { src: string; style: MotionStyle }[] = [
+  { src: "/images/hero/hero_shot_3.jpg?v=2", style: { objectFit: "cover", objectPosition: "center" } },
   { src: "/images/hero/award-1.jpg",          style: { objectPosition: "center top" } },
   { src: "/images/hero/hero_shot_promo.jpg",  style: { objectPosition: "center 20%" } },
 ];
@@ -98,7 +98,7 @@ export default function HeroSection() {
       </div>
 
       <div className="hero-photo">
-        {HERO_PHOTOS.map(({ src, style, scale = 1 }, i) => (
+        {HERO_PHOTOS.map(({ src, style }, i) => (
           <MotionImage
             key={src}
             src={src}
@@ -113,7 +113,6 @@ export default function HeroSection() {
             initial={false}
             animate={{
               opacity: i === photoIndex ? 1 : 0,
-              scale:   i === photoIndex ? scale : 1.06,
             }}
             transition={PHOTO_TRANSITION}
           />
