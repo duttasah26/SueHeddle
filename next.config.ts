@@ -37,6 +37,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   images: {
     qualities: [75, 92],
+    localPatterns: [
+      { pathname: "/images/**" },
+    ],
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
