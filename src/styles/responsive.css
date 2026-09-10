@@ -157,7 +157,10 @@
   .about-join-btn-secondary    { width: 100%; text-align: center; padding: 14px 24px; font-size: 16px; box-sizing: border-box; }
 
   /* Donate/Volunteer pages */
-  .donate-page           { padding: 24px 12px; }
+  /* Card is top-aligned by default; on short content (e.g. the e-transfer
+     instructions view) that dumps all the leftover min-height:100vh space
+     below the card. Centering vertically on mobile spreads it evenly instead. */
+  .donate-page           { padding: 24px 12px; justify-content: center; }
   .donate-card           { padding: 20px 16px; }
   .donate-logo-wrap      { margin-bottom: 16px; }
   .donate-logo-img       { height: 96px; }
@@ -169,6 +172,11 @@
   .amount-input          { padding: 12px 4px; }
   /* Rebate intro: stack badge above text on narrow screens */
   .rebate-intro          { flex-wrap: wrap; gap: 12px; padding: 16px; }
+  /* E-transfer instructions: 44px touch target on the copy button */
+  .etransfer-modal-email-row  { flex-wrap: wrap; }
+  .etransfer-modal-email      { font-size: 14px; }
+  .etransfer-modal-copy-btn   { width: 44px; height: 44px; }
+  .etransfer-msg-list li      { font-size: 13px; }
   .rebate-callout        { padding: 14px; margin-bottom: 16px; }
   .rebate-your-donation  { font-size: 14px; }
   .rebate-actual-cost    { font-size: 16px; }

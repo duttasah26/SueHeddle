@@ -106,9 +106,9 @@ export default function HeroSection() {
             fill
             sizes="(max-width: 959px) 100vw, 50vw"
             priority={i === 0}
+            fetchPriority={i === 0 ? "high" : undefined}
             loading={i === 0 ? undefined : "eager"}
-            quality={92}
-            unoptimized={i === 0}
+            quality={90}
             style={style}
             initial={false}
             animate={{

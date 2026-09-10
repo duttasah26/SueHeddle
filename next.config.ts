@@ -36,7 +36,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   images: {
-    qualities: [75, 92],
+    formats: ["image/avif", "image/webp"],
+    qualities: [75, 90, 92],
     localPatterns: [
       { pathname: "/images/**" },
     ],

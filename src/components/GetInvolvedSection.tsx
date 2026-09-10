@@ -149,8 +149,8 @@ export default function GetInvolvedSection() {
               </div>
               <div className="donation-rebate-note">
                 <span className="material-symbols-outlined">email</span>
-                <p>{t("donate.etransferPre")}{" "}
-                  <a href="mailto:sueheddle@gmail.com" style={{ color: "#fff", fontWeight: 700 }}>sueheddle@gmail.com</a>
+                <p>{t("donate.etransferBannerPre")}{" "}
+                  <a href="/donate?etransfer=1" className="donation-rebate-link">{t("donate.etransferSeeInstructions")}</a>
                 </p>
               </div>
               <div className="donation-rebate-note">

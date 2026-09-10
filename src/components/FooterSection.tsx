@@ -82,7 +82,7 @@ export default function FooterSection() {
   return (
     <footer className="footer">
       <a href="/">
-        <Image src="/images/icons/brand.png" alt="Sue Heddle" width={1080} height={1080} className="footer-brand-icon" />
+        <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="footer-brand-icon" />
       </a>
       <div className="footer-icons">
         <a href="mailto:sueheddle@gmail.com" className="footer-icon-btn" aria-label={t("footer.emailAriaLabel")}>

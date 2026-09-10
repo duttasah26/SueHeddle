@@ -91,7 +91,9 @@
   color: #fff;
   padding: 10px 32px;
   font-family: var(--font-display), "Lexend", sans-serif;
-  font-size: 17px;
+  /* 19px + 800 weight = WCAG "large text", so white-on-pink clears the 3:1
+     bar for the contrast audit (it's 4.4:1, which just misses 4.5:1 normal) */
+  font-size: 19px;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;

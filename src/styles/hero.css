@@ -59,7 +59,7 @@
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
-  color: rgba(0, 0, 0, 0.55);
+  color: rgba(0, 0, 0, 0.78);
   margin-bottom: 8px;
 }
 .hero-heading-wrap {
@@ -114,10 +114,12 @@
 }
 .hero-election-date {
   font-family: var(--font-display), "Lexend", sans-serif;
-  font-size: clamp(17px, 1.8vw, 22px);
-  font-weight: 600;
+  /* 19px + 700 keeps this as WCAG "large text" so solid white on the pink
+     panel clears the 3:1 contrast bar */
+  font-size: clamp(19px, 1.8vw, 22px);
+  font-weight: 700;
   margin-left: 6.5px;
-  color: rgba(255, 255, 255, 0.85);
+  color: #fff;
   margin-top: 24px;
   letter-spacing: 0.01em;
 }

@@ -1,64 +1,37 @@
-"use client";
-
-import { motion, type Variants } from "framer-motion";
+import { createElement } from "react";
 import type { ElementType, ReactNode } from "react";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const fadeOnly: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-const TAGS = { div: motion.div, a: motion.a, h1: motion.h1, h2: motion.h2, h3: motion.h3, li: motion.li, p: motion.p } as const;
-type Tag = keyof typeof TAGS;
+type Tag = "div" | "a" | "h1" | "h2" | "h3" | "li" | "p";
 
 /**
- * Fades (+ slides up, by default) content in once it scrolls into view.
- * Stack several with increasing `delay` (e.g. `i * 0.12`) to make a group —
- * a card grid, a list — reveal one after another instead of all at once.
+ * Structural wrapper: renders `children` inside `as` (default <div>) and
+ * forwards `className` plus any extra props (onClick, role, aria-*, …).
  *
- * Pass `slide={false}` for elements that already have their own CSS
- * `:hover { transform }` effect — Framer Motion leaves a persistent inline
- * `transform` style after animating, which would silently override a CSS
- * hover transform on the same element.
+ * This used to do a scroll-triggered fade/slide reveal via Framer Motion.
+ * That was removed — sections now just appear. The animation-related props
+ * (`delay`, `duration`, `amount`, `slide`) are still accepted so existing
+ * call sites don't need to change; they're simply ignored.
  */
 export default function Reveal({
   children,
   className,
-  delay = 0,
-  duration = 0.85,
-  amount = 0.2,
-  slide = true,
   as = "div",
+  // accepted-and-ignored (kept for call-site compatibility)
+  delay: _delay,
+  duration: _duration,
+  amount: _amount,
+  slide: _slide,
   ...rest
 }: {
   children: ReactNode;
   className?: string;
+  as?: Tag;
   delay?: number;
   duration?: number;
   amount?: number;
   slide?: boolean;
-  as?: Tag;
   [key: string]: unknown;
 }) {
-  const MotionTag: ElementType = TAGS[as];
-  return (
-    <MotionTag
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount }}
-      variants={slide ? fadeUp : fadeOnly}
-      transition={{ duration, ease: EASE, delay }}
-      {...rest}
-    >
-      {children}
-    </MotionTag>
-  );
+  const Tag: ElementType = as;
+  return createElement(Tag, { className, ...rest }, children);
 }

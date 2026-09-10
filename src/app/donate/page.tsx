@@ -2,8 +2,10 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
-import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
-import type { PaymentRequest as StripePaymentRequest } from "@stripe/stripe-js";
+// `/pure` = no auto-injection of js.stripe.com on module load; the script
+// is fetched only when loadStripe() is actually called (step 2 → 3).
+import { loadStripe } from "@stripe/stripe-js/pure";
+import type { StripeElementsOptions, PaymentRequest as StripePaymentRequest } from "@stripe/stripe-js";
 import {
   Elements,
   CardNumberElement,
@@ -16,9 +18,17 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext";
 import LoadingDots from "@/components/LoadingDots";
 
-const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-  ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-  : null;
+// Lazy: don't call loadStripe() at module scope — that pulls js.stripe.com
+// (and sets a third-party cookie) on every page that so much as prefetches
+// this route, including the homepage. Only fire it once the donor is
+// actually in the donation flow.
+let _stripePromise: ReturnType<typeof loadStripe> | null = null;
+function getStripePromise() {
+  if (!_stripePromise && process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    _stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+  }
+  return _stripePromise;
+}
 
 const stripeAppearance: StripeElementsOptions["appearance"] = {
   theme: "stripe",
@@ -440,6 +450,16 @@ export default function DonatePage() {
   const [wantsUpdates, setWantsUpdates]   = useState(false);
   const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
 
+  const [showEtransferInstructions, setShowEtransferInstructions] = useState(false);
+  const [etransferCopied, setEtransferCopied] = useState(false);
+
+  function copyEtransferEmail() {
+    navigator.clipboard.writeText("sueheddle@gmail.com").then(() => {
+      setEtransferCopied(true);
+      setTimeout(() => setEtransferCopied(false), 1800);
+    });
+  }
+
   async function handleWantsUpdatesChange(checked: boolean) {
     setWantsUpdates(checked);
     if (!checked || subscribeStatus === "loading" || subscribeStatus === "done") return;
@@ -461,6 +481,7 @@ export default function DonatePage() {
     const params = new URLSearchParams(window.location.search);
     const amt = parseFloat(params.get("amount") ?? "");
     if (amt && PRESET_AMOUNTS.includes(amt)) setSelectedAmount(amt);
+    if (params.get("etransfer")) setShowEtransferInstructions(true);
   }, []);
 
   useEffect(() => { if (step !== 3) setCoverFee(false); }, [step]);
@@ -479,7 +500,7 @@ export default function DonatePage() {
             <div className="donate-card-corner-tl" />
             <div className="donate-card-corner-br" />
             <div className="donate-logo-wrap">
-              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={1080} height={1080} className="donate-logo-img" priority /></a>
+              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="donate-logo-img" priority /></a>
             </div>
             <div style={{ textAlign: "center", padding: "32px 0" }}>
               <span className="material-symbols-outlined" style={{ fontSize: 64, color: "var(--primary)" }}>favorite</span>
@@ -517,31 +538,79 @@ export default function DonatePage() {
             <div className="donate-card-corner-br" />
 
             <div className="donate-logo-wrap">
-              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={1080} height={1080} className="donate-logo-img" priority /></a>
+              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="donate-logo-img" priority /></a>
             </div>
 
             {/* Step indicator */}
-            <div className="donate-steps">
-              {[1, 2, 3].map((n, i) => (
-                <div key={`step-group-${n}`} style={{ display: "contents" }}>
-                  <div className={`donate-step-dot ${step > n ? "done" : step === n ? "active" : "inactive"}`}>
-                    {step > n
-                      ? <span className="material-symbols-outlined" style={{ fontSize: 20 }}>check</span>
-                      : n}
+            {!showEtransferInstructions && (
+              <div className="donate-steps">
+                {[1, 2, 3].map((n, i) => (
+                  <div key={`step-group-${n}`} style={{ display: "contents" }}>
+                    <div className={`donate-step-dot ${step > n ? "done" : step === n ? "active" : "inactive"}`}>
+                      {step > n
+                        ? <span className="material-symbols-outlined" style={{ fontSize: 20 }}>check</span>
+                        : n}
+                    </div>
+                    {i < 2 && <div className="donate-step-line" />}
                   </div>
-                  {i < 2 && <div className="donate-step-line" />}
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
+            {/* E-transfer instructions — replaces the normal step content in place */}
+            {showEtransferInstructions ? (
+              <section>
+                <h1 className="donate-step-title">{t("donate.etransferModalHeading")}</h1>
+
+                <p className="etransfer-modal-label">{t("donate.etransferSendTo")}</p>
+                <div className="etransfer-modal-email-row">
+                  <span className="etransfer-modal-email">sueheddle@gmail.com</span>
+                  <button
+                    type="button"
+                    className={`etransfer-modal-copy-btn${etransferCopied ? " etransfer-modal-copy-btn--done" : ""}`}
+                    onClick={copyEtransferEmail}
+                    aria-label={etransferCopied ? "Copied" : "Copy email"}
+                    suppressHydrationWarning
+                  >
+                    <span className="material-symbols-outlined">{etransferCopied ? "check" : "content_copy"}</span>
+                  </button>
+                </div>
+
+                <p className="etransfer-modal-label etransfer-modal-label--important">
+                  <span className="etransfer-important-word">{t("donate.etransferImportantWord")}</span>
+                  {" — "}
+                  {t("donate.etransferImportantLabel")}
+                </p>
+                <ul className="etransfer-msg-list">
+                  <li>{t("donate.etransferImportantName")}</li>
+                  <li>{t("donate.etransferImportantEmail")}</li>
+                  <li>{t("donate.etransferImportantResident")}</li>
+                </ul>
+
+                <div className="rebate-intro" style={{ marginTop: 24 }}>
+                  <span className="rebate-intro-badge">50% BACK</span>
+                  <p>{t("donate.etransferRebateInfoPre")} <strong>{t("donate.etransferRebateInfoBold")}</strong> {t("donate.etransferRebateInfoPost")}{" "}
+                    <a href="/rebate" className="rebate-intro-link">{t("donate.rebateLearnMore")}</a>
+                  </p>
+                </div>
+
+                <button type="button" className="donate-back-btn donate-back-btn--pink" style={{ marginTop: 24 }} onClick={() => setShowEtransferInstructions(false)} suppressHydrationWarning>
+                  <span className="material-symbols-outlined">arrow_back</span>
+                  {t("donate.etransferBackToDonate")}
+                </button>
+              </section>
+            ) : (
+            <>
             {/* Step 1 — Amount */}
             {step === 1 && (
               <section>
                 <h1 className="donate-step-title">{t("donate.heading1")}</h1>
                 <div className="donate-etransfer-banner">
                   <span className="material-symbols-outlined" style={{ fontSize: 18, flexShrink: 0 }}>email</span>
-                  <p>{t("donate.etransferPre")}{" "}
-                    <a href="mailto:sueheddle@gmail.com" className="donate-etransfer-email">sueheddle@gmail.com</a>
+                  <p>{t("donate.etransferBannerPre")}{" "}
+                    <button type="button" className="donate-etransfer-link" onClick={() => setShowEtransferInstructions(true)} suppressHydrationWarning>
+                      {t("donate.etransferSeeInstructions")}
+                    </button>
                   </p>
                 </div>
                 <div className="rebate-intro">
@@ -604,6 +673,7 @@ export default function DonatePage() {
                       return;
                     }
                     setStep1Error("");
+                    getStripePromise(); // warm up Stripe.js while the donor fills in step 2
                     setStep(2);
                   }}
                 >
@@ -671,7 +741,7 @@ export default function DonatePage() {
 
             {/* Step 3 — Payment */}
             {step === 3 && (
-              <Elements stripe={stripePromise} options={{ appearance: stripeAppearance }}>
+              <Elements stripe={getStripePromise()} options={{ appearance: stripeAppearance }}>
                 <PaymentForm
                   effectiveAmount={effectiveAmount}
                   stripeFee={stripeFee}
@@ -686,6 +756,8 @@ export default function DonatePage() {
                   t={t}
                 />
               </Elements>
+            )}
+            </>
             )}
 
           </div>

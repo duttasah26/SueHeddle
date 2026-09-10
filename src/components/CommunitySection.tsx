@@ -81,8 +81,8 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
             aria-label={`View ${alt}`}
             suppressHydrationWarning
           >
-            <Image src={src} alt={alt} fill quality={92} sizes="(max-width: 743px) 50vw, 400px" className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
-            {hasCaption && <span className="flow-gallery-caption">{caption ?? alt}</span>}
+            <Image src={src} alt="" fill quality={92} sizes="(max-width: 743px) 50vw, 400px" className="flow-gallery-img" style={objectPosition ? { objectPosition } : undefined} />
+            {hasCaption && <span className="flow-gallery-caption" aria-hidden="true">{caption ?? alt}</span>}
           </Reveal>
         );
       })}
