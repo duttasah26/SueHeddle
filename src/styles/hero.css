@@ -156,7 +156,7 @@
   box-shadow: 6px 6px 0 #fff;
 }
 .hero-btn--dark:hover,
-.hero-btn--dark:active { transform: translate(3px, 3px); background: #fff; color: #000; box-shadow: 3px 3px 0 #fff; }
+.hero-btn--dark:active { transform: translate(3px, 3px); background: #fff; color: #000; box-shadow: 3px 3px 0 #000; }
 .hero-btn--white {
   background: #fff;
   color: var(--primary);
@@ -164,7 +164,7 @@
   box-shadow: 6px 6px 0 #000;
 }
 .hero-btn--white:hover,
-.hero-btn--white:active { transform: translate(3px, 3px); background: #000; color: #fff; box-shadow: 3px 3px 0 #000; }
+.hero-btn--white:active { transform: translate(3px, 3px); background: #000; color: #fff; box-shadow: 3px 3px 0 #fff; }
 .hero-photo {
   position: relative;
   overflow: hidden;
@@ -179,6 +179,13 @@
   object-fit: cover;
   display: block;
 }
+/* Plain-CSS fallback matching the crossfade's initial state, so the first
+   (LCP) photo can paint the instant its bytes arrive instead of waiting on
+   JS to hydrate and Framer Motion to apply its opacity via inline style —
+   on a slow connection that JS-driven wait was most of the LCP time.
+   Framer Motion's own inline style takes over identically once it runs. */
+.hero-photo img:first-of-type { opacity: 1; }
+.hero-photo img:not(:first-of-type) { opacity: 0; }
 .hero-photo-overlay {
   display: none;
 }
@@ -194,11 +201,12 @@
   text-decoration: none;
   cursor: pointer;
   transition: transform 150ms var(--ease), box-shadow 150ms var(--ease);
-  box-shadow: 0 0 0 transparent;
-}
-.hero-quote-box:hover {
-  transform: translate(-3px, -3px);
   box-shadow: 4px 4px 0 var(--primary);
+}
+.hero-quote-box:hover,
+.hero-quote-box:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--primary);
 }
 .hero-quote-heading {
   font-family: var(--font-display), "Lexend", sans-serif;
@@ -209,9 +217,6 @@
   color: #fff;
 }
 .hero-quote-mark {
-  background: var(--primary);
-  color: #fff;
-  padding: 0 8px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+  background: none;
+  color: inherit;
 }

@@ -1,6 +1,12 @@
 /* ── Design Tokens ─────────────────────────────────────────────── */
 :root {
-  --primary:            #e70685;
+  /* Nudged ~5% darker than the original #e70685 — same hue, imperceptible
+     shift, but clears WCAG AA (4.5:1) for white text on top of it. The
+     original only hit 4.41:1, which kept failing new contrast audits as
+     more white-on-pink text got checked (nav CTA, hero date, flow-section
+     eyebrows/body copy, platform cards). One token fix instead of patching
+     every instance's font-size/weight to dodge the "large text" 3:1 bar. */
+  --primary:            #db0680;
   --dark-bg:            #1a1c1c;
   --on-surface:         #1c1b1b;
   --on-surface-variant: #5a3f48;

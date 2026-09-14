@@ -500,7 +500,7 @@ export default function DonatePage() {
             <div className="donate-card-corner-tl" />
             <div className="donate-card-corner-br" />
             <div className="donate-logo-wrap">
-              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="donate-logo-img" priority /></a>
+              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="140px" className="donate-logo-img" priority /></a>
             </div>
             <div style={{ textAlign: "center", padding: "32px 0" }}>
               <span className="material-symbols-outlined" style={{ fontSize: 64, color: "var(--primary)" }}>favorite</span>
@@ -538,7 +538,7 @@ export default function DonatePage() {
             <div className="donate-card-corner-br" />
 
             <div className="donate-logo-wrap">
-              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="donate-logo-img" priority /></a>
+              <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="140px" className="donate-logo-img" priority /></a>
             </div>
 
             {/* Step indicator */}
@@ -586,15 +586,9 @@ export default function DonatePage() {
                   <li>{t("donate.etransferImportantEmail")}</li>
                   <li>{t("donate.etransferImportantResident")}</li>
                 </ul>
+                <p className="etransfer-modal-note"><strong>{t("donate.etransferNoteLabel")}</strong> {t("donate.etransferResidentNote")}</p>
 
-                <div className="rebate-intro" style={{ marginTop: 24 }}>
-                  <span className="rebate-intro-badge">50% BACK</span>
-                  <p>{t("donate.etransferRebateInfoPre")} <strong>{t("donate.etransferRebateInfoBold")}</strong> {t("donate.etransferRebateInfoPost")}{" "}
-                    <a href="/rebate" className="rebate-intro-link">{t("donate.rebateLearnMore")}</a>
-                  </p>
-                </div>
-
-                <button type="button" className="donate-back-btn donate-back-btn--pink" style={{ marginTop: 24 }} onClick={() => setShowEtransferInstructions(false)} suppressHydrationWarning>
+                <button type="button" className="donate-back-btn donate-back-btn--pink etransfer-back-btn" onClick={() => setShowEtransferInstructions(false)} suppressHydrationWarning>
                   <span className="material-symbols-outlined">arrow_back</span>
                   {t("donate.etransferBackToDonate")}
                 </button>

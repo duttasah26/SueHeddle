@@ -255,6 +255,13 @@
   height: 6px;
   background: var(--primary);
 }
+.etransfer-modal-note {
+  margin: 16px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--on-surface-variant);
+}
 .donate-steps {
   display: flex;
   align-items: center;
@@ -429,6 +436,7 @@
 .donate-back-btn .material-symbols-outlined { font-size: 24px; }
 .donate-back-btn--pink { color: var(--primary); }
 .donate-back-btn--pink:hover { color: var(--on-surface); }
+.etransfer-back-btn { margin-top: 24px; }
 .donate-btn-row {
   display: flex;
   align-items: center;

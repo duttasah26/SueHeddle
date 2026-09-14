@@ -103,7 +103,6 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--primary);
-  opacity: 0.45;
   flex-shrink: 0;
   line-height: 1;
 }

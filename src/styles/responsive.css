@@ -186,6 +186,10 @@
   .donate-btn-row .donate-next-btn,
   .donate-btn-row-end .donate-next-btn { width: 100%; flex: 1; }
   .volunteer-subtitle    { font-size: 15px; margin-bottom: 16px; }
+  /* "Learn more →" — keep the arrow from orphaning onto its own line */
+  .rebate-intro-link,
+  .donation-rebate-link { display: block; margin-top: 6px; white-space: nowrap; }
+  .etransfer-back-btn { margin-top: 40px; }
 }
 
 /* ── SMALL PHONE  (≤ 374px) ────────────────────────────────────── */

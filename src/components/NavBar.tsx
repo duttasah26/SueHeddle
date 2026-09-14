@@ -19,7 +19,7 @@ export default function NavBar() {
             <span className="material-symbols-outlined">menu</span>
           </button>
           <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="nav-icon" priority />
+            <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="96px" className="nav-icon" priority />
           </Link>
           <nav className="nav-links">
             <Link href="/about" className="nav-link">{t("nav.about")}</Link>
@@ -37,7 +37,7 @@ export default function NavBar() {
         <div className="mobile-menu">
           <div className="mobile-menu-header">
             <Link href="/" className="nav-brand" onClick={close}>
-              <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="nav-icon" priority />
+              <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="96px" className="nav-icon" priority />
             </Link>
             <button className="mobile-menu-close" onClick={close} aria-label="Close menu">
               <span className="material-symbols-outlined">close</span>

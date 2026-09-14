@@ -158,7 +158,7 @@ export default function CommunitySection() {
       <div className="flow-art-root" aria-label="Community Leadership">
 
         <section aria-label="Community Leadership" className="flow-section">
-          <div className="flow-art-container" style={{ backgroundColor: "#e70685", color: "#fff" }}>
+          <div className="flow-art-container" style={{ backgroundColor: "#db0680", color: "#fff" }}>
             <div className="flow-text-image-row flow-row--text-first">
               <Reveal className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s1Eyebrow")}</p>
@@ -262,7 +262,7 @@ export default function CommunitySection() {
         </section>
 
         <section aria-label="A Voice for Ward 5" className="flow-section">
-          <div className="flow-art-container" style={{ backgroundColor: "#e70685", color: "#fff" }}>
+          <div className="flow-art-container" style={{ backgroundColor: "#db0680", color: "#fff" }}>
             <div className="flow-text-image-row flow-row--text-first">
               <Reveal className="flow-text-col">
                 <p className="flow-eyebrow">{t("community.s5Eyebrow")}</p>

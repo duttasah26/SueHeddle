@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import FooterSection from "@/components/FooterSection";
 import PageTransition from "@/components/PageTransition";
+import FontLoader from "@/components/FontLoader";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const lexend = Lexend({
@@ -28,7 +29,7 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Elect Sue Heddle for Ward 5 Councillor",
+  title: "Sue Heddle for Ward 5 Councillor",
   description:
     "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election. Learn about her platform, community involvement, and how you can get involved.",
 };
@@ -41,12 +42,9 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0&display=swap"
-        />
       </head>
       <body className={`${lexend.variable} ${jetbrainsMono.variable} ${notoSans.variable}`}>
+        <FontLoader />
         <LanguageProvider>
           <PageTransition>
             {children}

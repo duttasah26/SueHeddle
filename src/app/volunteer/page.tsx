@@ -76,7 +76,7 @@ function VolunteerForm() {
           <div className="donate-card-corner-tl" />
           <div className="donate-card-corner-br" />
           <div className="donate-logo-wrap">
-            <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="donate-logo-img" priority /></a>
+            <a href="/"><Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="140px" className="donate-logo-img" priority /></a>
           </div>
           <div style={{ textAlign: "center", padding: "32px 0" }}>
             <span className="material-symbols-outlined" style={{ fontSize: 64, color: "var(--primary)" }}>favorite</span>
@@ -100,7 +100,7 @@ function VolunteerForm() {
 
         <div className="donate-logo-wrap">
           <a href="/">
-            <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} className="donate-logo-img" priority />
+            <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="140px" className="donate-logo-img" priority />
           </a>
         </div>
 
