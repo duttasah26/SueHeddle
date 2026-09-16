@@ -11,7 +11,9 @@ interface EventItem {
   // in the browser (or on the Geocoding API being enabled for the key).
   lat: number;
   lng: number;
-  description: string;
+  // Kept as separate lines rather than one blob so each beat of the pitch
+  // gets its own line instead of reflowing into a wall of text.
+  descriptionLines: string[];
   url: string;
 }
 
@@ -29,8 +31,11 @@ const EVENTS: EventItem[] = [
     address: "231 Oak Park Boulevard #101, Oakville, ON L6H 7S8",
     lat: 43.4821225,
     lng: -79.7163373,
-    description:
-      "A brunch fundraiser supporting a winter coat drive for SafetyNet, featuring an appearance by Sue Heddle. Bring a friend, register to canvass, and get ready to vote early. Suggested donation of $25.",
+    descriptionLines: [
+      "Help us support local families through our Winter Coat Drive for Safetynet.",
+      "Come for brunch. Meet Sue. Bring a friend. Sign up to canvass. Get ready to vote early.",
+      "Suggested donation: $25.",
+    ],
     url: "https://www.eventbrite.ca/e/giving-in-action-brunch-tickets-2000901940567?aff=ebdssbdestsearch",
   },
 ];
@@ -58,7 +63,11 @@ export default function UpcomingEventsSection() {
                     <br />
                     {ev.address}
                   </p>
-                  <p className="event-card-desc">{ev.description}</p>
+                  <div className="event-card-desc">
+                    {ev.descriptionLines.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                  </div>
                   <a href={ev.url} target="_blank" rel="noopener noreferrer" className="event-card-btn">
                     Sign Up
                     <span className="material-symbols-outlined">arrow_forward</span>

@@ -69,7 +69,7 @@
   font-size: 15px;
   font-weight: 600;
   line-height: 1.5;
-  color: var(--on-surface);
+  color: var(--on-surface-variant);
 }
 .event-card-desc {
   font-size: 15px;
@@ -77,6 +77,9 @@
   color: var(--on-surface-variant);
   flex: 1;
 }
+/* No gap between the lines — they read as one tight block, not as
+   separate paragraphs. */
+.event-card-desc p + p { margin-top: 0; }
 .event-card-btn {
   display: inline-flex;
   align-items: center;
