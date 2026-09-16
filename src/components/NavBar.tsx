@@ -18,18 +18,27 @@ export default function NavBar() {
           <button className="nav-burger" onClick={() => setMobileOpen(true)} aria-label="Open menu" suppressHydrationWarning>
             <span className="material-symbols-outlined">menu</span>
           </button>
-          <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="96px" className="nav-icon" priority />
-          </Link>
+          {/* Left and right groups are equal-width flex columns, which is what
+              lets .nav-links sit dead-centre of the viewport without being
+              absolutely positioned. Absolute centring was the old approach and
+              it let the CTAs slide underneath the links at ~1440px, because an
+              out-of-flow element can't push its siblings. */}
+          <div className="nav-left">
+            <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              <Image src="/images/icons/brand.png" alt="Sue Heddle" width={320} height={320} sizes="96px" className="nav-icon" priority />
+            </Link>
+            <LanguageSwitcher />
+          </div>
           <nav className="nav-links">
             <Link href="/about" className="nav-link">{t("nav.about")}</Link>
             <Link href="/#vision" className="nav-link">{t("nav.strategy")}</Link>
             <Link href="/#community-support" className="nav-link">{t("nav.experience")}</Link>
             <Link href="/#experience" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
-          <LanguageSwitcher />
-          <Link href="/volunteer" className="nav-cta nav-cta--join">{t("nav.joinCta")}</Link>
-          <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
+          <div className="nav-right">
+            <Link href="/volunteer" className="nav-cta nav-cta--join">{t("nav.joinCta")}</Link>
+            <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
+          </div>
         </div>
       </header>
 

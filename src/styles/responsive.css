@@ -1,11 +1,13 @@
 /* ── RESPONSIVE ────────────────────────────────────────────────── */
 
-/* ── NAV: switch to burger earlier than other sections (≤ 1439px) ──
-   The full desktop nav (logo + 4 links + language switcher + 2 CTAs)
-   needs real breathing room — it was still overlapping at 1280px
-   (e.g. Nest Hub), so the cutoff is raised well clear of that.
-   Everything else keeps its own ≤959px breakpoint below. ────────── */
-@media (max-width: 1439.98px) {
+/* ── NAV: switch to burger earlier than other sections (≤ 1649px) ──
+   The full desktop nav is logo + language switcher (~209px) + 4 links
+   (~534px) + 2 CTAs (~467px). For the links to sit on the true viewport
+   centre without the CTAs colliding, you need at least
+   links + 2 × right-side = 534 + 934 ≈ 1468px — and longer translated
+   labels (fr/tl) push that higher still, so the cutoff sits at 1650px.
+   Everything else keeps its own ≤959px breakpoint below. ──────────── */
+@media (max-width: 1649.98px) {
   .nav-links            { display: none; }
   .nav-burger           { display: flex; }
   .nav-icon             { height: 76px; width: auto; }
@@ -14,7 +16,7 @@
   /* Donate takes over the auto-margin push to the right */
   .nav-cta:not(.nav-cta--join) { margin-left: auto; }
   /* Language switcher moves into the burger menu only */
-  .nav-inner > .lang-switcher { display: none; }
+  .nav-left .lang-switcher { display: none; }
 }
 
 /* ── TABLET + PHONE  (≤ 959px) ────────────────────────────────── */
@@ -33,6 +35,19 @@
   .about-hero-heading { font-size: clamp(40px, 11vw, 60px); }
   .about-why-inner    { flex-direction: column-reverse; gap: 32px; }
   .about-video-wrap   { flex: none; width: 100%; height: 260px; }
+
+  /* Events: stack info above map, reduce padding */
+  .events-section       { padding: 64px 0; }
+  .events-inner         { padding: 0 var(--margin-mobile); }
+  .event-card           { grid-template-columns: 1fr; }
+  .event-card-info      { padding: 28px var(--margin-mobile); }
+  .event-card-date      { font-size: 14px; }
+  .event-card-map       { min-height: 240px; border-left: none; border-top: 4px solid var(--on-surface); }
+
+  /* Video section: reduce padding (mirrors .events-section so the player
+     stays flush with the event card above it) */
+  .video-section         { padding: 64px 0; }
+  .video-section-inner   { padding: 0 var(--margin-mobile); }
 
   /* Platform: single column, reduce padding */
   .platform             { padding: 64px 0; }
