@@ -33,12 +33,35 @@ export default function HeroSection() {
     return () => clearInterval(id);
   }, []);
 
+  // Only the first hero photo is rendered up front. The other two aren't shown
+  // until the 5s rotation, but they previously carried loading="eager", so all
+  // three ~90KB images downloaded at once and starved the LCP image of mobile
+  // bandwidth — Lighthouse measured it as a 500ms LCP "resource load delay".
+  // Lazy loading wouldn't help here: these are stacked in the viewport, so the
+  // browser fetches them regardless of loading="lazy".
+  const [loadRestOfPhotos, setLoadRestOfPhotos] = useState(false);
   useEffect(() => {
+    if (document.readyState === "complete") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLoadRestOfPhotos(true);
+      return;
+    }
+    const start = () => setLoadRestOfPhotos(true);
+    window.addEventListener("load", start, { once: true });
+    return () => window.removeEventListener("load", start);
+  }, []);
+
+  // The rotation must NOT start until the other photos are mounted. On a
+  // throttled phone the load event fired at ~6.6s, after the 5s tick — so an
+  // unconditional interval advanced photoIndex to a photo that wasn't rendered
+  // yet, fading photo 0 out to nothing and leaving the hero blank.
+  useEffect(() => {
+    if (!loadRestOfPhotos) return;
     const id = setInterval(() => {
       setPhotoIndex(i => (i + 1) % HERO_PHOTOS.length);
     }, 5000);
     return () => clearInterval(id);
-  }, []);
+  }, [loadRestOfPhotos]);
 
   return (
     <section id="home" className="hero-section">
@@ -98,25 +121,31 @@ export default function HeroSection() {
       </div>
 
       <div className="hero-photo">
-        {HERO_PHOTOS.map(({ src, style }, i) => (
-          <MotionImage
-            key={src}
-            src={src}
-            alt="Sue Heddle, Ward 5 Candidate"
-            fill
-            sizes="(max-width: 959px) 100vw, 50vw"
-            priority={i === 0}
-            fetchPriority={i === 0 ? "high" : undefined}
-            loading={i === 0 ? undefined : "eager"}
-            quality={92}
-            style={style}
-            initial={false}
-            animate={{
-              opacity: i === photoIndex ? 1 : 0,
-            }}
-            transition={PHOTO_TRANSITION}
-          />
-        ))}
+        {HERO_PHOTOS.map(({ src, style }, i) => {
+          // Hold back everything but the LCP image until the page has loaded.
+          // They mount with initial={false} at opacity 0, so appearing later
+          // causes no flash and no layout shift.
+          if (i > 0 && !loadRestOfPhotos) return null;
+          return (
+            <MotionImage
+              key={src}
+              src={src}
+              alt="Sue Heddle, Ward 5 Candidate"
+              fill
+              sizes="(max-width: 959px) 100vw, 50vw"
+              priority={i === 0}
+              fetchPriority={i === 0 ? "high" : undefined}
+              loading={i === 0 ? undefined : "eager"}
+              quality={92}
+              style={style}
+              initial={false}
+              animate={{
+                opacity: i === photoIndex ? 1 : 0,
+              }}
+              transition={PHOTO_TRANSITION}
+            />
+          );
+        })}
         <div className="hero-photo-overlay" />
         <a href="/about" className="hero-quote-box">
           <p className="hero-quote-heading">
