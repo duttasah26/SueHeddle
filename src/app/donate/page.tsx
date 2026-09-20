@@ -5,6 +5,15 @@ import Image from "next/image";
 // `/pure` = no auto-injection of js.stripe.com on module load; the script
 // is fetched only when loadStripe() is actually called (step 2 → 3).
 import { loadStripe } from "@stripe/stripe-js/pure";
+import {
+  PHONE_COUNTRIES,
+  DEFAULT_PHONE_ISO,
+  findCountry,
+  formatSubscriber,
+  isValidSubscriber,
+  maxSubscriberDigits,
+  toE164,
+} from "@/lib/phoneCountries";
 import type { StripeElementsOptions, PaymentRequest as StripePaymentRequest } from "@stripe/stripe-js";
 import {
   Elements,
@@ -84,6 +93,7 @@ interface PaymentFormProps {
   firstName: string;
   lastName: string;
   email: string;
+  /** Already composed as E.164 ("+19055550134") by the parent, or "" if blank. */
   phone: string;
   isOakvilleResident: boolean;
   onBack: () => void;
@@ -160,7 +170,7 @@ function PaymentForm({
             firstName: firstName.trim(),
             lastName: lastName.trim(),
             email,
-            phone: phone.trim(),
+            phone,
             isOakvilleResident,
             address: "", unit: "", city: "", province: "ON", postal: "",
           }),
@@ -247,7 +257,7 @@ function PaymentForm({
           firstName: firstName.trim(),
           lastName: lastName.trim(),
           email,
-          phone: phone.trim(),
+          phone,
           isOakvilleResident,
           address: address.trim(),
           unit: unit.trim(),
@@ -265,6 +275,12 @@ function PaymentForm({
           card: cardNumberElement,
           billing_details: {
             name: `${firstName.trim()} ${lastName.trim()}`,
+            // Also set here, not just in PaymentIntent.metadata. billing_details
+            // is Stripe's native field: it surfaces in the Dashboard and in CSV
+            // exports, whereas metadata only shows as a raw key/value blob.
+            // Undefined rather than "" when blank — Stripe rejects empty strings
+            // on this field.
+            phone: phone || undefined,
             address: {
               line1: address.trim(),
               line2: unit.trim() || undefined,
@@ -450,7 +466,14 @@ export default function DonatePage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName]   = useState("");
   const [email, setEmail]         = useState("");
+  // `phone` holds SUBSCRIBER DIGITS ONLY — no spaces, dashes or dial code.
+  // The dial code lives in phoneIso, and the two are combined into E.164
+  // (+19055550134) at submit time via toE164(). Storing them apart keeps the
+  // formatting concern out of the value that goes to Stripe and the Sheet.
   const [phone, setPhone]         = useState("");
+  const [phoneIso, setPhoneIso]   = useState(DEFAULT_PHONE_ISO);
+  const phoneCountry              = findCountry(phoneIso);
+  const phoneE164                 = toE164(phone, phoneCountry.dial);
   const [step1Error, setStep1Error] = useState("");
   const [step2Error, setStep2Error] = useState("");
 
@@ -591,6 +614,7 @@ export default function DonatePage() {
                 <ul className="etransfer-msg-list">
                   <li>{t("donate.etransferImportantName")}</li>
                   <li>{t("donate.etransferImportantEmail")}</li>
+                  <li>{t("donate.etransferImportantPhone")}</li>
                   <li>{t("donate.etransferImportantResident")}</li>
                 </ul>
                 <p className="etransfer-modal-note"><strong>{t("donate.etransferNoteLabel")}</strong> {t("donate.etransferResidentNote")}</p>
@@ -708,8 +732,46 @@ export default function DonatePage() {
                   </div>
                   <div className="form-field">
                     <label className="form-field-label">{t("donate.labelPhone")}</label>
-                    <input className="form-field-input" type="tel" autoComplete="tel" suppressHydrationWarning
-                      maxLength={20} value={phone} onChange={(e) => setPhone(e.target.value)} />
+                    <div className="phone-field-row">
+                      {/* Options read "CA +1" — ISO plus dial code — so this
+                          needs no translation in any of the 13 locales. */}
+                      <select
+                        className="form-field-input phone-country-select"
+                        value={phoneIso}
+                        suppressHydrationWarning
+                        aria-label="Country calling code"
+                        onChange={(e) => {
+                          const next = findCountry(e.target.value);
+                          setPhoneIso(e.target.value);
+                          // Trim if the new country allows fewer subscriber
+                          // digits, or E.164 would overflow its 15-digit cap.
+                          setPhone((d) => d.slice(0, maxSubscriberDigits(next.dial)));
+                        }}
+                      >
+                        {PHONE_COUNTRIES.map((c) => (
+                          <option key={c.iso} value={c.iso} title={c.name}>
+                            {c.iso} +{c.dial}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        className="form-field-input"
+                        type="tel"
+                        inputMode="numeric"
+                        autoComplete="tel-national"
+                        suppressHydrationWarning
+                        placeholder={phoneCountry.dial === "1" ? "(905) 555-0134" : ""}
+                        // Display is formatted; state stays digits-only.
+                        value={formatSubscriber(phone, phoneCountry.dial)}
+                        onChange={(e) =>
+                          setPhone(
+                            e.target.value
+                              .replace(/\D/g, "")
+                              .slice(0, maxSubscriberDigits(phoneCountry.dial))
+                          )
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
                 {step2Error && <p className="donate-payment-error">{step2Error}</p>}
@@ -728,6 +790,17 @@ export default function DonatePage() {
                       }
                       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
                         setStep2Error("Please enter a valid email address."); return;
+                      }
+                      // Phone stays optional, but a partly-typed one is a
+                      // typo, not an intentional blank — catch it here rather
+                      // than writing a broken number to the donor record.
+                      if (!isValidSubscriber(phone, phoneCountry.dial)) {
+                        setStep2Error(
+                          phoneCountry.dial === "1"
+                            ? "Please enter a 10-digit phone number, or leave it blank."
+                            : "Please enter a valid phone number, or leave it blank."
+                        );
+                        return;
                       }
                       setStep2Error("");
                       setStep(3);
@@ -751,7 +824,7 @@ export default function DonatePage() {
                   firstName={firstName}
                   lastName={lastName}
                   email={email}
-                  phone={phone}
+                  phone={phoneE164}
                   isOakvilleResident={isOakvilleResident}
                   onBack={() => setStep(2)}
                   onSuccess={() => setDonated(true)}

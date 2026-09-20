@@ -36,6 +36,26 @@ select.form-field-input option {
   font-size: 14px;
   padding: 4px;
 }
+/* Phone: country-code select + number input on one line. The select is sized
+   to its content ("CA +1" … "AE +971") and the number field takes the rest. */
+.phone-field-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+.phone-field-row .form-field-input { margin: 0; }
+.phone-country-select {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 96px;
+  padding-right: 28px;
+  cursor: pointer;
+}
+.phone-field-row input {
+  flex: 1 1 auto;
+  min-width: 0; /* lets the input shrink inside the flex row instead of overflowing */
+}
+
 .form-fields-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

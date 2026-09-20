@@ -127,6 +127,7 @@
     "etransferImportantLabel": "include in the message/note",
     "etransferImportantName": "Your full name",
     "etransferImportantEmail": "Your email address",
+    "etransferImportantPhone": "Your phone number",
     "etransferImportantResident": "Are you an Oakville resident? (Yes / No)",
     "etransferNoteLabel": "Note:",
     "etransferResidentNote": "If you answered Yes, please also include your mailing address.",
