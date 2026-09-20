@@ -33,6 +33,30 @@ export const metadata: Metadata = {
     "Sue Heddle is running for Ward 5 Councillor in Oakville's 2026 Municipal Election. Learn about her platform, community involvement, and how you can get involved.",
 };
 
+/**
+ * Every Material Symbols glyph used anywhere in the app.
+ *
+ * With `icon_names` set, Google Fonts serves a font containing ONLY these
+ * glyphs: the full variable font is 419 KB, this subset is 4 KB — a 99%
+ * saving. On Slow 4G the full font was eating roughly two seconds of
+ * bandwidth in direct competition with the HTML, CSS and hero image, which
+ * is what kept First Contentful Paint at 4.5s despite a 187ms critical path.
+ *
+ * ADDING A NEW ICON? Add its ligature name here as well, or it will render
+ * as the raw word ("expand_more") instead of the glyph. Keep it sorted.
+ */
+const ICON_NAMES = [
+  "architecture", "arrow_back", "arrow_forward", "calculate", "campaign",
+  "chat", "check", "check_circle", "chevron_left", "chevron_right", "close",
+  "commute", "content_copy", "email", "expand_less", "expand_more", "favorite",
+  "format_quote", "home", "info", "mail", "menu", "pause", "person",
+  "play_arrow", "share", "volume_off", "volume_up",
+].join(",");
+
+const MATERIAL_SYMBOLS_HREF =
+  "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" +
+  `:opsz,wght,FILL,GRAD@48,400,1,0&icon_names=${ICON_NAMES}&display=block`;
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -56,6 +80,9 @@ export default function RootLayout({
             on load, which keeps it off the critical render path — that was the
             original reason for deferring it (~750ms round-trip).
 
+            The URL carries icon_names so Google serves a 4KB subset instead
+            of the 419KB full font — see ICON_NAMES above before adding icons.
+
             display=block is belt-and-braces: Material Symbols is a ligature
             font, so the span's text really is "expand_more". See the matching
             CSS in tokens.css.
@@ -72,7 +99,7 @@ export default function RootLayout({
             permanently invisible; it is not a normal code path. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var h="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0&display=block";var r=function(){document.documentElement.classList.add("icons-ready")};var t=setTimeout(r,10000);var f=function(){clearTimeout(t);r()};var l=document.createElement("link");l.rel="stylesheet";l.href=h;l.media="print";l.onload=function(){this.media="all";try{if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(f).catch(f)}else{f()}}catch(e){f()}};l.onerror=f;document.head.appendChild(l)})();`,
+            __html: `(function(){var h=${JSON.stringify(MATERIAL_SYMBOLS_HREF)};var r=function(){document.documentElement.classList.add("icons-ready")};var t=setTimeout(r,10000);var f=function(){clearTimeout(t);r()};var l=document.createElement("link");l.rel="stylesheet";l.href=h;l.media="print";l.onload=function(){this.media="all";try{if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(f).catch(f)}else{f()}}catch(e){f()}};l.onerror=f;document.head.appendChild(l)})();`,
           }}
         />
       </head>
