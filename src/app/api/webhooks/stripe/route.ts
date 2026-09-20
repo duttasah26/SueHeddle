@@ -175,6 +175,10 @@ export async function POST(req: NextRequest) {
     m.city     || "",
     m.province || "ON",
     m.postal   || "",
+    // Appended at column M on purpose. Column F is the payment intent ID, which
+    // paymentIntentProcessed() reads as F:F for duplicate-delivery detection —
+    // inserting phone any earlier would shift that and misalign existing rows.
+    m.phone    || "",
   ]).catch((err) => console.error("Sheets error (Donations):", err));
 
   const emailSend = (process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL && email)

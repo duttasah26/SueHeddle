@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   try { body = await req.json(); }
   catch { return NextResponse.json({ error: "Invalid body." }, { status: 400 }); }
 
-  const { paymentIntentId, firstName, lastName, email,
+  const { paymentIntentId, firstName, lastName, email, phone,
     isOakvilleResident, address, unit, city, province, postal } = body;
 
   if (typeof paymentIntentId !== "string" || !PI_RE.test(paymentIntentId))
@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
         firstName:        str(firstName, 50),
         lastName:         str(lastName,  50),
         email:            emailStr,
+        phone:            str(phone,     20),
         oakvilleResident: isOakvilleResident === true ? "YES" : "NO",
         address:          str(address,  200),
         unit:             str(unit,      20),

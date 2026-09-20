@@ -108,7 +108,7 @@ export default function HeroSection() {
             priority={i === 0}
             fetchPriority={i === 0 ? "high" : undefined}
             loading={i === 0 ? undefined : "eager"}
-            quality={90}
+            quality={92}
             style={style}
             initial={false}
             animate={{

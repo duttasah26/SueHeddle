@@ -75,10 +75,45 @@ export default function EventMap({ lat, lng, title, zoom = 15 }: EventMapProps) 
   // knowable up front, so there's no reason to trigger an extra render for it.
   const [failed, setFailed] = useState(!apiKey);
 
+  // Don't touch the Maps API until the map is actually near the viewport.
+  // Loading it on mount pulled ~530 KiB of JS and ~170ms of main-thread work
+  // into the initial page load, which delayed the hero LCP even though the map
+  // sits well below the fold. rootMargin gives it a screen of lead time so it
+  // is already drawn by the time the user scrolls to it.
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      // One-time capability check, not a render-driven state sync — this can
+      // only ever fire once and never cascades. Can't be a useState initializer
+      // because that also runs during SSR, where IntersectionObserver is always
+      // absent and would wrongly load the map for everyone.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      // Deliberately tight. The Events section sits directly below the hero,
+      // so a generous margin (600px) matched on first paint and the map loaded
+      // eagerly anyway — 27 requests before the user scrolled at all. 150px is
+      // enough lead to start drawing just before it comes into view.
+      { rootMargin: "150px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
     let zoomListener: google.maps.MapsEventListener | undefined;
-    if (!apiKey) return;
+    if (!apiKey || !inView) return;
 
     bootstrapMapsLoader(apiKey);
 
@@ -106,7 +141,12 @@ export default function EventMap({ lat, lng, title, zoom = 15 }: EventMapProps) 
         });
 
         const pin = document.createElement("img");
-        pin.src = "/images/icons/circle_icon.png";
+        // 160px variant, not the 1080px original. This is a raw <img> inside
+        // an AdvancedMarkerElement, so next/image never touches it — the full
+        // 370KB source was downloading to draw a 48px dot. 160px covers the
+        // largest zoom size (72px) at 2x DPR. Regenerate with
+        // `node scripts/make-marker-icon.mjs` if the source art changes.
+        pin.src = "/images/icons/circle_icon_marker.png";
         pin.alt = "";
         const applySize = (z: number) => {
           const size = iconSizeForZoom(z);
@@ -130,7 +170,7 @@ export default function EventMap({ lat, lng, title, zoom = 15 }: EventMapProps) 
       cancelled = true;
       zoomListener?.remove();
     };
-  }, [lat, lng, title, zoom, apiKey]);
+  }, [lat, lng, title, zoom, apiKey, inView]);
 
   if (failed) {
     // Falls back to the key-free embed if the API key is missing/invalid at runtime.

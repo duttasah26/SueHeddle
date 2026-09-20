@@ -84,6 +84,7 @@ interface PaymentFormProps {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string;
   isOakvilleResident: boolean;
   onBack: () => void;
   onSuccess: () => void;
@@ -92,7 +93,7 @@ interface PaymentFormProps {
 
 function PaymentForm({
   effectiveAmount, stripeFee, coverFee, setCoverFee,
-  firstName, lastName, email, isOakvilleResident, onBack, onSuccess, t,
+  firstName, lastName, email, phone, isOakvilleResident, onBack, onSuccess, t,
 }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
@@ -159,6 +160,7 @@ function PaymentForm({
             firstName: firstName.trim(),
             lastName: lastName.trim(),
             email,
+            phone: phone.trim(),
             isOakvilleResident,
             address: "", unit: "", city: "", province: "ON", postal: "",
           }),
@@ -245,6 +247,7 @@ function PaymentForm({
           firstName: firstName.trim(),
           lastName: lastName.trim(),
           email,
+          phone: phone.trim(),
           isOakvilleResident,
           address: address.trim(),
           unit: unit.trim(),
@@ -284,7 +287,11 @@ function PaymentForm({
     } finally {
       setProcessing(false);
     }
-  }, [stripe, elements, certified, effectiveAmount, firstName, lastName, address, unit, city, province, postal, onSuccess]);
+    // email and isOakvilleResident were missing here before phone was added —
+    // both are read inside this callback and sent as payment metadata, so a
+    // stale closure would submit the wrong values if either changed while the
+    // payment step stayed mounted.
+  }, [stripe, elements, certified, effectiveAmount, firstName, lastName, email, phone, isOakvilleResident, address, unit, city, province, postal, onSuccess]);
 
   return (
     <section>
@@ -744,6 +751,7 @@ export default function DonatePage() {
                   firstName={firstName}
                   lastName={lastName}
                   email={email}
+                  phone={phone}
                   isOakvilleResident={isOakvilleResident}
                   onBack={() => setStep(2)}
                   onSuccess={() => setDonated(true)}

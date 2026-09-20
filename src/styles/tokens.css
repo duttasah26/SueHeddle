@@ -53,3 +53,20 @@ section { scroll-margin-top: 76px; }
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
+
+/* Material Symbols is a ligature font: the span's text content is literally
+   "expand_more", "arrow_forward" etc., and the font is what turns it into a
+   glyph. FontLoader injects the stylesheet after mount (to keep it off the
+   critical render path), so without this the raw words flash on screen first.
+
+   Hide them until FontLoader adds `icons-ready` to <html>. The 1em square
+   matches a Material Symbols glyph exactly, so revealing an icon doesn't
+   shift the layout — which it would if we reserved the much wider word.
+   FontLoader always adds the class within 3s, even if the font fails. */
+html:not(.icons-ready) .material-symbols-outlined {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  visibility: hidden;
+}

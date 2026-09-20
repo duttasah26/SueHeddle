@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ImageLightbox from "@/components/ImageLightbox";
@@ -48,6 +48,37 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
   const [paused, setPaused] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoWrapRef = useRef<HTMLDivElement>(null);
+
+  // `autoPlay` makes the browser download the whole clip the moment the element
+  // exists, and this gallery sits well below the fold — on throttled mobile the
+  // fetch competed with the hero image and sometimes died outright
+  // (ERR_CONNECTION_FAILED in the console). Hold the src back until the gallery
+  // is near the viewport; autoPlay then fires normally once it's attached.
+  const [videoInView, setVideoInView] = useState(false);
+  useEffect(() => {
+    const el = videoWrapRef.current;
+    if (!el || !centerVideo) return;
+    if (typeof IntersectionObserver === "undefined") {
+      // One-time capability check — see the matching note in EventMap. A
+      // useState initializer would also run during SSR, where the API is
+      // always absent, defeating the whole point of deferring the fetch.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVideoInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setVideoInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "400px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [centerVideo]);
 
   function togglePlay() {
     const v = videoRef.current;
@@ -88,6 +119,7 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
       })}
       {centerVideo && (
         <div
+          ref={videoWrapRef}
           className="flow-gallery-video-wrap"
           onClick={() => setLightboxIndex(images.length)}
           onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLightboxIndex(images.length); } }}
@@ -98,7 +130,8 @@ function Gallery({ images, showCaption, centerVideo }: { images: { src: string; 
         >
           <video
             ref={videoRef}
-            src={centerVideo}
+            src={videoInView ? centerVideo : undefined}
+            preload={videoInView ? "auto" : "none"}
             autoPlay
             muted={muted}
             loop

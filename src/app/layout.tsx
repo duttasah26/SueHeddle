@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import FooterSection from "@/components/FooterSection";
 import PageTransition from "@/components/PageTransition";
-import FontLoader from "@/components/FontLoader";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 
 const lexend = Lexend({
@@ -42,9 +41,42 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Poster frame for the click-to-play video facade. The player origin
+            (youtube-nocookie.com) is deliberately NOT preconnected — nothing
+            loads from it until someone clicks, and VideoSection warms that
+            connection on hover/focus instead. Keep this list at 4 or fewer. */}
+        <link rel="preconnect" href="https://i.ytimg.com" />
+        {/* Material Symbols loader. This is a plain inline script rather than a
+            React component on purpose: it runs while <head> is being parsed,
+            long before hydration. The previous component-based version only ran
+            after React hydrated, so on a slow device the icons stayed hidden
+            for seconds (measured: still hidden at 15s under 6x CPU throttle).
+
+            The stylesheet is attached with media="print" and flipped to "all"
+            on load, which keeps it off the critical render path — that was the
+            original reason for deferring it (~750ms round-trip).
+
+            display=block is belt-and-braces: Material Symbols is a ligature
+            font, so the span's text really is "expand_more". See the matching
+            CSS in tokens.css.
+
+            The font check runs from the link's onload, NOT immediately.
+            document.fonts.load() resolves right away when no matching
+            @font-face exists yet, so calling it before the stylesheet lands
+            reports success instantly and reveals the raw word — that was the
+            actual cause of the remaining flash.
+
+            The 10s fallback is deliberately generous; at 3s it fired before
+            the font arrived on a 400kbps link (font ready at ~4.5s). It exists
+            only so a total font failure can't leave the burger menu
+            permanently invisible; it is not a normal code path. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var h="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0&display=block";var r=function(){document.documentElement.classList.add("icons-ready")};var t=setTimeout(r,10000);var f=function(){clearTimeout(t);r()};var l=document.createElement("link");l.rel="stylesheet";l.href=h;l.media="print";l.onload=function(){this.media="all";try{if(document.fonts&&document.fonts.load){document.fonts.load('24px "Material Symbols Outlined"').then(f).catch(f)}else{f()}}catch(e){f()}};l.onerror=f;document.head.appendChild(l)})();`,
+          }}
+        />
       </head>
       <body className={`${lexend.variable} ${jetbrainsMono.variable} ${notoSans.variable}`}>
-        <FontLoader />
         <LanguageProvider>
           <PageTransition>
             {children}
