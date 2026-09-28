@@ -120,7 +120,7 @@
    horizontal padding) so the player lines up flush with the event card
    above it at every viewport width, rather than matching at one size only. */
 .video-section {
-  background: var(--primary);
+  background: #fff;
   padding: 96px 0;
   border-bottom: 4px solid var(--on-surface);
 }

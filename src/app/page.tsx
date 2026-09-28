@@ -4,7 +4,12 @@ import HeroSection from "@/components/HeroSection";
 // rendered right now — removed from the homepage per explicit request, but
 // kept as-is at src/components/IntroSection.tsx in case it's needed again.
 // import IntroSection from "@/components/IntroSection";
-import UpcomingEventsSection from "@/components/UpcomingEventsSection";
+// UpcomingEventsSection is intentionally not rendered right now — removed from
+// the homepage per explicit request ("will be re-used later"), but kept as-is
+// at src/components/UpcomingEventsSection.tsx, along with EventMap.tsx and the
+// .events-* rules in src/styles/events.css. To bring it back, uncomment the
+// import and the <UpcomingEventsSection /> above <VideoSection /> below.
+// import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 import VideoSection from "@/components/VideoSection";
 import PlatformSection from "@/components/PlatformSection";
 import CommunitySection from "@/components/CommunitySection";
@@ -18,7 +23,6 @@ export default function Home() {
       <NavBar />
       <main>
         <HeroSection />
-        <UpcomingEventsSection />
         <VideoSection />
         <PlatformSection />
         <CommunitySection />
