@@ -17,13 +17,22 @@ function getAuth() {
   });
 }
 
+// Rows are written with USER_ENTERED so amounts and dates keep their native
+// types in the sheet. That also means a submitted value that starts with
+// = + - @ would be evaluated as a formula (e.g. =IMPORTDATA(...) could leak
+// other rows to an attacker's server). A leading apostrophe forces the cell to
+// plain text and is not displayed; everything else is stored exactly as before.
+function neutralizeFormula(v: string): string {
+  return /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+}
+
 export async function appendRow(sheetName: string, values: string[]): Promise<void> {
   const sheets = google.sheets({ version: "v4", auth: getAuth() });
   await sheets.spreadsheets.values.append({
     spreadsheetId: process.env.GOOGLE_SHEETS_ID,
     range: `${sheetName}!A1`,
     valueInputOption: "USER_ENTERED",
-    requestBody: { values: [values] },
+    requestBody: { values: [values.map(neutralizeFormula)] },
   });
 }
 
@@ -43,8 +52,8 @@ export async function deleteRowsByEmail(sheetName: string, emailCol: string, ema
 
   const meta = await sheets.spreadsheets.get({ spreadsheetId });
   const sheet = meta.data.sheets?.find(s => s.properties?.title === sheetName);
-  if (!sheet?.properties?.sheetId == null) return;
-  const sheetId = sheet!.properties!.sheetId!;
+  if (sheet?.properties?.sheetId == null) return;
+  const sheetId = sheet.properties.sheetId;
 
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId,

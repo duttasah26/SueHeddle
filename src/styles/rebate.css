@@ -234,6 +234,7 @@
   text-align: center;
 }
 .rebate-cta-heading {
+  line-height: 1.15;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: clamp(32px, 5vw, 64px);
   font-weight: 900;

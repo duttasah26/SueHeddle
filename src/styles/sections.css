@@ -92,6 +92,7 @@
   border-bottom: 4px solid var(--on-surface);
 }
 .community-heading {
+  line-height: 1.15;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: clamp(40px, 5vw, 64px);
   font-weight: 900;
@@ -160,6 +161,7 @@
   padding: 0 var(--gutter);
 }
 .testimonials-heading {
+  line-height: 1.15;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: clamp(40px, 5vw, 56px);
   font-weight: 900;
@@ -299,6 +301,7 @@
   margin: 0 auto;
 }
 .involve-section-label {
+  line-height: 1.15;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 36px;
   font-weight: 900;
@@ -365,6 +368,7 @@
   align-items: start;
 }
 .signup-form-title {
+  line-height: 1.15;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 28px;
   font-weight: 900;
@@ -408,6 +412,7 @@
 .signup-submit:hover { background: #fff; color: #000; }
 .signup-submit .material-symbols-outlined { font-size: 20px; }
 .donation-form-title {
+  line-height: 1.15;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 28px;
   font-weight: 900;
