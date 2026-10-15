@@ -17,7 +17,20 @@
   --margin-mobile:  20px;
   --container-max:  1280px;
 
+  /* Responsive spacing roles: one value that steps at the breakpoints, so
+     components use var(--gutter) / var(--section-y) and never need a
+     per-class mobile override. */
+  --gutter:    var(--margin-desktop);
+  --section-y: 96px;
+
   --ease: ease-in-out;
+}
+
+@media (max-width: 959.98px) {
+  :root { --gutter: var(--margin-mobile); --section-y: 64px; }
+}
+@media (max-width: 744.98px) {
+  :root { --section-y: 48px; }
 }
 
 /* ── Reset ─────────────────────────────────────────────────────── */

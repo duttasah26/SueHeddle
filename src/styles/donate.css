@@ -24,8 +24,8 @@
     top: 12px;
     left: 12px;
     z-index: 10;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     background: var(--primary);
     color: #fff;
     border: 2px solid #1a1a1a;
@@ -51,7 +51,7 @@
   margin-top: 20px;
   color: var(--on-surface-variant);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -68,6 +68,7 @@
 /* ── DONATE PAGE ───────────────────────────────────────────────── */
 .donate-page {
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--on-surface);
   display: flex;
   flex-direction: column;
@@ -151,10 +152,10 @@
 .donate-etransfer-banner {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   background: #f9f0ff;
   border-left: 3px solid var(--primary);
-  padding: 10px 14px;
+  padding: 12px 16px;
   margin-bottom: 20px;
   font-size: 14px;
   color: var(--on-surface);
@@ -197,10 +198,10 @@
 .etransfer-modal-email-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   background: #e5e2e1;
   border: 2px solid transparent;
-  padding: 12px 14px;
+  padding: 12px 16px;
 }
 .etransfer-modal-email {
   flex: 1;
@@ -232,7 +233,7 @@
 .etransfer-msg-list {
   margin: 0;
   list-style: none;
-  padding: 12px 14px;
+  padding: 12px 16px;
   background: #e5e2e1;
   display: flex;
   flex-direction: column;
@@ -343,7 +344,7 @@
   padding: 12px 16px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   margin-bottom: 24px;
 }
 .rebate-intro-badge {
@@ -353,7 +354,7 @@
   font-weight: 900;
   font-size: 13px;
   letter-spacing: 0.07em;
-  padding: 6px 10px;
+  padding: 8px 12px;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -373,13 +374,13 @@
 .rebate-intro--subtle {
   background: #f2f0ef;
   border-left-color: var(--on-surface-variant);
-  padding: 10px 14px;
+  padding: 12px 16px;
 }
 .rebate-intro--subtle .rebate-intro-badge {
   background: none;
   color: var(--on-surface-variant);
   padding: 0;
-  font-size: 11px;
+  font-size: 12px;
 }
 .rebate-intro--subtle p { color: var(--on-surface-variant); font-size: 13px; font-weight: 500; }
 .rebate-intro--subtle strong { color: var(--on-surface); }
@@ -514,7 +515,7 @@
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin: 12px 0 6px;
+  margin: 12px 0 8px;
 }
 .rebate-note-body {
   font-size: 15px;
@@ -536,7 +537,7 @@
 
 /* ── STRIPE CARD ELEMENT ────────────────────────────────────────── */
 .stripe-card-element {
-  padding: 14px 12px;
+  padding: 16px 12px;
   border: 2px solid transparent;
   background: #e5e2e1;
   transition: border-color 150ms;
@@ -574,7 +575,7 @@
 .donate-cert-check {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
   font-size: 14px;
   font-weight: 700;
   line-height: 1.4;
@@ -584,7 +585,7 @@
 .donate-fee-check {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-size: 14px;
   color: var(--on-surface);
   margin-bottom: 24px;

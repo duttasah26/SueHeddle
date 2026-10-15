@@ -43,7 +43,7 @@
   flex-shrink: 0;
   text-decoration: none;
   align-self: stretch;
-  padding: 0 10px;
+  padding: 0 12px;
 }
 .nav-icon {
   height: clamp(72px, 9vw, 88px);
@@ -100,7 +100,7 @@
 .nav-cta {
   background: var(--primary);
   color: #fff;
-  padding: 10px 32px;
+  padding: 12px 32px;
   font-family: var(--font-display), "Lexend", sans-serif;
   /* 19px + 800 weight = WCAG "large text", so white-on-pink clears the 3:1
      bar for the contrast audit (it's 4.4:1, which just misses 4.5:1 normal) */
@@ -169,7 +169,7 @@
   border: none;
   cursor: pointer;
   color: var(--on-surface);
-  padding: 10px;
+  padding: 12px;
   transition: color 150ms var(--ease);
 }
 .mobile-menu-close:hover { color: var(--primary); }
@@ -205,7 +205,7 @@
   display: block;
   background: var(--primary);
   color: #fff;
-  padding: 18px;
+  padding: 16px;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 18px;
   font-weight: 800;
@@ -230,7 +230,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -256,7 +256,7 @@
   padding: 4px 0;
 }
 .lang-option {
-  padding: 10px 16px;
+  padding: 12px 16px;
   font-family: var(--font-display), "Lexend", var(--font-noto), "Noto Sans", sans-serif;
   font-size: 14px;
   font-weight: 500;

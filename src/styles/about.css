@@ -1,6 +1,6 @@
 /* ── ABOUT HERO ──────────────────────────────────────────────────── */
 .about-hero {
-  padding: 140px var(--margin-desktop) 48px;
+  padding: 140px var(--gutter) 48px;
   background: var(--dark-bg);
   border-bottom: 4px solid var(--on-surface);
 }
@@ -37,12 +37,12 @@
 .about-section-inner {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 var(--margin-desktop);
+  padding: 0 var(--gutter);
 }
 
 /* ── INTRO ───────────────────────────────────────────────────────── */
 .about-intro {
-  padding: 96px 0;
+  padding: var(--section-y) 0;
   background: #fff;
   border-bottom: 4px solid var(--on-surface);
 }
@@ -78,7 +78,7 @@
   margin: 0 0 40px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 .about-commitment-list li {
   display: flex;
@@ -131,14 +131,14 @@
 
 /* ── PRIORITIES ──────────────────────────────────────────────────── */
 .about-priorities {
-  padding: 96px 0;
+  padding: var(--section-y) 0;
   background: #fff;
   border-bottom: 4px solid var(--on-surface);
 }
 .about-priorities-inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--margin-desktop);
+  padding: 0 var(--gutter);
 }
 .about-priorities-heading {
   font-family: var(--font-display), "Lexend", sans-serif;
@@ -190,7 +190,7 @@
 .about-why-inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--margin-desktop);
+  padding: 0 var(--gutter);
   display: flex;
   gap: 56px;
   align-items: flex-start;
@@ -246,7 +246,7 @@
 
 /* ── JOIN CTA ────────────────────────────────────────────────────── */
 .about-join {
-  padding: 96px 0;
+  padding: var(--section-y) 0;
   background: var(--primary);
   color: #fff;
 }

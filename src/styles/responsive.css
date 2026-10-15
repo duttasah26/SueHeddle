@@ -37,8 +37,6 @@
   .about-video-wrap   { flex: none; width: 100%; height: 260px; }
 
   /* Events: stack info above map, reduce padding */
-  .events-section       { padding: 64px 0; }
-  .events-inner         { padding: 0 var(--margin-mobile); }
   .event-card           { grid-template-columns: 1fr; }
   .event-card-info      { padding: 28px var(--margin-mobile); }
   .event-card-date      { font-size: 14px; }
@@ -46,38 +44,33 @@
 
   /* Video section: reduce padding (mirrors .events-section so the player
      stays flush with the event card above it) */
-  .video-section         { padding: 64px 0; }
-  .video-section-inner   { padding: 0 var(--margin-mobile); }
 
   /* Platform: single column, reduce padding */
-  .platform             { padding: 64px 0; }
   .platform-grid        { grid-template-columns: 1fr; }
-  .platform-inner       { padding: 0 var(--margin-mobile); }
 
   /* Community + Testimonials: reduce section padding */
-  .community-section    { padding: 64px 0; }
-  .testimonials-section { padding: 64px 0; }
   .testimonials-grid    { grid-template-columns: 1fr; gap: 24px; }
-  .testimonials-inner   { padding: 0 var(--margin-mobile); }
 
   /* Get Involved: mobile padding */
-  .quote-section        { padding: 64px var(--margin-mobile); }
   .involve-row-action   { padding: 40px var(--margin-mobile); }
   .involve-row-connect  { padding: 40px var(--margin-mobile); }
   .involve-row-signup   { padding: 48px var(--margin-mobile); }
   .action-grid          { grid-template-columns: repeat(2, 1fr); }
-  .social-grid          { grid-template-columns: repeat(2, 1fr); }
+  .social-grid          { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .involve-signup-grid  { grid-template-columns: 1fr; gap: 40px; }
 
   /* Donate/Volunteer */
   .amount-grid          { grid-template-columns: repeat(2, 1fr); }
+  /* 16px stops iOS Safari zooming the page on focus */
+  .amount-input         { font-size: 16px; }
 
   /* About page: all padding + layout fixes */
   .about-hero             { padding: 100px var(--margin-mobile) 40px; }
-  .about-section-inner    { padding: 0 var(--margin-mobile); }
-  .about-priorities-inner { padding: 0 var(--margin-mobile); }
   .about-priority-block   { grid-template-columns: 1fr; gap: 32px; }
   .about-priority-name    { position: static; }
+  .about-intro,
+  .about-priorities,
+  .about-bio              { padding: 48px 0 64px; }
 
   /* Story-scroll / Flow sections: stack + drop forced 100vh across the
      whole tablet+phone range — previously this only kicked in at ≤744px,
@@ -108,23 +101,23 @@
   .hero-heading { font-size: clamp(56px, 16vw, 80px); }
   .hero-ward  { font-size: 15px; letter-spacing: 0.06em; }
   .hero-ctas  { gap: 16px; }
-  .hero-btn   { padding: 20px 30px; font-size: 19px; }
+  .hero-btn   { padding: 20px 32px; font-size: 19px; }
   /* Cap the animated underline so it doesn't overflow narrow viewports */
   .animated-underline { max-width: 85vw; }
 
+  /* Events + video: same phone step as the other sections */
+
   /* Platform: compact cards */
-  .platform              { padding: 48px 0; }
   .platform-card         { padding: 28px; min-height: auto; }
   .platform-card-title   { font-size: clamp(22px, 5.5vw, 28px); }
   .platform-card-desc    { font-size: 16px; }
+  .platform-heading      { margin-bottom: 40px; }
 
   /* Community */
-  .community-section  { padding: 48px 0; }
   .community-heading  { margin-bottom: 40px; }
   .community-caption  { font-size: 16px; margin-top: 32px; padding: 0 var(--margin-mobile); }
 
   /* Testimonials */
-  .testimonials-section { padding: 48px 0; }
   .testimonials-heading { margin-bottom: 40px; }
 
   /* Get Involved: tighter font + padding */
@@ -132,12 +125,25 @@
   .signup-form-title      { font-size: clamp(28px, 7.5vw, 36px); }
   .donation-form-title    { font-size: clamp(28px, 7.5vw, 36px); }
   .action-btn             { font-size: 22px; padding: 20px 12px; }
-  .social-btn             { font-size: 22px; padding: 20px 12px; }
+  .social-btn             { font-size: clamp(18px, 5.2vw, 22px); padding: 20px 12px; gap: 8px; }
   .action-grid            { grid-template-columns: 1fr; }
-  .social-grid            { grid-template-columns: repeat(2, 1fr); }
+  .social-grid            { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .signup-fields-row      { grid-template-columns: 1fr; }
   .donation-grid          { grid-template-columns: repeat(2, 1fr); }
-  .quote-section          { padding: 80px var(--margin-mobile); }
+
+  /* Touch targets + gutters (phone) */
+  .donate-etransfer-link,
+  .rebate-intro-link,
+  .donation-rebate-link   { position: relative; }
+  .donate-etransfer-link::after,
+  .rebate-intro-link::after,
+  .donation-rebate-link::after { content: ""; position: absolute; inset: -12px 0; }
+  .slider-item            { width: min(350px, 78vw); }
+  .footer                 { padding: 24px var(--margin-mobile); }
+  .footer-icons           { gap: 20px; }
+  .footer-icon-btn        { padding: 8px; }
+  .flow-gallery-video-btn { width: 44px; height: 44px; }
+  .rebate-stat            { padding: 20px 16px; }
 
   /* Shared forms */
   .form-fields-row  { grid-template-columns: 1fr; }
@@ -150,7 +156,7 @@
   .flow-gallery {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 150px 150px;
-    gap: 10px;
+    gap: 12px;
   }
   .flow-gallery-cell:nth-child(1) { grid-column: 1; grid-row: 1; }
   .flow-gallery-cell:nth-child(2) { grid-column: 2; grid-row: 1; }
@@ -159,17 +165,14 @@
 
   /* About page: compact padding + CTA stacking */
   .about-hero                  { padding: 80px var(--margin-mobile) 32px; }
-  .about-intro                 { padding: 64px 0; }
-  .about-bio                   { padding: 48px 0 64px; }
-  .about-priorities            { padding: 64px 0; }
+  .about-bio                   { padding: 32px 0 48px; }
   .about-priorities-heading    { margin-bottom: 40px; }
-  .about-why                   { padding: 64px 0; }
-  .about-join                  { padding: 64px 0; }
+  .about-why                   { padding: 48px 0; }
   .about-join-heading          { font-size: clamp(28px, 7vw, 40px); }
   .about-join-body p           { font-size: 17px; }
   .about-join-btns             { flex-direction: column; }
   .about-join-btn-primary,
-  .about-join-btn-secondary    { width: 100%; text-align: center; padding: 14px 24px; font-size: 16px; box-sizing: border-box; }
+  .about-join-btn-secondary    { width: 100%; text-align: center; padding: 16px 24px; font-size: 16px; box-sizing: border-box; }
 
   /* Donate/Volunteer pages */
   /* Card is top-aligned by default; on short content (e.g. the e-transfer
@@ -182,7 +185,7 @@
   .donate-steps          { margin-bottom: 24px; }
   .donate-step-dot       { width: 32px; height: 32px; font-size: 12px; }
   .donate-step-title     { font-size: 22px; margin-bottom: 16px; }
-  .amount-grid           { grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 16px; }
+  .amount-grid           { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
   .amount-btn            { padding: 12px 4px; font-size: 13px; }
   .amount-input          { padding: 12px 4px; }
   /* Rebate intro: stack badge above text on narrow screens */
@@ -192,25 +195,25 @@
   .etransfer-modal-email      { font-size: 14px; }
   .etransfer-modal-copy-btn   { width: 44px; height: 44px; }
   .etransfer-msg-list li      { font-size: 13px; }
-  .rebate-callout        { padding: 14px; margin-bottom: 16px; }
+  .rebate-callout        { padding: 16px; margin-bottom: 16px; }
   .rebate-your-donation  { font-size: 14px; }
   .rebate-actual-cost    { font-size: 16px; }
   .residency-check       { padding: 12px; margin-bottom: 16px; }
-  .donate-next-btn       { padding: 14px; font-size: 18px; }
+  .donate-next-btn       { padding: 16px; font-size: 18px; }
   .donate-btn-row        { flex-direction: column-reverse; gap: 12px; margin-top: 16px; }
   .donate-btn-row .donate-next-btn,
   .donate-btn-row-end .donate-next-btn { width: 100%; flex: 1; }
   .volunteer-subtitle    { font-size: 15px; margin-bottom: 16px; }
   /* "Learn more →" — keep the arrow from orphaning onto its own line */
   .rebate-intro-link,
-  .donation-rebate-link { display: block; margin-top: 6px; white-space: nowrap; }
+  .donation-rebate-link { display: block; margin-top: 8px; white-space: nowrap; }
   .etransfer-back-btn { margin-top: 40px; }
 }
 
 /* ── SMALL PHONE  (≤ 374px) ────────────────────────────────────── */
 @media (max-width: 374.98px) {
   .hero-heading { font-size: clamp(48px, 15vw, 64px); }
-  .hero-btn          { padding: 17px 20px; font-size: 17px; }
+  .hero-btn          { padding: 16px 20px; font-size: 17px; }
   .hero-ward         { font-size: 13px; letter-spacing: 0.04em; }
   .hero-election-date { font-size: 14px; }
   .platform-card     { padding: 20px; }

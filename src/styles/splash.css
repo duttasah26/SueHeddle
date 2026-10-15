@@ -6,7 +6,7 @@
   z-index: 20;
   background: var(--primary);
   color: #fff;
-  padding: 10px 32px;
+  padding: 12px 32px;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 15px;
   font-weight: 800;
@@ -154,7 +154,7 @@
   letter-spacing: 0;
   line-height: 1;
   color: rgba(255, 255, 255, 0.55);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .splash-name {
@@ -207,7 +207,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.65);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .splash-date {
@@ -280,11 +280,11 @@
   .splash-icon-wrap {
     width: 52px;
     height: 52px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   .splash-heading-wrap {
     min-height: clamp(115px, calc(15px + 22vh), 220px);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   .splash-name {
     font-size: clamp(36px, 9vh, 90px);

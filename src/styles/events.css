@@ -1,13 +1,13 @@
 /* ── UPCOMING EVENTS ───────────────────────────────────────────── */
 .events-section {
   background: #fff;
-  padding: 96px 0;
+  padding: var(--section-y) 0;
   border-bottom: 4px solid var(--on-surface);
 }
 .events-inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--margin-desktop);
+  padding: 0 var(--gutter);
 }
 .events-eyebrow {
   font-family: var(--font-mono), "JetBrains Mono", monospace;
@@ -88,7 +88,7 @@
   margin-top: 8px;
   background: var(--primary);
   color: #fff;
-  padding: 14px 28px;
+  padding: 16px 28px;
   font-family: var(--font-display), "Lexend", sans-serif;
   font-size: 16px;
   font-weight: 800;
@@ -121,13 +121,13 @@
    above it at every viewport width, rather than matching at one size only. */
 .video-section {
   background: #fff;
-  padding: 96px 0;
+  padding: var(--section-y) 0;
   border-bottom: 4px solid var(--on-surface);
 }
 .video-section-inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--margin-desktop);
+  padding: 0 var(--gutter);
 }
 .video-section-frame {
   position: relative;

@@ -6,6 +6,7 @@
   top: 0;
   z-index: 1;
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -61,7 +62,7 @@
 }
 .landing-eyebrow--dark {
   color: rgba(28,27,27,0.4);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .landing-bio-heading {
   font-family: var(--font-display), 'Lexend', sans-serif;
@@ -140,13 +141,13 @@
 .lp-item {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 /* ── PRIORITY ITEM TOP ROW (icon + number) ───────────────────── */
 .lp-top-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 4px;
 }
 .lp-icon {
@@ -174,7 +175,7 @@
   font-weight: 900;
   letter-spacing: -0.02em;
   line-height: 1.05;
-  padding: 2px 16px 6px 4px;
+  padding: 2px 16px 8px 4px;
 }
 .lp-title-base {
   color: rgba(255,255,255,0.12);
