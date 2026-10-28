@@ -201,3 +201,42 @@
   pointer-events: none;
 }
 .video-facade:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+
+/* ── LETTER SECTION ────────────────────────────────────────────── */
+/* Post-election thank-you letter; takes the video section's slot, so it
+   reuses the same section rhythm and bottom rule. */
+.letter-section {
+  background: #fff;
+  padding: var(--section-y) 0;
+  border-bottom: 4px solid var(--on-surface);
+  scroll-margin-top: 80px;
+}
+.letter-section-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--on-surface);
+}
+.letter-section-inner p { margin: 0 0 20px; }
+.letter-section-sign { margin-bottom: 0; }
+
+/* Letter accents: pink is the campaign colour (var(--primary)); the black
+   callout rule echoes the 4px borders used across the site. */
+.letter-section-inner .letter-lead {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: clamp(36px, 7vw, 56px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--primary);
+  margin-bottom: 24px;
+}
+.letter-section-sign { color: var(--on-surface); }
+.letter-name {
+  font-family: var(--font-display), "Lexend", sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--primary);
+}

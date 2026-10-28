@@ -95,10 +95,24 @@
     min-height: 44px;
     display: flex;
     align-items: center;
+    padding: 8px 16px;
+    font-size: 16px;
   }
+  /* The equal-width side columns (built to centre .nav-links) leave the right
+     one too narrow for the CTA once the links are hidden, so it ran off the
+     edge. Let the logo take its natural width and the CTA take the rest. */
+  .nav-left  { flex: 0 0 auto; }
+  .nav-right { flex: 1 1 auto; }
+  .nav-cta:last-child { margin-right: 0; }
+  .nav-cta-long  { display: none; }
+  .nav-cta-short { display: inline; }
 
   /* Hero: smaller heading so each line fits on narrow phones */
   .hero-heading { font-size: clamp(56px, 16vw, 80px); }
+  /* "Thank You," is ~5.5em wide, so at 16vw it only just fits on one line and
+     reads small next to the desktop. Let it wrap to Thank / You, / Ward 5.
+     at a bigger size (phase 1 is about as tall, so the hero height holds). */
+  .hero-phase-vote .hero-heading { font-size: clamp(56px, 19vw, 96px); }
   .hero-ward  { font-size: 15px; letter-spacing: 0.06em; }
   .hero-ctas  { gap: 16px; }
   .hero-btn   { padding: 20px 32px; font-size: 19px; }

@@ -56,11 +56,12 @@
 }
 .hero-elect {
   font-family: var(--font-display), "Lexend", sans-serif;
-  font-size: clamp(40px, 5.5vw, 72px);
+  font-size: clamp(24px, 3vw, 40px);
   font-weight: 700;
   letter-spacing: 0;
   line-height: 1;
   color: rgba(0, 0, 0, 0.78);
+  margin-top: 20px;
   margin-bottom: 8px;
 }
 .hero-heading-wrap {
@@ -142,7 +143,7 @@
   font-family: var(--font-display), "Lexend", sans-serif;
   font-weight: 800;
   font-size: 22px;
-  margin-left: 8px;
+  margin-left: 0;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   border: 2px solid;
@@ -220,4 +221,18 @@
 .hero-quote-mark {
   background: none;
   color: inherit;
+}
+
+/* Post-election: the thank-you phase is shorter than the Sue Heddle phase
+   (no label / ward line), and the grid cell takes the taller height. Centering
+   it splits the slack evenly instead of leaving a gap above the buttons. */
+.hero-phase-vote { align-self: center; }
+
+/* Side-by-side hero (≥960px): "Thank You," is ~5.5em wide, so at the 128px cap
+   it only fits once the pink half is ≥ ~830px wide. Below that it wrapped to
+   three lines and made the hero taller than the Sue Heddle phase. Scale it
+   with the viewport instead (6.8vw ≈ 98px at 1440, hits the 128px cap at
+   ~1880px). */
+@media (min-width: 960px) {
+  .hero-phase-vote .hero-heading { font-size: clamp(64px, 6.8vw, 128px); }
 }

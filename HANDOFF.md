@@ -4,7 +4,7 @@
 > **This file IS tracked by git and pushed to the remote** (an earlier version
 > of this note claimed it was gitignored — it never was; `git check-ignore`
 > returns nothing). Do not put secrets, keys or live tokens in here.
-> Last updated: 2026-09-19
+> Last updated: 2026-10-25
 
 ---
 
@@ -56,7 +56,6 @@ sue-heddle-site/
 │   │       ├── create-payment-intent/route.ts
 │   │       ├── set-payment-metadata/route.ts
 │   │       ├── webhooks/stripe/route.ts     # payment_intent.succeeded → Sheets + Resend receipt
-│   │       ├── send-receipt/route.ts
 │   │       ├── volunteer/route.ts           # → Google Sheets, honeypot + name-heuristic spam check
 │   │       ├── newsletter/route.ts          # → Google Sheets, same spam checks
 │   │       └── unsubscribe/route.ts
@@ -95,6 +94,7 @@ sue-heddle-site/
 │   │   └── text to fix.json          # Stray empty file, not referenced anywhere — safe to delete, just hasn't been
 │   │
 │   ├── lib/
+│   │   ├── phoneCountries.ts         # Dial-code list + E.164 helpers for the /donate phone field
 │   │   ├── antiSpam.ts               # looksLikeName() heuristic + isHoneypotTripped()
 │   │   ├── googleSheets.ts           # Sheets client + append helpers
 │   │   ├── provinces.ts              # Province dropdown data
@@ -109,24 +109,26 @@ sue-heddle-site/
 │
 └── scripts/
     ├── upload-to-cloudinary.mjs      # npm run images:upload / images:plan (--dry-run)
-    └── make-marker-icon.mjs          # regenerates the 160px map marker from the 1080px source
+    ├── make-marker-icon.mjs          # regenerates the 160px map marker from the 1080px source
+    └── crop-email-photos.mjs         # trims the two portrait newsletter photos so the 3-photo email row matches height
 ```
 
 **Note:** `src/components/FontLoader.tsx` was **deleted** — the Material Symbols
 loader is now an inline `<head>` script in `layout.tsx`. Older notes referencing
 that component are out of date.
 
-`en.json` now has **239 keys**. Parity has since drifted: **8 keys are missing
-from all 12 non-English locales** (verified 2026-09-19):
+`en.json` now has **240 keys**. Parity has drifted: **9 keys are missing
+from all 12 non-English locales** (verified 2026-10-25):
 
 ```
 donate.etransferImportantEmail      donate.etransferImportantLabel
 donate.etransferImportantName       donate.etransferImportantResident
 donate.etransferImportantWord       donate.etransferNoteLabel
 donate.etransferResidentNote        donate.etransferSendTo
+donate.etransferImportantPhone
 ```
 
-All eight are the e-transfer instruction block on `/donate`. Nothing breaks —
+All nine are the e-transfer instruction block on `/donate`. Nothing breaks —
 `t()` falls back to `en.json` — but non-English donors see that block in
 English. Translate when convenient.
 
@@ -150,6 +152,15 @@ why several rules still carry comments justifying a large font size to clear the
 3:1 "large text" bar instead. On `#db0680` it is **4.83:1**, so those size
 constraints no longer bind; the comments are stale but harmless. Note the email
 template (`../resend.html`) deliberately keeps the original `#e70685`.
+
+### Responsive spacing tokens (added 2026-10-15, `tokens.css`)
+
+`--gutter` (side padding) and `--section-y` (vertical section padding) are
+**roles that step at the breakpoints**: gutter = `--margin-desktop` →
+`--margin-mobile` at ≤959.98px; section-y = 96px → 64px (≤959.98) → 48px
+(≤744.98). New sections should use `padding: var(--section-y) 0` and
+`padding: 0 var(--gutter)` instead of writing per-class mobile overrides. Most
+page stylesheets were migrated in the "Mobile spacing and viewability pass".
 
 ### Typography
 
@@ -249,7 +260,7 @@ Used on `/volunteer` and the newsletter signup form.
 ## i18n
 
 - `t("key.subkey")` resolves against the active locale JSON, falling back to `en.json` on missing/empty values.
-- 13 languages, all fully populated with exact key parity: `en` (source), `ar`, `es`, `fr`, `hi`, `ko`, `pa`, `pt`, `ru`, `tl`, `uk`, `ur`, `zh`.
+- 13 languages, fully populated except the 9 `donate.etransfer*` keys (see above): `en` (source), `ar`, `es`, `fr`, `hi`, `ko`, `pa`, `pt`, `ru`, `tl`, `uk`, `ur`, `zh`.
 - **RTL** (`ar`, `ur`): only `document.documentElement.lang` is set on locale change — deliberately **not** `document.dir`. The site's CSS assumes LTR flex layout throughout; toggling `dir="rtl"` mirrors `flex-direction: row` and breaks the nav/layout. Arabic/Urdu script renders correctly regardless of container `dir` (Unicode bidi algorithm), so this is safe.
 - **What stays in English in every locale, deliberately:**
   - Place names (Oakville, Trafalgar, Ward 5, Oak Park, Queens Avenue)
@@ -326,12 +337,10 @@ Desktop (left → right):
 
 | Item | Notes |
 |---|---|
-| **Phone number in footer** | `href="tel:+"` is still a placeholder — real number not yet provided. |
 | **Google Pay / Apple Pay** | Auto-appears on production HTTPS; not visible on localhost — expected. |
 | **`src/i18n/text to fix.json`** | Stray 0-byte file committed in `bad7255`, unreferenced — fine to delete whenever. Note it sits in the locale dir, so anything globbing `src/i18n/*.json` picks it up. |
 | **`LandingContent.tsx` / `SiteFooter.tsx` / `_layout-full.tsx` / `_home-full.tsx`** | Dead code, not imported anywhere. `_layout-full.tsx` also carries 2 lint warnings for a font link that never loads. |
-| **`api/send-receipt/route.ts`** | Dead **and** actively wrong — writes a misaligned 6-column row to the Donations sheet. Delete. |
-| **8 untranslated `donate.etransfer*` keys** | English-only in all 12 non-English locales; falls back gracefully. See i18n section. |
+| **9 untranslated `donate.etransfer*` keys** | English-only in all 12 non-English locales; falls back gracefully. See i18n section. |
 | **`NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID`** | Unset, so `EventMap` uses `DEMO_MAP_ID` (development-only). Create a real Map ID in Cloud Console. |
 | **Google Maps API key restrictions** | Key is in `.env.local` (gitignored, verified). Restrict it in Cloud Console to `sueheddle.ca/*`, `www.sueheddle.ca/*`, `localhost:3000/*` and to the Maps JavaScript API. |
 | **`.platform-icon` renders at 24px not 48px** | Google's Material Symbols stylesheet wins on cascade order. One-line fix. |
@@ -380,10 +389,16 @@ plain `height: 100%; top: 0; object-fit: cover`.
 
 ## Homepage Sections Added After the Hero (2026-09)
 
-Order on `/` is now: `HeroSection` → **`UpcomingEventsSection`** → **`VideoSection`** → `PlatformSection` → …
+Order on `/` is now: `HeroSection` → **`VideoSection`** → `PlatformSection` →
+`CommunitySection` → `TestimonialsSection` → `BannerSection` → `GetInvolvedSection`.
 
-`IntroSection` ("Building Ward 5's Future Together") was **removed from the page
-but the file is deliberately kept** — explicit instruction that it may come back.
+`IntroSection` ("Building Ward 5's Future Together") and, since 2026-09-27,
+**`UpcomingEventsSection`** are **removed from the page but the files are
+deliberately kept** — explicit instruction that both may come back (the events
+section "will be re-used later"). To restore events, uncomment its import and
+`<UpcomingEventsSection />` in `page.tsx`; `EventMap.tsx` and `events.css` are
+untouched. The notes below on the events section / map remain accurate for that
+day.
 
 ### `UpcomingEventsSection.tsx` + `EventMap.tsx`
 
@@ -549,9 +564,33 @@ before it was wired up; the value was captured into React state and silently
 discarded. The chain is: form → `/api/set-payment-metadata` → Stripe metadata →
 webhook → Sheets. All four links must carry the field.
 
-⚠️ **`api/send-receipt/route.ts` is dead code that writes a misaligned 6-column
-row** (no address block, no phone). Nothing calls it. Delete it before it gets
-wired up by accident.
+`api/send-receipt/route.ts` (dead code that wrote a misaligned 6-column row) was
+**deleted** in `fe40e62`.
+
+### Phone field (`/donate` step 2, `src/lib/phoneCountries.ts`)
+
+Added 2026-09-20. The field is a country-code `<select>` (options read `CA +1`,
+so no translation needed) plus a digits-only input.
+
+- React state `phone` holds **subscriber digits only**; the dial code lives in
+  `phoneIso`. They are combined to **E.164** (`+19055550134`) via `toE164()` at
+  submit, and that string is what goes to Stripe metadata, Stripe
+  `billing_details.phone` (undefined, not `""`, when blank — Stripe rejects empty
+  strings) and the Sheet.
+- Phone stays optional, but a partly-typed number blocks step 2 with an error
+  (`isValidSubscriber`) so a typo isn't written to the donor record.
+- The country list is deliberately curated (~CA/US first, then the 13 locales'
+  countries, then other Oakville communities), not all ~240.
+- The e-transfer modal gained a "phone" bullet (`donate.etransferImportantPhone`,
+  English-only so far).
+
+### Formula-injection guard (`googleSheets.ts`)
+
+Rows are appended with `USER_ENTERED`, so a submitted value starting with
+`= + - @` (or tab/CR) would be evaluated as a formula (`=IMPORTDATA(...)` could
+exfiltrate other rows). `appendRow` now runs every value through
+`neutralizeFormula()`, which prefixes a `'` (invisible in the sheet). Also fixed a
+latent bug in `deleteRowsByEmail` (`!x == null` guard was always false).
 
 ---
 
@@ -601,8 +640,16 @@ campaign that is almost certainly not worth it; Gmail's coloured letter avatar i
 normal for nearly every sender. The DNS records are worth it regardless, for
 inbox placement.
 
-The broadcast template lives at `../resend.html` (project root, outside this
-repo). Before a real send: enable the plain-text alternative and confirm the
+Newsletter assets live at the project root, **outside this repo** (`..`):
+`resend.html` (broadcast template), `resend-social.html` (social variant, edited
+2026-10-24), `check.html` (preview), `Sue Heddle Newsletter #3.md` (copy) and
+`email-photos/` (`landscape`, `square`, `trimmed` crops). `scripts/crop-email-photos.mjs`
+trims the bottom 66px off the two portrait photos (1200×1600 → 1200×1534) so the
+three-photo row renders at equal height — email clients can't `object-fit`, so
+the files themselves must match. Output goes to `../email-photos/trimmed/` and
+must be re-uploaded to Resend with the template URLs swapped.
+
+Before a real send: enable the plain-text alternative and confirm the
 `List-Unsubscribe` One-Click header.
 
 ---
@@ -630,6 +677,11 @@ repo). Before a real send: enable the plain-text alternative and confirm the
 - **`experimental.inlineCss` rejected on measurement** — see Performance section.
 - **`browserslist` left at Next's default** — a looser one adds polyfills rather
   than removing them.
+- **Events section pulled from the homepage (2026-09-27)** — kept in the tree,
+  not deleted, because it will be reused.
+- **Spacing driven by `--gutter` / `--section-y` tokens** rather than per-class
+  mobile overrides (2026-10-15).
+- **Phone stored as E.164, entered as country + digits** — see Donations section.
 - **Image optimization kept on Vercel for now**, with the variant space cut 3.4×
   and the TTL raised; the Cloudinary loader is built and waiting if the cache-write
   meter becomes a problem again.

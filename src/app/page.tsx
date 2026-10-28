@@ -8,9 +8,13 @@ import HeroSection from "@/components/HeroSection";
 // the homepage per explicit request ("will be re-used later"), but kept as-is
 // at src/components/UpcomingEventsSection.tsx, along with EventMap.tsx and the
 // .events-* rules in src/styles/events.css. To bring it back, uncomment the
-// import and the <UpcomingEventsSection /> above <VideoSection /> below.
+// import and the <UpcomingEventsSection /> above <LetterSection /> below.
 // import UpcomingEventsSection from "@/components/UpcomingEventsSection";
-import VideoSection from "@/components/VideoSection";
+// VideoSection (the YouTube campaign video) is intentionally not rendered after
+// the election — replaced by the thank-you letter, but kept as-is at
+// src/components/VideoSection.tsx in case it's needed again.
+// import VideoSection from "@/components/VideoSection";
+import LetterSection from "@/components/LetterSection";
 import PlatformSection from "@/components/PlatformSection";
 import CommunitySection from "@/components/CommunitySection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -23,7 +27,7 @@ export default function Home() {
       <NavBar />
       <main>
         <HeroSection />
-        <VideoSection />
+        <LetterSection />
         <PlatformSection />
         <CommunitySection />
         <TestimonialsSection />

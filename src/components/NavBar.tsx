@@ -36,8 +36,11 @@ export default function NavBar() {
             <Link href="/#experience" className="nav-link">{t("nav.joinUs")}</Link>
           </nav>
           <div className="nav-right">
-            <Link href="/volunteer" className="nav-cta nav-cta--join">{t("nav.joinCta")}</Link>
-            <Link href="/donate" className="nav-cta">{t("nav.donate")}</Link>
+            {/* Post-election: Join the Campaign / Donate replaced by the letter. */}
+            <Link href="/#letter" className="nav-cta">
+              <span className="nav-cta-long">Read my letter</span>
+              <span className="nav-cta-short" aria-hidden="true">My letter</span>
+            </Link>
           </div>
         </div>
       </header>
@@ -57,11 +60,10 @@ export default function NavBar() {
             <Link href="/#vision" className="mobile-menu-link" onClick={close}>{t("nav.strategy")}</Link>
             <Link href="/#community-support" className="mobile-menu-link" onClick={close}>{t("nav.experience")}</Link>
             <Link href="/#get-involved" className="mobile-menu-link" onClick={close}>{t("nav.joinUs")}</Link>
-            <Link href="/volunteer" className="mobile-menu-link" onClick={close}>{t("getInvolved.joinCampaign")}</Link>
           </nav>
           <div className="mobile-menu-footer">
             <LanguageSwitcher />
-            <Link href="/donate" className="mobile-menu-donate" onClick={close}>{t("nav.donate")}</Link>
+            <Link href="/#letter" className="mobile-menu-donate" onClick={close}>Read my letter</Link>
           </div>
         </div>
       )}

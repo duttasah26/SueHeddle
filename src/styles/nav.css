@@ -114,6 +114,8 @@
   white-space: nowrap;
   flex-shrink: 0;
 }
+/* Phone gets the short label; full "Read my letter" is the accessible name. */
+.nav-cta-short { display: none; }
 .nav-cta:hover,
 .nav-cta:active { transform: translate(2px, 2px); background: #000; box-shadow: 2px 2px 0 var(--primary); }
 
